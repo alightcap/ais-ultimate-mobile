@@ -1,8 +1,8 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
+import { useTeams } from "@/src/contexts/TeamListContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, Text, View } from "react-native";
-import { useTeams } from "./_layout";
 
 export default function NewTeam() {
   const router = useRouter();

@@ -1,53 +1,40 @@
-// import { teams } from "@/src/lib/placeholder-data";
+import TeamListRow from "@/src/components/TeamListRow";
+import { useTeams } from "@/src/contexts/TeamListContext";
 import { Link } from "expo-router";
 import React from "react";
-import { FlatList, Text, View } from "react-native";
-import { useTeams } from "./_layout";
-type TeamProps = { teamName: string };
-
-// replace this with a link to the team page
-const Team = ({ teamName }: TeamProps) => (
-  <View
-    style={{
-      flexDirection: "row",
-      justifyContent: "space-between",
-      padding: 10,
-      margin: 5,
-      backgroundColor: "skyblue",
-    }}
-  >
-    <Text style={{ fontSize: 20 }}>{teamName}</Text>
-    <Text style={{ fontSize: 20 }}>{">"}</Text>
-  </View>
-);
+import { FlatList, StyleSheet, View } from "react-native";
 
 export default function Index() {
   const { teamList } = useTeams();
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
-      <View style={{ flex: 1 }}>
+    <View style={styles.container}>
+      <View style={styles.listContainer}>
         <FlatList
           data={teamList}
-          renderItem={({ item }) => <Team teamName={item.teamName} />}
-          // keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TeamListRow teamName={item.teamName} id={item.id} />
+          )}
         />
       </View>
-      <Link
-        href="/newTeam"
-        style={{
-          textAlign: "center",
-          fontSize: 18,
-          backgroundColor: "skyblue",
-          margin: 20,
-          padding: 20,
-        }}
-      >
+      <Link href="/newTeam" style={styles.newButton}>
         New Team
       </Link>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  listContainer: {
+    flex: 1,
+  },
+  newButton: {
+    textAlign: "center",
+    fontSize: 18,
+    backgroundColor: "skyblue",
+    margin: 20,
+    padding: 20,
+  },
+});

@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TextInputFormRowProps } from "../lib/types";
 
 export default function TextInputFormRow({
@@ -7,15 +7,27 @@ export default function TextInputFormRow({
   setItem,
 }: TextInputFormRowProps) {
   return (
-    <View style={{ flexDirection: "row", margin: 20, alignItems: "center" }}>
-      <Text style={{ textAlign: "left", fontSize: 20, marginRight: 5 }}>
-        {title}:
-      </Text>
-      <TextInput
-        style={{ borderWidth: 2, flex: 1, padding: 5 }}
-        onChangeText={setItem}
-        value={item}
-      />
+    <View style={styles.container}>
+      <Text style={styles.formText}>{title}:</Text>
+      <TextInput style={styles.formInput} onChangeText={setItem} value={item} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    margin: 20,
+    alignItems: "center",
+  },
+  formText: {
+    textAlign: "left",
+    fontSize: 20,
+    marginRight: 5,
+  },
+  formInput: {
+    flex: 1,
+    padding: 5,
+    borderWidth: 2,
+  },
+});
