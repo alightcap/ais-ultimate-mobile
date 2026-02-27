@@ -1,16 +1,18 @@
 import { TeamProvider } from "@/src/contexts/TeamListContext";
 import { Stack } from "expo-router";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <TeamProvider>
-        <Stack>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="newTeam" />
-        </Stack>
-      </TeamProvider>
+      <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+        <TeamProvider>
+          <Stack>
+            <Stack.Screen name="index" options={{ title: "My Teams" }} />
+            <Stack.Screen name="newTeam" options={{ title: "New Team" }} />
+          </Stack>
+        </TeamProvider>
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }

@@ -2,7 +2,7 @@ import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useTeams } from "@/src/contexts/TeamListContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Button, Text, View } from "react-native";
+import { Alert, Button, View } from "react-native";
 
 export default function NewTeam() {
   const router = useRouter();
@@ -21,15 +21,6 @@ export default function NewTeam() {
 
   return (
     <View>
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 20,
-          margin: 20,
-        }}
-      >
-        New Team
-      </Text>
       <TextInputFormRow
         title="Team Name"
         item={newTeamName}

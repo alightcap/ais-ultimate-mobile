@@ -1,3 +1,4 @@
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { Text, View } from "react-native";
 import { Team } from "../lib/types";
 
@@ -13,7 +14,9 @@ export default function TeamListRow({ teamName, id }: Team) {
       }}
     >
       <Text style={{ fontSize: 20 }}>{teamName}</Text>
-      <Text style={{ fontSize: 20 }}>{">"}</Text>
+      <Text style={{ fontSize: 20 }}>
+        <AntDesign name="right" size={24} color="black" />
+      </Text>
     </View>
   );
 }
