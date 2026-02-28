@@ -6,26 +6,25 @@ import { Alert, Button, View } from "react-native";
 
 export default function NewTeam() {
   const router = useRouter();
-  const [newTeamName, setNewTeamName] = useState("");
-  const { setTeamList } = useTeams();
+  const [newName, setNewName] = useState("");
+  const { setTeams } = useTeams();
 
   const handleSave = () => {
-    if (newTeamName.trim() === "") {
+    if (newName.trim() === "") {
       Alert.alert("Error", "Please enter a team name.");
       return;
     }
 
-    setTeamList((prev) => [...prev, { id: Date.now(), teamName: newTeamName }]);
+    setTeams((prev) => [
+      ...prev,
+      { id: Date.now(), name: newName, players: [] },
+    ]);
     router.back();
   };
 
   return (
     <View>
-      <TextInputFormRow
-        title="Team Name"
-        item={newTeamName}
-        setItem={setNewTeamName}
-      />
+      <TextInputFormRow title="Team Name" item={newName} setItem={setNewName} />
       <Button title="Submit" onPress={handleSave} />
     </View>
   );

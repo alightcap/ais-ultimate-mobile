@@ -5,9 +5,9 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
+      <SafeAreaView style={{ flex: 1 }}>
         <TeamProvider>
-          <Stack>
+          <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
             <Stack.Screen name="index" options={{ title: "My Teams" }} />
             <Stack.Screen name="newTeam" options={{ title: "New Team" }} />
           </Stack>

@@ -1,13 +1,20 @@
 import { Dispatch, SetStateAction } from "react";
 
-export interface Team {
+export interface Player {
   id: number;
-  teamName: string;
+  name: string;
+  number: number;
 }
 
-export interface TeamContextType {
-  teamList: Team[];
-  setTeamList: Dispatch<SetStateAction<Team[]>>;
+export interface Team {
+  id: number;
+  name: string;
+  players: Player[];
+}
+
+export interface TeamsContextType {
+  teams: Team[];
+  setTeams: Dispatch<SetStateAction<Team[]>>;
 }
 
 export interface TextInputFormRowProps {

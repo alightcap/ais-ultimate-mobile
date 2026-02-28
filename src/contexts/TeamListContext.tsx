@@ -1,20 +1,20 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { teams } from "../lib/placeholder-data";
-import { Team, TeamContextType } from "../lib/types";
+import { teams as placeholderTeams } from "../lib/placeholder-data";
+import { Team, TeamsContextType } from "../lib/types";
 
-const TeamListContext = createContext<TeamContextType | undefined>(undefined);
+const TeamsContext = createContext<TeamsContextType | undefined>(undefined);
 
 export function TeamProvider({ children }: { children: ReactNode }) {
-  const [teamList, setTeamList] = useState<Team[]>(teams);
+  const [teams, setTeams] = useState<Team[]>(placeholderTeams);
   return (
-    <TeamListContext.Provider value={{ teamList, setTeamList }}>
+    <TeamsContext.Provider value={{ teams, setTeams }}>
       {children}
-    </TeamListContext.Provider>
+    </TeamsContext.Provider>
   );
 }
 
 export const useTeams = () => {
-  const context = useContext(TeamListContext);
+  const context = useContext(TeamsContext);
   if (context === undefined) {
     throw new Error("useTeams must be used within a TeamProvider");
   }
