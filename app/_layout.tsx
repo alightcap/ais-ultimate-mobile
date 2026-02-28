@@ -1,4 +1,4 @@
-import { TeamProvider } from "@/src/contexts/TeamListContext";
+import { TeamProvider } from "@/src/contexts/TeamsContext";
 import { Stack } from "expo-router";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 

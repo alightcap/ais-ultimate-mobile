@@ -1,7 +1,10 @@
-export const teams = [
+import { Team } from "./types";
+
+export const teams: Team[] = [
   {
     id: 0,
     name: "2026 Varsity Open AIS Eagles",
+    cloudStatus: "Local",
     players: [
       {
         id: 0,
@@ -18,6 +21,13 @@ export const teams = [
   {
     id: 1,
     name: "2026 Junior Varsity Women's AIS Eagles",
+    cloudStatus: "Synced",
+    players: [],
+  },
+  {
+    id: 2,
+    name: "2025 Middle School Open AIS Eagles",
+    cloudStatus: "Pending",
     players: [],
   },
 ];

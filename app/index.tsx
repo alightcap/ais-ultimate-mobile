@@ -1,5 +1,5 @@
 import TeamListRow from "@/src/components/TeamListRow";
-import { useTeams } from "@/src/contexts/TeamListContext";
+import { useTeams } from "@/src/contexts/TeamsContext";
 import { Link, useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
@@ -24,6 +24,7 @@ export default function Index() {
               <TeamListRow
                 id={item.id}
                 name={item.name}
+                cloudStatus={item.cloudStatus}
                 players={item.players}
               />
             </Pressable>

@@ -1,5 +1,5 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
-import { useTeams } from "@/src/contexts/TeamListContext";
+import { useTeams } from "@/src/contexts/TeamsContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, View } from "react-native";
@@ -17,7 +17,7 @@ export default function NewTeam() {
 
     setTeams((prev) => [
       ...prev,
-      { id: Date.now(), name: newName, players: [] },
+      { id: Date.now(), name: newName, cloudStatus: "Local", players: [] },
     ]);
     router.back();
   };
