@@ -8,13 +8,14 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.titleText}>{team.name}</Text> */}
       <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
         <ListRowItem title={"Players"} />
       </Pressable>
+      {/** TODO add route to games page, create games page */}
       <Pressable>
         <ListRowItem title={"Games"} />
       </Pressable>
+      {/* TODO add delete button and functionality */}
     </View>
   );
 }
