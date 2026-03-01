@@ -4,7 +4,7 @@ import { Team, TeamsContextType } from "../lib/types";
 
 const TeamsContext = createContext<TeamsContextType | undefined>(undefined);
 
-export function TeamProvider({ children }: { children: ReactNode }) {
+export function TeamsProvider({ children }: { children: ReactNode }) {
   const [teams, setTeams] = useState<Team[]>(placeholderTeams);
   return (
     <TeamsContext.Provider value={{ teams, setTeams }}>

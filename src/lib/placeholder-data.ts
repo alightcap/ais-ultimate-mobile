@@ -4,7 +4,8 @@ export const teams: Team[] = [
   {
     id: 0,
     name: "2026 Varsity Open AIS Eagles",
-    cloudStatus: "Local",
+    hasDownloads: true,
+    hasUploads: true,
     players: [
       {
         id: 0,
@@ -21,13 +22,22 @@ export const teams: Team[] = [
   {
     id: 1,
     name: "2026 Junior Varsity Women's AIS Eagles",
-    cloudStatus: "Synced",
+    hasDownloads: false,
+    hasUploads: true,
     players: [],
   },
   {
     id: 2,
-    name: "2025 Middle School Open AIS Eagles",
-    cloudStatus: "Pending",
+    name: "2025 MS Open AIS Eagles",
+    hasDownloads: true,
+    hasUploads: false,
+    players: [],
+  },
+  {
+    id: 3,
+    name: "2024 MS Open AIS Eagles",
+    hasDownloads: false,
+    hasUploads: false,
     players: [],
   },
 ];

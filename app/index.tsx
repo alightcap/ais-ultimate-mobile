@@ -1,4 +1,4 @@
-import TeamListRow from "@/src/components/TeamListRow";
+import ListRowItem from "@/src/components/ListRowItem";
 import { useTeams } from "@/src/contexts/TeamsContext";
 import { Link, useRouter } from "expo-router";
 import React from "react";
@@ -14,19 +14,8 @@ export default function Index() {
         <FlatList
           data={teams}
           renderItem={({ item }) => (
-            <Pressable
-              onPress={() => router.push(`/team/${item.name}`)}
-              style={({ pressed }) => ({
-                borderColor: "#ccc",
-                backgroundColor: pressed ? "#f0f0f0" : "white",
-              })}
-            >
-              <TeamListRow
-                id={item.id}
-                name={item.name}
-                cloudStatus={item.cloudStatus}
-                players={item.players}
-              />
+            <Pressable onPress={() => router.push(`/team/${item.name}`)}>
+              <ListRowItem title={item.name} />
             </Pressable>
           )}
           keyExtractor={(item) => item.id.toString()}

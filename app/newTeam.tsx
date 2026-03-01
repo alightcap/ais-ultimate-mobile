@@ -17,7 +17,13 @@ export default function NewTeam() {
 
     setTeams((prev) => [
       ...prev,
-      { id: Date.now(), name: newName, cloudStatus: "Local", players: [] },
+      {
+        id: Date.now(),
+        name: newName,
+        hasDownloads: false,
+        hasUploads: false,
+        players: [],
+      },
     ]);
     router.back();
   };

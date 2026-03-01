@@ -9,16 +9,19 @@ export interface Player {
 export interface Team {
   id: number;
   name: string;
-  cloudStatus: CloudStatus;
+  hasUploads: boolean;
+  hasDownloads: boolean;
   players: Player[];
+}
+
+export interface TeamContextType {
+  team: Team;
 }
 
 export interface TeamsContextType {
   teams: Team[];
   setTeams: Dispatch<SetStateAction<Team[]>>;
 }
-
-export type CloudStatus = "Local" | "Pending" | "Synced";
 
 export interface TextInputFormRowProps {
   title: string;
