@@ -1,26 +1,17 @@
 import { createContext, ReactNode, useContext } from "react";
-import { TeamContextType } from "../lib/types";
-import { useTeams } from "./TeamsContext";
+import { Team, TeamContextType } from "../lib/types";
 
 const CurrentTeamContext = createContext<TeamContextType | undefined>(
   undefined,
 );
 
 export function CurrentTeamProvider({
-  id,
+  team,
   children,
 }: {
-  id: number;
+  team: Team;
   children: ReactNode;
 }) {
-  const { teams } = useTeams();
-
-  const team = teams.find((t) => t.id === id);
-
-  if (!team) {
-    return null;
-  }
-
   return (
     <CurrentTeamContext.Provider value={{ team }}>
       {children}

@@ -1,17 +1,20 @@
 import { Dispatch, SetStateAction } from "react";
 
+export interface Game {
+  id: string;
+}
+
 export interface Player {
-  id: number;
+  id: string;
   name: string;
   number: number;
 }
 
 export interface Team {
-  id: number;
+  id: string;
   name: string;
-  hasUploads: boolean;
-  hasDownloads: boolean;
   players: Player[];
+  games: Game[];
 }
 
 export interface TeamContextType {

@@ -18,11 +18,10 @@ export default function NewTeam() {
     setTeams((prev) => [
       ...prev,
       {
-        id: Date.now(),
+        id: Date.now().toString(),
         name: newName,
-        hasDownloads: false,
-        hasUploads: false,
         players: [],
+        games: [],
       },
     ]);
     router.back();

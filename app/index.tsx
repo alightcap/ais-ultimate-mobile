@@ -14,7 +14,7 @@ export default function Index() {
         <FlatList
           data={teams}
           renderItem={({ item }) => (
-            <Pressable onPress={() => router.push(`/team/${item.name}`)}>
+            <Pressable onPress={() => router.push(`/team/${item.id}`)}>
               <ListRowItem title={item.name} />
             </Pressable>
           )}
