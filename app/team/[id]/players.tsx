@@ -6,6 +6,16 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 export default function Players() {
   const { players } = usePlayers();
 
+  if (players.length === 0)
+    return (
+      <View>
+        <Text>There are no players to display</Text>
+        {/* style these text elements */}
+        <Text>Add Players</Text>
+        {/* this will be a button */}
+      </View>
+    );
+
   return (
     <View>
       <Text style={styles.header}>Players</Text>
