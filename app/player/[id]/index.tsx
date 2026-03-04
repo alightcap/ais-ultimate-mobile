@@ -6,8 +6,10 @@ export default function Index() {
 
   return (
     <View>
-      <Text>{player.name}</Text>
       <Text>{player.number}</Text>
+      {/* TODO style above text */}
+      {/* TODO add toggle for status */}
+      {/* TODO add delete button */}
     </View>
   );
 }

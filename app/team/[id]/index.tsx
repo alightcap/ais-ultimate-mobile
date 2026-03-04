@@ -15,6 +15,7 @@ export default function Index() {
         <ListRowItem title={"Games"} />
       </Pressable>
       {/* TODO add delete button and functionality */}
+      {/* TODO add copy or rollover button and functionality */}
     </View>
   );
 }

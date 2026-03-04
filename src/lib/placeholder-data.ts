@@ -9,11 +9,13 @@ export const teams: Team[] = [
         id: "0",
         name: "a",
         number: 15,
+        status: "available",
       },
       {
         id: "1",
         name: "b",
         number: 65,
+        status: "unavailable",
       },
     ],
     games: [],

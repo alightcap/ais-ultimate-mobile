@@ -8,6 +8,7 @@ export interface Player {
   id: string;
   name: string;
   number: number;
+  status: "available" | "unavailable";
 }
 
 export interface PlayerContextType {
