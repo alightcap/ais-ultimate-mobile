@@ -10,6 +10,15 @@ export interface Player {
   number: number;
 }
 
+export interface PlayerContextType {
+  player: Player;
+}
+
+export interface PlayersContextType {
+  players: Player[];
+  setPlayers: Dispatch<SetStateAction<Player[]>>;
+}
+
 export interface Team {
   id: string;
   name: string;

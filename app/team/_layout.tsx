@@ -22,7 +22,6 @@ export default function RootTeamLayout() {
       <Stack
         screenOptions={{
           headerTitle: currentTeam?.name ?? "Team Details",
-          headerShown: true,
         }}
       >
         <Stack.Screen name="[id]" options={{ headerShown: false }} />

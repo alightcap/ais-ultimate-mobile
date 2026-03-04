@@ -8,6 +8,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ title: "My Teams" }} />
         <Stack.Screen name="newTeam" options={{ title: "New Team" }} />
         <Stack.Screen name="team" options={{ headerShown: false }} />
+        <Stack.Screen name="player" options={{ headerShown: false }} />
       </Stack>
     </TeamsProvider>
   );

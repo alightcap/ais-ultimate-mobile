@@ -11,8 +11,7 @@ export default function Index() {
       <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
         <ListRowItem title={"Players"} />
       </Pressable>
-      {/** TODO add route to games page, create games page */}
-      <Pressable>
+      <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
         <ListRowItem title={"Games"} />
       </Pressable>
       {/* TODO add delete button and functionality */}
