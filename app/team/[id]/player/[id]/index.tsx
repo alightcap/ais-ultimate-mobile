@@ -1,0 +1,46 @@
+import { usePlayers } from "@/src/contexts/PlayersContext";
+import { useLocalSearchParams } from "expo-router";
+import { StyleSheet, Switch, Text, View } from "react-native";
+
+export default function PlayerIndex() {
+  const { id } = useLocalSearchParams();
+  const { players, togglePlayerAvailability } = usePlayers();
+  const player = players.find((p) => p.id === id);
+
+  if (!player) return <Text> Player not found</Text>;
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.rowContainer}>
+        <Text style={styles.displayText}>Number: </Text>
+        <Text style={styles.displayText}>{player.number}</Text>
+      </View>
+      <View style={styles.rowContainer}>
+        <Text style={styles.displayText}>Playing: </Text>
+        <Switch
+          onValueChange={() => togglePlayerAvailability(player.id)}
+          value={player.playing}
+        />
+      </View>
+      {/* TODO add an edit button */}
+      {/* TODO add toggle for status */}
+      {/* TODO add delete button */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  displayText: {
+    fontSize: 20,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 5,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+});

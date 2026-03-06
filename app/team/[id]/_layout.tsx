@@ -1,10 +1,15 @@
-import { useCurrentTeam } from "@/src/contexts/CurrentTeamContext";
 import { PlayersProvider } from "@/src/contexts/PlayersContext";
+import { useTeams } from "@/src/contexts/TeamsContext";
 import { HeaderBackButton } from "@react-navigation/elements";
-import { router, Stack } from "expo-router";
+import { router, Stack, useLocalSearchParams } from "expo-router";
+import { Text } from "react-native";
 
 export default function TeamLayout() {
-  const { team } = useCurrentTeam();
+  const { id } = useLocalSearchParams();
+  const { teams } = useTeams();
+  const team = teams.find((t) => t.id === id);
+
+  if (!team) return <Text>Team not found</Text>;
 
   return (
     <PlayersProvider team={team}>
@@ -23,8 +28,10 @@ export default function TeamLayout() {
           headerTitleAlign: "center",
         }}
       >
-        <Stack.Screen name="index" options={{ title: "Overview" }} />
         <Stack.Screen name="players" options={{ title: "Roster" }} />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="games" />
+        <Stack.Screen name="player/[id]" options={{ headerShown: false }} />
       </Stack>
     </PlayersProvider>
   );

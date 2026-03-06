@@ -19,8 +19,10 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     backgroundColor: "skyblue",
+    alignItems: "center",
   },
   titleText: {
     fontSize: 20,
+    maxWidth: "90%",
   },
 });

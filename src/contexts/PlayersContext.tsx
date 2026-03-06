@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   createContext,
   ReactNode,
@@ -17,11 +18,38 @@ export function PlayersProvider({
   children: ReactNode;
 }) {
   const [players, setPlayers] = useState<Player[]>(team.players);
+
+  const togglePlayerAvailability = (playerId: string) => {
+    setPlayers((prevPlayers) =>
+      prevPlayers.map((p) =>
+        p.id === playerId ? { ...p, playing: !p.playing } : p,
+      ),
+    );
+  };
+
   useEffect(() => {
+    const loadData = async () => {
+      const saved = await AsyncStorage.getItem(`players_${team.id}`);
+      if (saved) {
+        setPlayers(JSON.parse(saved));
+      } else {
+        setPlayers(team.players);
+      }
+    };
+    loadData();
     setPlayers(team.players);
   }, [team]);
+
+  useEffect(() => {
+    const saveData = async () => {
+      await AsyncStorage.setItem(`players_${team.id}`, JSON.stringify(players));
+    };
+    saveData();
+  }, [team.id, players]);
   return (
-    <PlayersContext.Provider value={{ players, setPlayers }}>
+    <PlayersContext.Provider
+      value={{ players, setPlayers, togglePlayerAvailability }}
+    >
       {children}
     </PlayersContext.Provider>
   );

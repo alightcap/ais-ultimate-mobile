@@ -18,11 +18,11 @@ export default function Players() {
 
   return (
     <View>
-      <Text style={styles.header}>Players</Text>
+      <Text style={styles.header}>Roster</Text>
       <FlatList
         data={players}
         renderItem={({ item }) => (
-          <Pressable onPress={() => router.push(`/player/${item.id}`)}>
+          <Pressable onPress={() => router.push(`./player/${item.id}`)}>
             <ListRowItem title={item.name} />
           </Pressable>
         )}

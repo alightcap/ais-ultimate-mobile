@@ -1,4 +1,3 @@
-import { CurrentPlayerProvider } from "@/src/contexts/CurrentPlayerContext";
 import { useTeams } from "@/src/contexts/TeamsContext";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { router, Stack, useLocalSearchParams } from "expo-router";
@@ -22,23 +21,24 @@ export default function PlayerLayout() {
   }
 
   return (
-    <CurrentPlayerProvider player={currentPlayer}>
-      <Stack
-        screenOptions={{
-          headerTitle: `${currentPlayer.name} Details`,
-          headerTintColor: "black",
-          headerLeft: (props) => (
-            <HeaderBackButton
-              {...props}
-              displayMode="minimal"
-              onPress={() => router.back()}
-              style={{ marginRight: -10 }}
-            />
-          ),
-        }}
-      >
-        <Stack.Screen name="index" />
-      </Stack>
-    </CurrentPlayerProvider>
+    <Stack
+      screenOptions={{
+        headerTitle: `${currentPlayer.name} Details`,
+        headerTintColor: "black",
+        headerLeft: (props) => (
+          <HeaderBackButton
+            {...props}
+            displayMode="minimal"
+            onPress={() => router.back()}
+            style={{ marginRight: -10 }}
+          />
+        ),
+      }}
+    >
+      <Stack.Screen
+        name="index"
+        options={{ title: `${currentPlayer.name} Details` }}
+      />
+    </Stack>
   );
 }

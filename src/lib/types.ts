@@ -8,7 +8,7 @@ export interface Player {
   id: string;
   name: string;
   number: number;
-  status: "available" | "unavailable";
+  playing: boolean;
 }
 
 export interface PlayerContextType {
@@ -18,6 +18,7 @@ export interface PlayerContextType {
 export interface PlayersContextType {
   players: Player[];
   setPlayers: Dispatch<SetStateAction<Player[]>>;
+  togglePlayerAvailability: (playerId: string) => void;
 }
 
 export interface Team {

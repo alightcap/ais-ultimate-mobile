@@ -4,7 +4,7 @@ import { Link, useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 
-export default function Index() {
+export default function TeamsIndex() {
   const { teams } = useTeams();
   const router = useRouter();
 
@@ -41,5 +41,6 @@ const styles = StyleSheet.create({
     backgroundColor: "skyblue",
     margin: 20,
     padding: 20,
+    borderRadius: 30,
   },
 });

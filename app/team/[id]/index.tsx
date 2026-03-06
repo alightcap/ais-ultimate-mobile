@@ -1,10 +1,14 @@
 import ListRowItem from "@/src/components/ListRowItem";
-import { useCurrentTeam } from "@/src/contexts/CurrentTeamContext";
-import { router } from "expo-router";
-import { Pressable, StyleSheet, View } from "react-native";
+import { useTeams } from "@/src/contexts/TeamsContext";
+import { router, useLocalSearchParams } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function Index() {
-  const { team } = useCurrentTeam();
+export default function TeamIndex() {
+  const { id } = useLocalSearchParams();
+  const { teams } = useTeams();
+  const team = teams.find((t) => t.id === id);
+
+  if (!team) return <Text>Team not found</Text>;
 
   return (
     <View style={styles.container}>

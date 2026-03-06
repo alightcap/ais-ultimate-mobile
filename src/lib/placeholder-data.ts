@@ -7,15 +7,15 @@ export const teams: Team[] = [
     players: [
       {
         id: "0",
-        name: "a",
+        name: "Seth L",
         number: 15,
-        status: "available",
+        playing: true,
       },
       {
         id: "1",
-        name: "b",
+        name: "Calder Z",
         number: 65,
-        status: "unavailable",
+        playing: false,
       },
     ],
     games: [],
