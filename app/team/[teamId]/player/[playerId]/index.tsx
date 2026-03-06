@@ -3,9 +3,9 @@ import { useLocalSearchParams } from "expo-router";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
 export default function PlayerIndex() {
-  const { id } = useLocalSearchParams();
+  const { playerId } = useLocalSearchParams();
   const { players, togglePlayerAvailability } = usePlayers();
-  const player = players.find((p) => p.id === id);
+  const player = players.find((p) => p.id === playerId);
 
   if (!player) return <Text> Player not found</Text>;
 

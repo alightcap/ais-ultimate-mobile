@@ -4,13 +4,13 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
 
 export default function PlayerLayout() {
-  const { id } = useLocalSearchParams();
+  const { playerId } = useLocalSearchParams();
   const { teams } = useTeams();
 
-  const team = teams.find((t) => t.players.some((p) => p.id === id));
+  const team = teams.find((t) => t.players.some((p) => p.id === playerId));
   if (!team) return null;
 
-  const currentPlayer = team.players.find((p) => p.id === id);
+  const currentPlayer = team.players.find((p) => p.id === playerId);
 
   if (!currentPlayer) {
     return (

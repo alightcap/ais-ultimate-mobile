@@ -4,9 +4,9 @@ import { router, useLocalSearchParams } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function TeamIndex() {
-  const { id } = useLocalSearchParams();
+  const { teamId } = useLocalSearchParams();
   const { teams } = useTeams();
-  const team = teams.find((t) => t.id === id);
+  const team = teams.find((t) => t.id === teamId);
 
   if (!team) return <Text>Team not found</Text>;
 

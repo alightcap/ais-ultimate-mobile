@@ -7,7 +7,7 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
         <Stack.Screen name="index" options={{ title: "My Teams" }} />
         <Stack.Screen name="newTeam" options={{ title: "New Team" }} />
-        <Stack.Screen name="team/[id]" options={{ headerShown: false }} />
+        <Stack.Screen name="team/[teamId]" options={{ headerShown: false }} />
       </Stack>
     </TeamsProvider>
   );

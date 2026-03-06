@@ -5,9 +5,9 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 
 export default function TeamLayout() {
-  const { id } = useLocalSearchParams();
+  const { teamId } = useLocalSearchParams();
   const { teams } = useTeams();
-  const team = teams.find((t) => t.id === id);
+  const team = teams.find((t) => t.id === teamId);
 
   if (!team) return <Text>Team not found</Text>;
 
@@ -31,7 +31,10 @@ export default function TeamLayout() {
         <Stack.Screen name="players" options={{ title: "Roster" }} />
         <Stack.Screen name="index" />
         <Stack.Screen name="games" />
-        <Stack.Screen name="player/[id]" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="player/[playerId]"
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="newPlayer" />
       </Stack>
     </PlayersProvider>
