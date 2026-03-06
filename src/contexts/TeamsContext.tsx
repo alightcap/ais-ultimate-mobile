@@ -13,7 +13,7 @@ const TeamsContext = createContext<TeamsContextType | undefined>(undefined);
 
 export function TeamsProvider({ children }: { children: ReactNode }) {
   const [teams, setTeams] = useState<Team[]>(placeholderTeams);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     loadTeams().then((storedTeams) => {
@@ -22,7 +22,7 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
       } else {
         saveTeams(placeholderTeams);
       }
-      setIsLoaded(true);
+      // setIsLoaded(true);
     });
   }, []);
 
@@ -32,7 +32,7 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
     saveTeams(updatedTeams);
   };
 
-  if (!isLoaded) return null;
+  // if (!isLoaded) return null;
 
   return (
     <TeamsContext.Provider value={{ teams, addTeam }}>

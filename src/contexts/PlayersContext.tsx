@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   createContext,
   ReactNode,
@@ -7,6 +6,7 @@ import {
   useState,
 } from "react";
 import { Player, PlayersContextType, Team } from "../lib/types";
+import { loadPlayers, savePlayers } from "../utils/storage";
 
 const PlayersContext = createContext<PlayersContextType | undefined>(undefined);
 
@@ -28,24 +28,23 @@ export function PlayersProvider({
   };
 
   useEffect(() => {
-    const loadData = async () => {
-      const saved = await AsyncStorage.getItem(`players_${team.id}`);
-      if (saved) {
-        setPlayers(JSON.parse(saved));
+    loadPlayers(team).then((storedPlayers) => {
+      if (storedPlayers && storedPlayers.length > 0) {
+        setPlayers(storedPlayers);
       } else {
         setPlayers(team.players);
       }
-    };
-    loadData();
-    setPlayers(team.players);
+    });
   }, [team]);
 
   useEffect(() => {
-    const saveData = async () => {
-      await AsyncStorage.setItem(`players_${team.id}`, JSON.stringify(players));
-    };
-    saveData();
-  }, [team.id, players]);
+    savePlayers(team, players);
+    // const saveData = async () => {
+    //   await AsyncStorage.setItem(`players_${team.id}`, JSON.stringify(players));
+    // };
+    // saveData();
+  }, [team, players]);
+
   return (
     <PlayersContext.Provider
       value={{ players, setPlayers, togglePlayerAvailability }}
