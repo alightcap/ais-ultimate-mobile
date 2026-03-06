@@ -19,7 +19,7 @@ export default function TeamsIndex() {
               <ListRowItem title={item.name} />
             </Pressable>
           )}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
         />
       </View>
       <NewButton route="/newTeam" title="New Team" />
