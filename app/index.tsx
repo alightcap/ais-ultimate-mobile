@@ -1,6 +1,7 @@
 import ListRowItem from "@/src/components/ListRowItem";
+import NewButton from "@/src/components/NewButton";
 import { useTeams } from "@/src/contexts/TeamsContext";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 
@@ -21,9 +22,7 @@ export default function TeamsIndex() {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-      <Link href="/newTeam" style={styles.newButton}>
-        New Team
-      </Link>
+      <NewButton route="/newTeam" title="New Team" />
     </View>
   );
 }
@@ -34,13 +33,5 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-  },
-  newButton: {
-    textAlign: "center",
-    fontSize: 18,
-    backgroundColor: "skyblue",
-    margin: 20,
-    padding: 20,
-    borderRadius: 30,
   },
 });

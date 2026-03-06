@@ -32,6 +32,7 @@ export default function TeamLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="games" />
         <Stack.Screen name="player/[id]" options={{ headerShown: false }} />
+        <Stack.Screen name="newPlayer" />
       </Stack>
     </PlayersProvider>
   );

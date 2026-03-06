@@ -1,4 +1,5 @@
 import ListRowItem from "@/src/components/ListRowItem";
+import NewButton from "@/src/components/NewButton";
 import { usePlayers } from "@/src/contexts/PlayersContext";
 import { router } from "expo-router";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
@@ -17,16 +18,19 @@ export default function Players() {
     );
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.header}>Roster</Text>
-      <FlatList
-        data={players}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => router.push(`./player/${item.id}`)}>
-            <ListRowItem title={item.name} />
-          </Pressable>
-        )}
-      />
+      <View style={styles.listContainer}>
+        <FlatList
+          data={players}
+          renderItem={({ item }) => (
+            <Pressable onPress={() => router.push(`./player/${item.id}`)}>
+              <ListRowItem title={item.name} />
+            </Pressable>
+          )}
+        />
+      </View>
+      <NewButton route="./newPlayer" title="New Player" />
     </View>
   );
 }
@@ -39,5 +43,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     margin: 5,
+  },
+  listContainer: {
+    flex: 1,
   },
 });
