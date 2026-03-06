@@ -7,7 +7,7 @@ import { Alert, Button, View } from "react-native";
 export default function NewTeam() {
   const router = useRouter();
   const [newName, setNewName] = useState("");
-  const { setTeams } = useTeams();
+  const { addTeam } = useTeams();
 
   const handleSave = () => {
     if (newName.trim() === "") {
@@ -15,15 +15,12 @@ export default function NewTeam() {
       return;
     }
 
-    setTeams((prev) => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        name: newName,
-        players: [],
-        games: [],
-      },
-    ]);
+    addTeam({
+      id: `t${Math.random().toString(36).slice(2, 4)}`,
+      name: newName,
+      players: [],
+      games: [],
+    });
     router.back();
   };
 

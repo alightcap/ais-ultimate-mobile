@@ -34,7 +34,8 @@ export interface TeamContextType {
 
 export interface TeamsContextType {
   teams: Team[];
-  setTeams: Dispatch<SetStateAction<Team[]>>;
+  addTeam: (team: Team) => void;
+  // addTeam: Dispatch<SetStateAction<Team[]>>;
 }
 
 export interface TextInputFormRowProps {
