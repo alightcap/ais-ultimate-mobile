@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { ActivityIndicator, View } from "react-native";
 import { teams as placeholderTeams } from "../lib/placeholder-data";
 import { Team, TeamsContextType } from "../lib/types";
 import { loadTeams, saveTeams } from "../utils/storage";
@@ -13,7 +14,7 @@ const TeamsContext = createContext<TeamsContextType | undefined>(undefined);
 
 export function TeamsProvider({ children }: { children: ReactNode }) {
   const [teams, setTeams] = useState<Team[]>(placeholderTeams);
-  // const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     loadTeams().then((storedTeams) => {
@@ -22,9 +23,17 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
       } else {
         saveTeams(placeholderTeams);
       }
-      // setIsLoaded(true);
+      setIsLoading(false);
     });
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   const addTeam = async (newTeam: Team) => {
     const updatedTeams = [...teams, newTeam];
