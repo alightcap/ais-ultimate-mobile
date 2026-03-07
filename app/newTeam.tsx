@@ -16,7 +16,7 @@ export default function NewTeam() {
     }
 
     addTeam({
-      id: `t${Math.random().toString(36).slice(2, 4)}`,
+      id: `t${Math.random().toString(36).slice(2, 9)}`,
       name: newName,
       players: [],
       games: [],
