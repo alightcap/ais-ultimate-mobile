@@ -34,7 +34,8 @@ export interface TeamContextType {
 
 export interface TeamsContextType {
   teams: Team[];
-  addTeam: (team: Team) => void;
+  addTeam: (team: Team) => Promise<void>;
+  deleteTeam: (teamId: string) => Promise<void>;
   // addTeam: Dispatch<SetStateAction<Team[]>>;
 }
 

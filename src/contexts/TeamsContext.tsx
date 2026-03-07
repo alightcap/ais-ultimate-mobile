@@ -26,16 +26,25 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const addTeam = (newTeam: Team) => {
+  const addTeam = async (newTeam: Team) => {
     const updatedTeams = [...teams, newTeam];
     setTeams(updatedTeams);
     saveTeams(updatedTeams);
   };
 
+  const deleteTeam = async (teamId: string) => {
+    setTeams((prevTeams) => {
+      const updatedTeams = prevTeams.filter((team) => team.id !== teamId);
+      saveTeams(updatedTeams);
+
+      return updatedTeams;
+    });
+  };
+
   // if (!isLoaded) return null;
 
   return (
-    <TeamsContext.Provider value={{ teams, addTeam }}>
+    <TeamsContext.Provider value={{ teams, addTeam, deleteTeam }}>
       {children}
     </TeamsContext.Provider>
   );
