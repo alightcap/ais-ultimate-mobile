@@ -43,10 +43,13 @@ export default function TeamIndex() {
           <ListRowItem title={"Games"} />
         </Pressable>
       </View>
-      <Button
-        title="Delete Team"
-        onPress={() => handleDeleteTeam(team.id, team.name)}
-      />
+
+      <View style={styles.deleteButton}>
+        <Button
+          title="Delete Team"
+          onPress={() => handleDeleteTeam(team.id, team.name)}
+        />
+      </View>
       {/* TODO add copy or rollover button and functionality */}
     </View>
   );
@@ -56,6 +59,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 5,
+  },
+  deleteButton: {
+    marginBottom: 20,
   },
   teamContainer: {
     flex: 1,

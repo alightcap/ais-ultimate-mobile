@@ -2,6 +2,11 @@ import { Dispatch, SetStateAction } from "react";
 
 export interface Game {
   id: string;
+  event: string | undefined;
+  opponent: string;
+  ourScore: number;
+  theirScore: number;
+  isOver: boolean;
 }
 
 export interface Player {
@@ -36,7 +41,6 @@ export interface TeamsContextType {
   teams: Team[];
   addTeam: (team: Team) => Promise<void>;
   deleteTeam: (teamId: string) => Promise<void>;
-  // addTeam: Dispatch<SetStateAction<Team[]>>;
 }
 
 export interface TextInputFormRowProps {
