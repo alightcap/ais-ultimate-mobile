@@ -9,11 +9,13 @@ export default function TeamsIndex() {
   const { teams } = useData();
   const router = useRouter();
 
+  const activeTeams = teams.filter((team) => !team.isArchived);
+
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <FlatList
-          data={teams}
+          data={activeTeams}
           renderItem={({ item }) => (
             <Pressable onPress={() => router.push(`/team/${item.id}`)}>
               <ListRowItem title={item.name} />

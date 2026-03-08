@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 export interface Game {
   id: string;
   team: string;
@@ -8,6 +6,7 @@ export interface Game {
   ourScore: number;
   theirScore: number;
   isOver: boolean;
+  isArchived: boolean;
 }
 
 export interface Player {
@@ -16,16 +15,7 @@ export interface Player {
   number: number;
   teams: string[];
   active: boolean;
-}
-
-export interface PlayerContextType {
-  player: Player;
-}
-
-export interface PlayersContextType {
-  players: Player[];
-  setPlayers: Dispatch<SetStateAction<Player[]>>;
-  togglePlayerAvailability: (playerId: string) => void;
+  isArchived: boolean;
 }
 
 export interface Team {
@@ -33,10 +23,7 @@ export interface Team {
   name: string;
   players: string[];
   games: string[];
-}
-
-export interface TeamContextType {
-  team: Team;
+  isArchived: boolean;
 }
 
 export interface DataContextType {
@@ -44,7 +31,10 @@ export interface DataContextType {
   players: Player[];
   games: Game[];
   addTeam: (newTeam: Team) => Promise<void>;
-  deleteTeam: (teamId: string) => Promise<void>;
+  archiveEntity: (
+    type: "teams" | "players" | "games",
+    id: string,
+  ) => Promise<void>;
   updateTeam: (updatedTeam: Team) => Promise<void>;
   linkPlayerToTeam: (playerId: string, teamId: string) => Promise<void>;
   togglePlayerAvailability: (playerId: string) => void;

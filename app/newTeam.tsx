@@ -1,5 +1,5 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
-import { useTeams } from "@/src/contexts/DataContext";
+import { useData } from "@/src/contexts/DataContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, View } from "react-native";
@@ -7,7 +7,7 @@ import { Alert, Button, View } from "react-native";
 export default function NewTeam() {
   const router = useRouter();
   const [newName, setNewName] = useState("");
-  const { addTeam } = useTeams();
+  const { addTeam } = useData();
 
   const handleSave = () => {
     if (newName.trim() === "") {
@@ -20,6 +20,7 @@ export default function NewTeam() {
       name: newName,
       players: [],
       games: [],
+      isArchived: false,
     });
     router.back();
   };

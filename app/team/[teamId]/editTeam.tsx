@@ -1,12 +1,12 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
-import { useTeams } from "@/src/contexts/DataContext";
+import { useData } from "@/src/contexts/DataContext";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, StyleSheet, View } from "react-native";
 
 export default function EditTeam() {
   const { teamId } = useLocalSearchParams();
-  const { teams, updateTeam } = useTeams();
+  const { teams, updateTeam } = useData();
   const router = useRouter();
 
   const currentTeam = teams.find((t) => t.id === teamId);

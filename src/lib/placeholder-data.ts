@@ -12,6 +12,7 @@ export const players: Player[] = [
     number: 15,
     teams: ["j0v81y1"],
     active: true,
+    isArchived: false,
   },
   {
     id: "5yewgrb",
@@ -19,6 +20,7 @@ export const players: Player[] = [
     number: 65,
     teams: ["j0v81y1"],
     active: false,
+    isArchived: false,
   },
 ];
 
@@ -28,23 +30,27 @@ export const teams: Team[] = [
     name: "2026 Varsity Open AIS Eagles",
     players: ["41lye44", "5yewgrb"],
     games: [],
+    isArchived: false,
   },
   {
     id: "sg6uydo",
     name: "2026 Junior Varsity Women's AIS Eagles",
     players: [],
     games: [],
+    isArchived: false,
   },
   {
     id: "0pk3iv9",
     name: "2025 MS Open AIS Eagles",
     players: [],
     games: [],
+    isArchived: false,
   },
   {
     id: "v7f8lbf",
     name: "2024 MS Open AIS Eagles",
     players: [],
     games: [],
+    isArchived: true,
   },
 ];

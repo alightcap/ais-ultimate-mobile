@@ -64,21 +64,60 @@ export function DataProvider({ children }: { children: ReactNode }) {
     saveData(KEYS.TEAMS, updatedTeams);
   };
 
-  const deleteTeam = async (teamId: string) => {
-    const nextTeams = teams.filter((t) => t.id !== teamId);
-    const nextPlayers = players.map((p) => ({
-      ...p,
-      teams: p.teams.filter((id) => id !== teamId),
-    }));
+  {
+    /** create archive functions for teams, players, and games, 
+    an isArchived prop for teams, player, and games,
+    archived items are read only and are hidden by default,
+    consider refactoring DataContext, its huge.  */
+  }
 
-    setTeams(nextTeams);
-    setPlayers(nextPlayers);
-
-    await Promise.all([
-      saveData(KEYS.TEAMS, nextTeams),
-      saveData(KEYS.PLAYERS, nextPlayers),
-    ]);
+  const archiveEntity = async (
+    type: "teams" | "players" | "games",
+    id: string,
+  ) => {
+    switch (type) {
+      case "teams": {
+        const updated = teams.map((t) =>
+          t.id === id ? { ...t, isArchived: true } : t,
+        );
+        setTeams(updated);
+        await saveData(KEYS.TEAMS, updated);
+        break;
+      }
+      case "players": {
+        const updated = players.map((p) =>
+          p.id === id ? { ...p, isArchived: true } : p,
+        );
+        setPlayers(updated);
+        await saveData(KEYS.PLAYERS, updated);
+        break;
+      }
+      case "games": {
+        const updated = games.map((g) =>
+          g.id === id ? { ...g, isArchived: true } : g,
+        );
+        setGames(updated);
+        await saveData(KEYS.GAMES, updated);
+        break;
+      }
+    }
   };
+
+  // const deleteTeam = async (teamId: string) => {
+  //   const nextTeams = teams.filter((t) => t.id !== teamId);
+  //   const nextPlayers = players.map((p) => ({
+  //     ...p,
+  //     teams: p.teams.filter((id) => id !== teamId),
+  //   }));
+
+  //   setTeams(nextTeams);
+  //   setPlayers(nextPlayers);
+
+  //   await Promise.all([
+  //     saveData(KEYS.TEAMS, nextTeams),
+  //     saveData(KEYS.PLAYERS, nextPlayers),
+  //   ]);
+  // };
 
   const updateTeam = async (updatedTeam: Team) => {
     setTeams((prevTeams) => {
@@ -105,7 +144,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         players,
         games,
         addTeam,
-        deleteTeam,
+        archiveEntity,
         updateTeam,
         linkPlayerToTeam,
         togglePlayerAvailability,
