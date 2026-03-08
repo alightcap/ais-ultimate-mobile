@@ -19,7 +19,7 @@ export default function TeamsIndex() {
           headerRight: () => (
             <Pressable
               onPress={() => router.push("/archivedTeams")}
-              style={{ marginRight: -35 }}
+              style={{ marginRight: -36 }}
             >
               <Ionicons
                 name="archive-outline"

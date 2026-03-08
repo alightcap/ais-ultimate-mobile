@@ -16,5 +16,6 @@ export default function ArchivedTeams() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 16,
   },
 });
