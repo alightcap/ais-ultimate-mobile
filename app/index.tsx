@@ -1,9 +1,10 @@
-import ListRowItem from "@/src/components/ListRowItem";
 import NewButton from "@/src/components/NewButton";
+import TeamList from "@/src/components/TeamList";
 import { useData } from "@/src/contexts/DataContext";
-import { useRouter } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Stack, useRouter } from "expo-router";
 import React from "react";
-import { FlatList, Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 export default function TeamsIndex() {
   const { teams } = useData();
@@ -13,17 +14,26 @@ export default function TeamsIndex() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.listContainer}>
-        <FlatList
-          data={activeTeams}
-          renderItem={({ item }) => (
-            <Pressable onPress={() => router.push(`/team/${item.id}`)}>
-              <ListRowItem title={item.name} />
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => router.push("/archivedTeams")}
+              style={{ marginRight: -35 }}
+            >
+              <Ionicons
+                name="archive-outline"
+                size={24}
+                color="black"
+              ></Ionicons>
             </Pressable>
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
+          ),
+        }}
+      />
+      <TeamList
+        teams={activeTeams}
+        emptyMessage="No Teams. Add one to get started!"
+      />
       <NewButton route="/newTeam" title="New Team" />
     </View>
   );
@@ -32,8 +42,6 @@ export default function TeamsIndex() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  listContainer: {
-    flex: 1,
+    marginBottom: 16,
   },
 });

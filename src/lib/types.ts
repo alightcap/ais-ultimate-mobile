@@ -26,6 +26,12 @@ export interface Team {
   isArchived: boolean;
 }
 
+export interface TeamListProps {
+  teams: Team[];
+  emptyMessage: string;
+  renderRightAction?: (team: Team) => React.ReactNode;
+}
+
 export interface DataContextType {
   teams: Team[];
   players: Player[];

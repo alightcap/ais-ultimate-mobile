@@ -65,8 +65,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   };
 
   {
-    /** create archive functions for teams, players, and games, 
-    an isArchived prop for teams, player, and games,
+    /** 
     archived items are read only and are hidden by default,
     consider refactoring DataContext, its huge.  */
   }
@@ -102,22 +101,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
       }
     }
   };
-
-  // const deleteTeam = async (teamId: string) => {
-  //   const nextTeams = teams.filter((t) => t.id !== teamId);
-  //   const nextPlayers = players.map((p) => ({
-  //     ...p,
-  //     teams: p.teams.filter((id) => id !== teamId),
-  //   }));
-
-  //   setTeams(nextTeams);
-  //   setPlayers(nextPlayers);
-
-  //   await Promise.all([
-  //     saveData(KEYS.TEAMS, nextTeams),
-  //     saveData(KEYS.PLAYERS, nextPlayers),
-  //   ]);
-  // };
 
   const updateTeam = async (updatedTeam: Team) => {
     setTeams((prevTeams) => {
