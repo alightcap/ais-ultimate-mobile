@@ -1,42 +1,28 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Player, Team } from "../lib/types";
 
-const TEAMS_KEY = "@my_app_teams";
+const KEYS = {
+  TEAMS: "@teams",
+  PLAYERS: "@players",
+  GAMES: "@games",
+};
 
-export const loadPlayers = async (team: Team) => {
+export const saveData = async (key: string, value: any) => {
   try {
-    const jsonValue = await AsyncStorage.getItem(`players_${team.id}`);
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem(key, jsonValue);
+  } catch (e) {
+    console.error(`Error saving ${key}:`, e);
+  }
+};
+
+export const loadData = async (key: string) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : [];
   } catch (e) {
-    console.error("Failed to load players:", e);
+    console.error(`Error loading ${key}:`, e);
     return [];
   }
 };
 
-export const loadTeams = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem(TEAMS_KEY);
-    return jsonValue != null ? JSON.parse(jsonValue) : [];
-  } catch (e) {
-    console.error("Failed to load teams:", e);
-    return [];
-  }
-};
-
-export const saveTeams = async (teams: Team[]) => {
-  try {
-    const jsonValue = JSON.stringify(teams);
-    await AsyncStorage.setItem(TEAMS_KEY, jsonValue);
-  } catch (e) {
-    console.error("Failed to save teams:", e);
-  }
-};
-
-export const savePlayers = async (team: Team, players: Player[]) => {
-  try {
-    const jsonValue = JSON.stringify(players);
-    await AsyncStorage.setItem(`players_${team.id}`, jsonValue);
-  } catch (e) {
-    console.error("Failed to save players:", e);
-  }
-};
+export { KEYS };

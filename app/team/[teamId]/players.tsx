@@ -1,11 +1,18 @@
 import ListRowItem from "@/src/components/ListRowItem";
 import NewButton from "@/src/components/NewButton";
-import { usePlayers } from "@/src/contexts/PlayersContext";
-import { router } from "expo-router";
+import { useData } from "@/src/contexts/DataContext";
+import { router, useLocalSearchParams } from "expo-router";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Players() {
-  const { players } = usePlayers();
+  const { teams, players } = useData();
+  const { teamId } = useLocalSearchParams();
+
+  const currentTeam = teams.find((t) => t.id === teamId);
+
+  const roster = players.filter((player) =>
+    currentTeam?.players.includes(player.id),
+  );
 
   if (players.length === 0)
     return (
@@ -22,7 +29,7 @@ export default function Players() {
       <Text style={styles.header}>Roster</Text>
       <View style={styles.listContainer}>
         <FlatList
-          data={players}
+          data={roster}
           renderItem={({ item }) => (
             <Pressable onPress={() => router.push(`./player/${item.id}`)}>
               <ListRowItem title={item.name} />

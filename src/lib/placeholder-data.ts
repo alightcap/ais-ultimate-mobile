@@ -1,23 +1,32 @@
-import { Team } from "./types";
+import { Game, Player, Team } from "./types";
+{
+  /* separate teams games and players make teams have game ids and player ids*/
+}
+
+export const games: Game[] = [];
+
+export const players: Player[] = [
+  {
+    id: "41lye44",
+    name: "Seth L",
+    number: 15,
+    teams: ["j0v81y1"],
+    active: true,
+  },
+  {
+    id: "5yewgrb",
+    name: "Calder Z",
+    number: 65,
+    teams: ["j0v81y1"],
+    active: false,
+  },
+];
 
 export const teams: Team[] = [
   {
     id: "j0v81y1",
     name: "2026 Varsity Open AIS Eagles",
-    players: [
-      {
-        id: "41lye44",
-        name: "Seth L",
-        number: 15,
-        playing: true,
-      },
-      {
-        id: "5yewgrb",
-        name: "Calder Z",
-        number: 65,
-        playing: false,
-      },
-    ],
+    players: ["41lye44", "5yewgrb"],
     games: [],
   },
   {

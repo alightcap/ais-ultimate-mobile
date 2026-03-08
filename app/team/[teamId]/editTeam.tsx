@@ -1,5 +1,5 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
-import { useTeams } from "@/src/contexts/TeamsContext";
+import { useTeams } from "@/src/contexts/DataContext";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, StyleSheet, View } from "react-native";

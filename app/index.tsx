@@ -1,12 +1,12 @@
 import ListRowItem from "@/src/components/ListRowItem";
 import NewButton from "@/src/components/NewButton";
-import { useTeams } from "@/src/contexts/TeamsContext";
+import { useData } from "@/src/contexts/DataContext";
 import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 
 export default function TeamsIndex() {
-  const { teams } = useTeams();
+  const { teams } = useData();
   const router = useRouter();
 
   return (

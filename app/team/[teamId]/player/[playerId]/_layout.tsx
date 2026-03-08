@@ -1,16 +1,13 @@
-import { useTeams } from "@/src/contexts/TeamsContext";
+import { useData } from "@/src/contexts/DataContext";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
 
 export default function PlayerLayout() {
   const { playerId } = useLocalSearchParams();
-  const { teams } = useTeams();
+  const { players } = useData();
 
-  const team = teams.find((t) => t.players.some((p) => p.id === playerId));
-  if (!team) return null;
-
-  const currentPlayer = team.players.find((p) => p.id === playerId);
+  const currentPlayer = players.find((p) => p.id === playerId);
 
   if (!currentPlayer) {
     return (

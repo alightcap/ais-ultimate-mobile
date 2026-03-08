@@ -1,10 +1,10 @@
-import { usePlayers } from "@/src/contexts/PlayersContext";
+import { useData } from "@/src/contexts/DataContext";
 import { useLocalSearchParams } from "expo-router";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
 export default function PlayerIndex() {
   const { playerId } = useLocalSearchParams();
-  const { players, togglePlayerAvailability } = usePlayers();
+  const { players, togglePlayerAvailability } = useData();
   const player = players.find((p) => p.id === playerId);
 
   if (!player) return <Text> Player not found</Text>;
@@ -19,7 +19,7 @@ export default function PlayerIndex() {
         <Text style={styles.displayText}>Playing: </Text>
         <Switch
           onValueChange={() => togglePlayerAvailability(player.id)}
-          value={player.playing}
+          value={player.active}
         />
       </View>
       {/* TODO add an edit button */}
