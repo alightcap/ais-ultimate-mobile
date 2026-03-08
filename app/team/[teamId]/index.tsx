@@ -11,7 +11,7 @@ export default function TeamIndex() {
   if (!team) return <Text>Team not found</Text>;
 
   return (
-    <>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           title: team.name,
@@ -23,19 +23,17 @@ export default function TeamIndex() {
           ),
         }}
       />
-      <View style={styles.container}>
-        <View style={styles.teamContainer}>
-          <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
-            <ListRowItem title={"Players"} />
-          </Pressable>
-          <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
-            <ListRowItem title={"Games"} />
-          </Pressable>
-        </View>
-
-        {/* TODO add copy or rollover button and functionality */}
+      <View style={styles.teamContainer}>
+        <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
+          <ListRowItem title={"Players"} />
+        </Pressable>
+        <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
+          <ListRowItem title={"Games"} />
+        </Pressable>
       </View>
-    </>
+
+      {/* TODO add copy or rollover button and functionality */}
+    </View>
   );
 }
 
