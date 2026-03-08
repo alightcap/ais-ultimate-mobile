@@ -1,6 +1,6 @@
 import ListRowItem from "@/src/components/ListRowItem";
 import { useTeams } from "@/src/contexts/TeamsContext";
-import { router, useLocalSearchParams } from "expo-router";
+import { Stack, router, useLocalSearchParams } from "expo-router";
 import { Alert, Button, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function TeamIndex() {
@@ -34,24 +34,37 @@ export default function TeamIndex() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.teamContainer}>
-        <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
-          <ListRowItem title={"Players"} />
-        </Pressable>
-        <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
-          <ListRowItem title={"Games"} />
-        </Pressable>
-      </View>
+    <>
+      <Stack.Screen
+        options={{
+          title: team.name,
+          headerRight: () => (
+            <Button
+              title="Edit"
+              onPress={() => router.push(`/team/${teamId}/editTeam`)}
+            />
+          ),
+        }}
+      />
+      <View style={styles.container}>
+        <View style={styles.teamContainer}>
+          <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
+            <ListRowItem title={"Players"} />
+          </Pressable>
+          <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
+            <ListRowItem title={"Games"} />
+          </Pressable>
+        </View>
 
-      <View style={styles.deleteButton}>
-        <Button
-          title="Delete Team"
-          onPress={() => handleDeleteTeam(team.id, team.name)}
-        />
+        <View style={styles.deleteButton}>
+          <Button
+            title="Delete Team"
+            onPress={() => handleDeleteTeam(team.id, team.name)}
+          />
+        </View>
+        {/* TODO add copy or rollover button and functionality */}
       </View>
-      {/* TODO add copy or rollover button and functionality */}
-    </View>
+    </>
   );
 }
 

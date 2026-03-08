@@ -36,6 +36,7 @@ export default function TeamLayout() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="newPlayer" />
+        <Stack.Screen name="editTeam" />
       </Stack>
     </PlayersProvider>
   );

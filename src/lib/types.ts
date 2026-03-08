@@ -41,10 +41,12 @@ export interface TeamsContextType {
   teams: Team[];
   addTeam: (team: Team) => Promise<void>;
   deleteTeam: (teamId: string) => Promise<void>;
+  updateTeam: (team: Team) => Promise<void>;
 }
 
 export interface TextInputFormRowProps {
   title: string;
   item: string;
   setItem: (text: string) => void;
+  autoFocus?: boolean;
 }

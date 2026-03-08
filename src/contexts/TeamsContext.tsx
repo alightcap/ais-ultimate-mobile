@@ -50,10 +50,20 @@ export function TeamsProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const updateTeam = async (updatedTeam: Team) => {
+    setTeams((prevTeams) => {
+      const newList = prevTeams.map((team) =>
+        team.id === updatedTeam.id ? updatedTeam : team,
+      );
+      saveTeams(newList);
+      return newList;
+    });
+  };
+
   // if (!isLoaded) return null;
 
   return (
-    <TeamsContext.Provider value={{ teams, addTeam, deleteTeam }}>
+    <TeamsContext.Provider value={{ teams, addTeam, deleteTeam, updateTeam }}>
       {children}
     </TeamsContext.Provider>
   );

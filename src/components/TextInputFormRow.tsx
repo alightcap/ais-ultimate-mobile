@@ -5,11 +5,17 @@ export default function TextInputFormRow({
   title,
   item,
   setItem,
+  autoFocus = false,
 }: TextInputFormRowProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.formText}>{title}:</Text>
-      <TextInput style={styles.formInput} onChangeText={setItem} value={item} />
+      <TextInput
+        style={styles.formInput}
+        onChangeText={setItem}
+        value={item}
+        autoFocus={autoFocus}
+      />
     </View>
   );
 }
