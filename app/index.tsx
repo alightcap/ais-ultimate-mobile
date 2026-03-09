@@ -23,6 +23,7 @@ export default function TeamsIndex() {
               style={{ marginRight: -36 }}
             >
               <Ionicons name="archive-outline" size={24} color="black" />
+              {/** this does not work on android */}
             </Pressable>
           ),
         }}

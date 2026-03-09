@@ -15,16 +15,6 @@ export default function Players() {
     currentTeam?.players.includes(player.id),
   );
 
-  if (players.length === 0)
-    return (
-      <View>
-        <Text>There are no players to display</Text>
-        {/* style these text elements */}
-        <Text>Add Players</Text>
-        {/* this will be a button */}
-      </View>
-    );
-
   return (
     <View style={GlobalStyles.container}>
       <Text style={GlobalStyles.headingText}>Roster</Text>
@@ -36,6 +26,11 @@ export default function Players() {
               <NavCard title={item.name} />
             </Pressable>
           )}
+          ListEmptyComponent={
+            <Text style={GlobalStyles.headingText}>
+              There are no players to display
+            </Text>
+          }
         />
       </View>
       <NewButton route="./newPlayer" title="New Player" />
