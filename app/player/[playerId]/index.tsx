@@ -21,6 +21,7 @@ export default function PlayerIndex() {
         <Switch
           onValueChange={() => togglePlayerAvailability(player.id)}
           value={player.active}
+          trackColor={{ true: "#87CEEB" }}
         />
       </View>
       {/* TODO add an edit button */}

@@ -26,7 +26,7 @@ export default function TeamIndex() {
       />
       <NavCard route={`/team/${team.id}/players`} title={"Players"} />
       <NavCard route={`/team/${team.id}/games`} title={"Games"} />
-
+      {/** TODO add archive button if unarchived, unarchive button if archived */}
       {/* TODO add copy or rollover button and functionality */}
     </View>
   );

@@ -6,12 +6,20 @@ export default function RootLayout() {
     <DataProvider>
       <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
         <Stack.Screen name="index" options={{ title: "My Teams" }} />
-        <Stack.Screen name="newTeam" options={{ title: "New Team" }} />
         <Stack.Screen
           name="archivedTeams"
           options={{ title: "Archived Teams" }}
         />
+        <Stack.Screen name="team/newTeam" options={{ title: "New Team" }} />
         <Stack.Screen name="team/[teamId]" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="player/newPlayer"
+          options={{ title: "New Player" }}
+        />
+        <Stack.Screen
+          name="player/[playerId]"
+          options={{ headerShown: false }}
+        />
       </Stack>
     </DataProvider>
   );

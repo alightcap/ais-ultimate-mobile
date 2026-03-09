@@ -22,7 +22,7 @@ export default function Players() {
         <FlatList
           data={roster}
           renderItem={({ item }) => (
-            <NavCard route={`./player/${item.id}`} title={item.name} />
+            <NavCard route={`/player/${item.id}`} title={item.name} />
           )}
           ListEmptyComponent={
             <Text style={GlobalStyles.headingText}>
@@ -31,7 +31,10 @@ export default function Players() {
           }
         />
       </View>
-      <NewButton route="./newPlayer" title="New Player" />
+      <NewButton
+        route={{ pathname: "/player/newPlayer", params: { teamId: teamId } }}
+        title="New Player"
+      />
     </View>
   );
 }

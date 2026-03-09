@@ -32,7 +32,7 @@ export default function TeamsIndex() {
         teams={activeTeams}
         emptyMessage="There are no teams to display."
       />
-      <NewButton route="/newTeam" title="New Team" />
+      <NewButton route="/team/newTeam" title="New Team" />
     </View>
   );
 }
