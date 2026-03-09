@@ -1,7 +1,8 @@
-import ListRowItem from "@/src/components/ListRowItem";
+import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
+import { GlobalStyles } from "@/src/styles/global";
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, Text, View } from "react-native";
 
 export default function TeamIndex() {
   const { teamId } = useLocalSearchParams();
@@ -11,7 +12,7 @@ export default function TeamIndex() {
   if (!team) return <Text>Team not found</Text>;
 
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
           title: team.name,
@@ -23,30 +24,16 @@ export default function TeamIndex() {
           ),
         }}
       />
-      <View style={styles.teamContainer}>
-        <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
-          <ListRowItem title={"Players"} />
-        </Pressable>
-        <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
-          <ListRowItem title={"Games"} />
-        </Pressable>
-      </View>
+      <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
+        <NavCard title={"Players"} />
+        {/* <ListRowItem title={"Players"} /> */}
+      </Pressable>
+      <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
+        <NavCard title={"Games"} />
+        {/* <ListRowItem title={"Games"} /> */}
+      </Pressable>
 
       {/* TODO add copy or rollover button and functionality */}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 5,
-  },
-  teamContainer: {
-    flex: 1,
-  },
-  titleText: {
-    fontSize: 25,
-    textAlign: "center",
-  },
-});

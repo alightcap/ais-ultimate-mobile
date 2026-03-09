@@ -1,4 +1,5 @@
 import { useData } from "@/src/contexts/DataContext";
+import { GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams } from "expo-router";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
@@ -10,7 +11,7 @@ export default function PlayerIndex() {
   if (!player) return <Text> Player not found</Text>;
 
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.container}>
       <View style={styles.rowContainer}>
         <Text style={styles.displayText}>Number: </Text>
         <Text style={styles.displayText}>{player.number}</Text>
@@ -30,9 +31,6 @@ export default function PlayerIndex() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   displayText: {
     fontSize: 20,
   },

@@ -1,10 +1,11 @@
 import NewButton from "@/src/components/NewButton";
 import TeamList from "@/src/components/TeamList";
 import { useData } from "@/src/contexts/DataContext";
+import { GlobalStyles } from "@/src/styles/global";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useRouter } from "expo-router";
 import React from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, View } from "react-native";
 
 export default function TeamsIndex() {
   const { teams } = useData();
@@ -13,7 +14,7 @@ export default function TeamsIndex() {
   const activeTeams = teams.filter((team) => !team.isArchived);
 
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
           headerRight: () => (
@@ -21,11 +22,7 @@ export default function TeamsIndex() {
               onPress={() => router.push("/archivedTeams")}
               style={{ marginRight: -36 }}
             >
-              <Ionicons
-                name="archive-outline"
-                size={24}
-                color="black"
-              ></Ionicons>
+              <Ionicons name="archive-outline" size={24} color="black" />
             </Pressable>
           ),
         }}
@@ -38,10 +35,3 @@ export default function TeamsIndex() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginBottom: 16,
-  },
-});

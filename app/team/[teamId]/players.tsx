@@ -1,6 +1,7 @@
-import ListRowItem from "@/src/components/ListRowItem";
+import NavCard from "@/src/components/NavCard";
 import NewButton from "@/src/components/NewButton";
 import { useData } from "@/src/contexts/DataContext";
+import { GlobalStyles } from "@/src/styles/global";
 import { router, useLocalSearchParams } from "expo-router";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -25,14 +26,14 @@ export default function Players() {
     );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Roster</Text>
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.headingText}>Roster</Text>
       <View style={styles.listContainer}>
         <FlatList
           data={roster}
           renderItem={({ item }) => (
             <Pressable onPress={() => router.push(`./player/${item.id}`)}>
-              <ListRowItem title={item.name} />
+              <NavCard title={item.name} />
             </Pressable>
           )}
         />
@@ -43,14 +44,6 @@ export default function Players() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    fontSize: 24,
-    textAlign: "center",
-    margin: 5,
-  },
   listContainer: {
     flex: 1,
   },

@@ -1,8 +1,9 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
+import { GlobalStyles } from "@/src/styles/global";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Button, StyleSheet, View } from "react-native";
+import { Alert, Button, View } from "react-native";
 
 export default function EditTeam() {
   const { teamId } = useLocalSearchParams();
@@ -29,7 +30,7 @@ export default function EditTeam() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.container}>
       <Stack.Screen options={{ title: `Edit ${currentTeam?.name}` }} />
 
       <TextInputFormRow
@@ -42,10 +43,3 @@ export default function EditTeam() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});

@@ -1,5 +1,6 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
+import { GlobalStyles } from "@/src/styles/global";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, View } from "react-native";
@@ -26,7 +27,7 @@ export default function NewTeam() {
   };
 
   return (
-    <View>
+    <View style={GlobalStyles.container}>
       <TextInputFormRow title="Team Name" item={newName} setItem={setNewName} />
       <Button title="Submit" onPress={handleSave} />
     </View>

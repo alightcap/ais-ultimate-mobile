@@ -34,7 +34,10 @@ export default function PlayerLayout() {
     >
       <Stack.Screen
         name="index"
-        options={{ title: `${currentPlayer.name} Details` }}
+        options={{
+          title: `${currentPlayer.name} Details`,
+          headerTitleAlign: "center",
+        }}
       />
     </Stack>
   );
