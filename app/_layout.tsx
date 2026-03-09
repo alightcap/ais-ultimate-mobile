@@ -12,10 +12,7 @@ export default function RootLayout() {
         />
         <Stack.Screen name="team/newTeam" options={{ title: "New Team" }} />
         <Stack.Screen name="team/[teamId]" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="player/newPlayer"
-          options={{ title: "New Player" }}
-        />
+        <Stack.Screen name="player/newPlayer" />
         <Stack.Screen
           name="player/[playerId]"
           options={{ headerShown: false }}

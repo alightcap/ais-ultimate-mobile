@@ -12,7 +12,7 @@ export default function Players() {
   const currentTeam = teams.find((t) => t.id === teamId);
 
   const roster = players.filter((player) =>
-    currentTeam?.players.includes(player.id),
+    currentTeam?.playerIDs.includes(player.id),
   );
 
   return (

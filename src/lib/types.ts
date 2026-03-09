@@ -1,3 +1,5 @@
+import { KeyboardTypeOptions } from "react-native";
+
 export interface Game {
   id: string;
   timeStamp: number;
@@ -14,7 +16,7 @@ export interface Player {
   id: string;
   name: string;
   number: number;
-  teams: string[];
+  teamIDs: string[];
   active: boolean;
   isArchived: boolean;
 }
@@ -22,8 +24,8 @@ export interface Player {
 export interface Team {
   id: string;
   name: string;
-  players: string[];
-  games: string[];
+  playerIDs: string[];
+  gameIDs: string[];
   isArchived: boolean;
 }
 
@@ -38,13 +40,13 @@ export interface DataContextType {
   players: Player[];
   games: Game[];
   addTeam: (newTeam: Team) => Promise<void>;
+  addPlayer: (newPlayer: Player) => Promise<void>;
   toggleArchiveEntity: (
     type: "teams" | "players" | "games",
     id: string,
     isArchived: boolean,
   ) => Promise<void>;
   updateTeam: (updatedTeam: Team) => Promise<void>;
-  linkPlayerToTeam: (playerId: string, teamId: string) => Promise<void>;
   togglePlayerAvailability: (playerId: string) => void;
 }
 
@@ -53,4 +55,6 @@ export interface TextInputFormRowProps {
   item: string;
   setItem: (text: string) => void;
   autoFocus?: boolean;
+  placeholderText?: string;
+  keyboardType?: KeyboardTypeOptions;
 }

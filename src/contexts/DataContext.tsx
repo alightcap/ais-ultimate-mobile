@@ -38,18 +38,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     init();
   }, []);
 
-  const linkPlayerToTeam = async (playerId: string, teamId: string) => {
-    const updatedTeams = teams.map((team) => {
-      if (team.id === teamId && !team.players.includes(playerId)) {
-        return { ...team, player: [...team.players, playerId] };
-      }
-      return team;
-    });
-
-    setTeams(updatedTeams);
-    await saveData(KEYS.TEAMS, updatedTeams);
-  };
-
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -64,11 +52,31 @@ export function DataProvider({ children }: { children: ReactNode }) {
     saveData(KEYS.TEAMS, updatedTeams);
   };
 
-  {
-    /** 
-    archived items are read only and are hidden by default,
-    consider refactoring DataContext, its huge.  */
-  }
+  const addPlayer = async (newPlayer: Player) => {
+    const updatedPlayers = [...players, newPlayer];
+    setPlayers(updatedPlayers);
+    await saveData(KEYS.PLAYERS, updatedPlayers);
+
+    const targetTeamId = newPlayer.teamIDs[0];
+
+    if (targetTeamId) {
+      const updatedTeams = teams.map((team) => {
+        if (team.id === targetTeamId) {
+          const alreadyExists = team.playerIDs.includes(newPlayer.id);
+          return {
+            ...team,
+            playerIDs: alreadyExists
+              ? team.playerIDs
+              : [...team.playerIDs, newPlayer.id],
+          };
+        }
+        return team;
+      });
+
+      setTeams(updatedTeams);
+      await saveData(KEYS.TEAMS, updatedTeams);
+    }
+  };
 
   const toggleArchiveEntity = async (
     type: "teams" | "players" | "games",
@@ -128,9 +136,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
         players,
         games,
         addTeam,
+        addPlayer,
         toggleArchiveEntity,
         updateTeam,
-        linkPlayerToTeam,
         togglePlayerAvailability,
       }}
     >

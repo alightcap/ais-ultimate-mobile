@@ -1,6 +1,7 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
+import { getId } from "@/src/utils/uniqueId";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, View } from "react-native";
@@ -12,15 +13,15 @@ export default function NewTeam() {
 
   const handleSave = () => {
     if (newName.trim() === "") {
-      Alert.alert("Error", "Please enter a team name.");
+      Alert.alert("Error", "Please enter a name.");
       return;
     }
 
     addTeam({
-      id: `t${Math.random().toString(36).slice(2, 9)}`,
+      id: getId(),
       name: newName,
-      players: [],
-      games: [],
+      playerIDs: [],
+      gameIDs: [],
       isArchived: false,
     });
     router.back();

@@ -6,6 +6,8 @@ export default function TextInputFormRow({
   item,
   setItem,
   autoFocus = false,
+  placeholderText = "",
+  keyboardType = "default",
 }: TextInputFormRowProps) {
   return (
     <View style={styles.container}>
@@ -15,6 +17,8 @@ export default function TextInputFormRow({
         onChangeText={setItem}
         value={item}
         autoFocus={autoFocus}
+        placeholder={placeholderText}
+        keyboardType={keyboardType}
       />
     </View>
   );

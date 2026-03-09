@@ -3,8 +3,8 @@ import NewButton from "@/src/components/NewButton";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { getDate } from "@/src/utils/dates";
-import { router, useLocalSearchParams } from "expo-router";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { FlatList, Text, View } from "react-native";
 
 export default function Games() {
   const { teams, games } = useData();
@@ -13,7 +13,7 @@ export default function Games() {
   const currentTeam = teams.find((t) => t.id === teamId);
 
   const currentGames = games.filter((game) =>
-    currentTeam?.games.includes(game.id),
+    currentTeam?.gameIDs.includes(game.id),
   );
 
   return (
@@ -23,11 +23,10 @@ export default function Games() {
         <FlatList
           data={currentGames}
           renderItem={({ item }) => (
-            <Pressable onPress={() => router.push(`./game/${item.id}`)}>
-              <NavCard
-                title={`vs. ${item.opponent} ${getDate(item.timeStamp)}`}
-              />
-            </Pressable>
+            <NavCard
+              route={`./game/${item.id}`}
+              title={`vs. ${item.opponent} ${getDate(item.timeStamp)}`}
+            />
           )}
           ListEmptyComponent={
             <Text style={GlobalStyles.headingText}>
