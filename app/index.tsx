@@ -30,7 +30,7 @@ export default function TeamsIndex() {
       />
       <TeamList
         teams={activeTeams}
-        emptyMessage="No Teams. Add one to get started!"
+        emptyMessage="There are no teams to display."
       />
       <NewButton route="/newTeam" title="New Team" />
     </View>

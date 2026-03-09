@@ -1,6 +1,7 @@
 export interface Game {
   id: string;
-  team: string;
+  timeStamp: number;
+  teamId: string;
   event: string | undefined;
   opponent: string;
   ourScore: number;

@@ -2,7 +2,7 @@ import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import { Button, Pressable, Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 
 export default function TeamIndex() {
   const { teamId } = useLocalSearchParams();
@@ -24,14 +24,8 @@ export default function TeamIndex() {
           ),
         }}
       />
-      <Pressable onPress={() => router.push(`/team/${team.id}/players`)}>
-        <NavCard title={"Players"} />
-        {/* <ListRowItem title={"Players"} /> */}
-      </Pressable>
-      <Pressable onPress={() => router.push(`/team/${team.id}/games`)}>
-        <NavCard title={"Games"} />
-        {/* <ListRowItem title={"Games"} /> */}
-      </Pressable>
+      <NavCard route={`/team/${team.id}/players`} title={"Players"} />
+      <NavCard route={`/team/${team.id}/games`} title={"Games"} />
 
       {/* TODO add copy or rollover button and functionality */}
     </View>

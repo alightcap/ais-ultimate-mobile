@@ -2,8 +2,8 @@ import NavCard from "@/src/components/NavCard";
 import NewButton from "@/src/components/NewButton";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { router, useLocalSearchParams } from "expo-router";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { FlatList, Text, View } from "react-native";
 
 export default function Players() {
   const { teams, players } = useData();
@@ -18,13 +18,11 @@ export default function Players() {
   return (
     <View style={GlobalStyles.container}>
       <Text style={GlobalStyles.headingText}>Roster</Text>
-      <View style={styles.listContainer}>
+      <View style={GlobalStyles.listContainer}>
         <FlatList
           data={roster}
           renderItem={({ item }) => (
-            <Pressable onPress={() => router.push(`./player/${item.id}`)}>
-              <NavCard title={item.name} />
-            </Pressable>
+            <NavCard route={`./player/${item.id}`} title={item.name} />
           )}
           ListEmptyComponent={
             <Text style={GlobalStyles.headingText}>
@@ -37,9 +35,3 @@ export default function Players() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  listContainer: {
-    flex: 1,
-  },
-});

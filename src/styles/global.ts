@@ -12,4 +12,9 @@ export const GlobalStyles = StyleSheet.create({
     textAlign: "center",
     margin: 5,
   },
+  listContainer: {
+    flex: 1,
+    marginLeft: 2,
+    marginRight: 2,
+  },
 });

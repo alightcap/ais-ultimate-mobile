@@ -1,13 +1,42 @@
-import { Text, View } from "react-native";
+import NavCard from "@/src/components/NavCard";
+import NewButton from "@/src/components/NewButton";
+import { useData } from "@/src/contexts/DataContext";
+import { GlobalStyles } from "@/src/styles/global";
+import { getDate } from "@/src/utils/dates";
+import { router, useLocalSearchParams } from "expo-router";
+import { FlatList, Pressable, Text, View } from "react-native";
 
 export default function Games() {
-  {
-    /** if there are no games, display a simple text "no games" */
-  }
+  const { teams, games } = useData();
+  const { teamId } = useLocalSearchParams();
+
+  const currentTeam = teams.find((t) => t.id === teamId);
+
+  const currentGames = games.filter((game) =>
+    currentTeam?.games.includes(game.id),
+  );
+
   return (
-    <View>
-      <Text>Games</Text>
-      {/** TODO add game content here */}
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.headingText}>Games</Text>
+      <View style={GlobalStyles.listContainer}>
+        <FlatList
+          data={currentGames}
+          renderItem={({ item }) => (
+            <Pressable onPress={() => router.push(`./game/${item.id}`)}>
+              <NavCard
+                title={`vs. ${item.opponent} ${getDate(item.timeStamp)}`}
+              />
+            </Pressable>
+          )}
+          ListEmptyComponent={
+            <Text style={GlobalStyles.headingText}>
+              There are no games to display
+            </Text>
+          }
+        />
+      </View>
+      <NewButton route="./newGame" title="NewPlayer" />
     </View>
   );
 }

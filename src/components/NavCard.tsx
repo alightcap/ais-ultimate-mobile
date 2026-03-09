@@ -1,12 +1,22 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Text, View } from "react-native";
+import { Href, useRouter } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function NavCard({ title }: { title: string }) {
+export default function NavCard({
+  title,
+  route,
+}: {
+  title: string;
+  route: Href;
+}) {
+  const router = useRouter();
   return (
-    <View style={styles.rowItem}>
-      <Text style={styles.titleText}>{title}</Text>
-      <Ionicons name="chevron-forward" size={20} color="black" />
-    </View>
+    <Pressable onPress={() => router.push(route)}>
+      <View style={styles.rowItem}>
+        <Text style={styles.titleText}>{title}</Text>
+        <Ionicons name="chevron-forward" size={20} color="black" />
+      </View>
+    </Pressable>
   );
 }
 
