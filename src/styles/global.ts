@@ -6,6 +6,8 @@ export const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
     marginBottom: 16,
+    marginLeft: 2,
+    marginRight: 2,
   },
   headingText: {
     fontSize: 20,
@@ -14,7 +16,5 @@ export const GlobalStyles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    marginLeft: 2,
-    marginRight: 2,
   },
 });

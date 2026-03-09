@@ -70,14 +70,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
     consider refactoring DataContext, its huge.  */
   }
 
-  const archiveEntity = async (
+  const toggleArchiveEntity = async (
     type: "teams" | "players" | "games",
     id: string,
+    isArchived: boolean,
   ) => {
     switch (type) {
       case "teams": {
         const updated = teams.map((t) =>
-          t.id === id ? { ...t, isArchived: true } : t,
+          t.id === id ? { ...t, isArchived: isArchived } : t,
         );
         setTeams(updated);
         await saveData(KEYS.TEAMS, updated);
@@ -85,7 +86,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       }
       case "players": {
         const updated = players.map((p) =>
-          p.id === id ? { ...p, isArchived: true } : p,
+          p.id === id ? { ...p, isArchived: isArchived } : p,
         );
         setPlayers(updated);
         await saveData(KEYS.PLAYERS, updated);
@@ -93,7 +94,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       }
       case "games": {
         const updated = games.map((g) =>
-          g.id === id ? { ...g, isArchived: true } : g,
+          g.id === id ? { ...g, isArchived: isArchived } : g,
         );
         setGames(updated);
         await saveData(KEYS.GAMES, updated);
@@ -127,7 +128,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         players,
         games,
         addTeam,
-        archiveEntity,
+        toggleArchiveEntity,
         updateTeam,
         linkPlayerToTeam,
         togglePlayerAvailability,

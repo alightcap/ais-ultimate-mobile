@@ -6,7 +6,7 @@ import { Button, Text, View } from "react-native";
 
 export default function TeamIndex() {
   const { teamId } = useLocalSearchParams();
-  const { teams } = useData();
+  const { teams, toggleArchiveEntity } = useData();
   const team = teams.find((t) => t.id === teamId);
 
   if (!team) return <Text>Team not found</Text>;
@@ -24,10 +24,19 @@ export default function TeamIndex() {
           ),
         }}
       />
-      <NavCard route={`/team/${team.id}/players`} title={"Players"} />
-      <NavCard route={`/team/${team.id}/games`} title={"Games"} />
-      {/** TODO add archive button if unarchived, unarchive button if archived */}
-      {/* TODO add copy or rollover button and functionality */}
+      <View style={GlobalStyles.listContainer}>
+        <NavCard route={`/team/${team.id}/players`} title={"Players"} />
+        <NavCard route={`/team/${team.id}/games`} title={"Games"} />
+      </View>
+      <View style={{ margin: 20 }}>
+        <Button
+          title={team.isArchived ? "Unarchive" : "Archive"}
+          color={team.isArchived ? "blue" : "red"}
+          onPress={() =>
+            toggleArchiveEntity("teams", team.id, !team.isArchived)
+          }
+        />
+      </View>
     </View>
   );
 }

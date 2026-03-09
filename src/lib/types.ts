@@ -38,9 +38,10 @@ export interface DataContextType {
   players: Player[];
   games: Game[];
   addTeam: (newTeam: Team) => Promise<void>;
-  archiveEntity: (
+  toggleArchiveEntity: (
     type: "teams" | "players" | "games",
     id: string,
+    isArchived: boolean,
   ) => Promise<void>;
   updateTeam: (updatedTeam: Team) => Promise<void>;
   linkPlayerToTeam: (playerId: string, teamId: string) => Promise<void>;
