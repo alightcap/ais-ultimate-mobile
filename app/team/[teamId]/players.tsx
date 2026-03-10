@@ -1,13 +1,25 @@
 import NavCard from "@/src/components/NavCard";
-import NewButton from "@/src/components/NewButton";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { useLocalSearchParams } from "expo-router";
-import { FlatList, Text, View } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
+import {
+  Button,
+  FlatList,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function Players() {
+  const router = useRouter();
+
   const { teams, players } = useData();
   const { teamId } = useLocalSearchParams();
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const currentTeam = teams.find((t) => t.id === teamId);
 
@@ -31,10 +43,68 @@ export default function Players() {
           }
         />
       </View>
-      <NewButton
+
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <View style={styles.emptyTop}>
+          <View style={styles.modalView}>
+            <Pressable
+              onPress={() => {
+                setModalVisible(false);
+                router.push({
+                  pathname: "/player/newPlayer",
+                  params: { teamId: teamId },
+                });
+              }}
+              style={{ paddingBottom: 16 }}
+            >
+              <Text style={styles.buttonText}>New Player</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => setModalVisible(false)}
+              style={{ padding: 8 }}
+            >
+              <Text style={styles.buttonText}>Existing Player(s)</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => setModalVisible(false)}
+              style={{ paddingTop: 16 }}
+            >
+              <Text style={styles.buttonText}>Cancel</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Button title="Add Player(s)" onPress={() => setModalVisible(true)} />
+      {/* <NewButton
         route={{ pathname: "/player/newPlayer", params: { teamId: teamId } }}
         title="New Player"
-      />
+      /> */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  modalView: {
+    backgroundColor: "white",
+    elevation: 5,
+    padding: 32,
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: -2 },
+    shadowRadius: 4,
+    borderRadius: 16,
+  },
+  emptyTop: {
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingTop: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+  },
+  buttonText: {
+    fontSize: 18,
+    textAlign: "center",
+    color: "blue",
+  },
+});

@@ -14,6 +14,10 @@ export default function NewPlayer() {
   const router = useRouter();
   const currentTeam = teams.find((t) => t.id === teamId);
 
+  {
+    /** add existing player feature */
+  }
+
   if (!currentTeam) {
     Alert.alert("Error", "No team selected to add this player to.");
     router.back();
