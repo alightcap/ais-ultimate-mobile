@@ -14,10 +14,6 @@ export default function NewPlayer() {
   const router = useRouter();
   const currentTeam = teams.find((t) => t.id === teamId);
 
-  {
-    /** add existing player feature */
-  }
-
   if (!currentTeam) {
     Alert.alert("Error", "No team selected to add this player to.");
     router.back();
@@ -25,11 +21,6 @@ export default function NewPlayer() {
   }
 
   const handleSave = () => {
-    if (newName.trim() === "") {
-      Alert.alert("Error", "Please enter a name.");
-      return;
-    }
-
     addPlayer({
       id: getId(),
       name: newName,
@@ -38,8 +29,31 @@ export default function NewPlayer() {
       active: true,
       isArchived: false,
     });
-    router.back();
   };
+
+  const validateName = () => {
+    if (newName.trim() === "") {
+      Alert.alert("Error", "Please enter a name.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSaveAndLeave = () => {
+    if (validateName()) {
+      handleSave();
+      router.back();
+    }
+  };
+
+  const handleSaveAndStay = () => {
+    if (validateName()) {
+      handleSave();
+      setNewName("");
+      setNewNumber("");
+    }
+  };
+
   return (
     <View>
       <Stack.Screen options={{ title: `${currentTeam.name}` }} />
@@ -52,7 +66,11 @@ export default function NewPlayer() {
         placeholderText="0"
         keyboardType="numeric"
       />
-      <Button title="Submit" onPress={() => handleSave()} />
+      <Button title="Submit" onPress={() => handleSaveAndLeave()} />
+      <Button
+        title="Submit and Add Another"
+        onPress={() => handleSaveAndStay()}
+      />
     </View>
   );
 }
