@@ -8,8 +8,15 @@ export default function BigButton({
   title: string;
 }) {
   return (
-    <Pressable style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>{title}</Text>
+    <Pressable
+      style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+      onPress={onPress}
+    >
+      {({ pressed }) => (
+        <Text style={[styles.buttonText, pressed && { opacity: 0.7 }]}>
+          {title}
+        </Text>
+      )}
     </Pressable>
   );
 }
@@ -24,5 +31,15 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 20,
     borderRadius: 30,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  buttonPressed: {
+    backgroundColor: "#7ec8e3",
+    transform: [{ scale: 0.98 }],
+    elevation: 1,
   },
 });
