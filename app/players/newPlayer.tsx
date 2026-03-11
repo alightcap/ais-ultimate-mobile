@@ -1,10 +1,11 @@
+import MedButton from "@/src/components/MedButton";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { getId } from "@/src/utils/uniqueId";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Button, Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 
 export default function NewPlayer() {
   const { teamId } = useLocalSearchParams<{ teamId: string }>();
@@ -55,7 +56,7 @@ export default function NewPlayer() {
   };
 
   return (
-    <View>
+    <View style={GlobalStyles.container}>
       <Stack.Screen options={{ title: `${currentTeam.name}` }} />
       <Text style={GlobalStyles.headingText}>New Player</Text>
       <TextInputFormRow title="Name" item={newName} setItem={setNewName} />
@@ -66,8 +67,8 @@ export default function NewPlayer() {
         placeholderText="0"
         keyboardType="numeric"
       />
-      <Button title="Submit" onPress={() => handleSaveAndLeave()} />
-      <Button
+      <MedButton title="Submit" onPress={() => handleSaveAndLeave()} />
+      <MedButton
         title="Submit and Add Another"
         onPress={() => handleSaveAndStay()}
       />

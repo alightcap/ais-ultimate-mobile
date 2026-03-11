@@ -26,7 +26,7 @@ export default function Games() {
           renderItem={({ item }) => (
             <NavCard
               route={`./game/${item.id}`}
-              title={`vs. ${item.opponent} ${getDate(item.timeStamp)}`}
+              title={`vs. ${item.opponentName} ${getDate(item.timeStamp)}`}
             />
           )}
           ListEmptyComponent={
@@ -36,7 +36,15 @@ export default function Games() {
           }
         />
       </View>
-      <BigButton onPress={() => router.push("./newGame")} title="New Game" />
+      <BigButton
+        onPress={() =>
+          router.push({
+            pathname: "/games/newGame",
+            params: { teamId: teamId },
+          })
+        }
+        title="New Game"
+      />
     </View>
   );
 }

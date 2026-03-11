@@ -4,8 +4,8 @@ export interface Game {
   id: string;
   timeStamp: number;
   teamId: string;
-  event: string | undefined;
-  opponent: string;
+  eventName: string | undefined;
+  opponentName: string;
   ourScore: number;
   theirScore: number;
   isOver: boolean;
@@ -39,6 +39,7 @@ export interface DataContextType {
   teams: Team[];
   players: Player[];
   games: Game[];
+  addGame: (newGame: Game) => Promise<void>;
   addTeam: (newTeam: Team) => Promise<void>;
   addPlayer: (newPlayer: Player) => Promise<void>;
   linkPlayersToTeam: (playerIds: string[], teamId: string) => Promise<void>;

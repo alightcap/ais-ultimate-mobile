@@ -46,10 +46,37 @@ export function DataProvider({ children }: { children: ReactNode }) {
     );
   }
 
-  const addTeam = async (newTeam: Team) => {
-    const updatedTeams = [...teams, newTeam];
+  const addEntityToTeam = async (
+    teamId: string,
+    entityId: string,
+    teamKey: "gameIDs" | "playerIDs",
+  ) => {
+    const updatedTeams = teams.map((team) => {
+      if (team.id === teamId) {
+        const currentIDs = team[teamKey] || [];
+        const alreadyExists = currentIDs.includes(entityId);
+        return {
+          ...team,
+          [teamKey]: alreadyExists ? currentIDs : [...currentIDs, entityId],
+        };
+      }
+      return team;
+    });
+
     setTeams(updatedTeams);
-    saveData(KEYS.TEAMS, updatedTeams);
+    await saveData(KEYS.TEAMS, updatedTeams);
+  };
+
+  const addGame = async (newGame: Game) => {
+    const updatedGames = [...games, newGame];
+    setGames(updatedGames);
+    saveData(KEYS.GAMES, updatedGames);
+
+    const targetTeamId = newGame.teamId;
+
+    if (targetTeamId) {
+      addEntityToTeam(targetTeamId, newGame.id, "gameIDs");
+    }
   };
 
   const addPlayer = async (newPlayer: Player) => {
@@ -60,22 +87,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
     const targetTeamId = newPlayer.teamIDs[0];
 
     if (targetTeamId) {
-      const updatedTeams = teams.map((team) => {
-        if (team.id === targetTeamId) {
-          const alreadyExists = team.playerIDs.includes(newPlayer.id);
-          return {
-            ...team,
-            playerIDs: alreadyExists
-              ? team.playerIDs
-              : [...team.playerIDs, newPlayer.id],
-          };
-        }
-        return team;
-      });
-
-      setTeams(updatedTeams);
-      await saveData(KEYS.TEAMS, updatedTeams);
+      addEntityToTeam(targetTeamId, newPlayer.id, "playerIDs");
     }
+  };
+
+  const addTeam = async (newTeam: Team) => {
+    const updatedTeams = [...teams, newTeam];
+    setTeams(updatedTeams);
+    saveData(KEYS.TEAMS, updatedTeams);
   };
 
   const linkPlayersToTeam = async (playerIds: string[], teamId: string) => {
@@ -164,6 +183,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         teams,
         players,
         games,
+        addGame,
         addTeam,
         addPlayer,
         linkPlayersToTeam,
