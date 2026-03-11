@@ -54,6 +54,10 @@ export default function Players() {
               title="Existing Player(s)"
               onPress={() => {
                 setModalVisible(false);
+                router.push({
+                  pathname: "/player/selectExistingPlayers",
+                  params: { teamId: teamId },
+                });
               }}
             />
             <MedButton title="Cancel" onPress={() => setModalVisible(false)} />

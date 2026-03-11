@@ -78,6 +78,35 @@ export function DataProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const linkPlayersToTeam = async (playerIds: string[], teamId: string) => {
+    let updatedTeams: Team[] = [];
+
+    setTeams((prevTeams) => {
+      updatedTeams = prevTeams.map((team) => {
+        if (team.id === teamId) {
+          const combinedIds = Array.from(
+            new Set([...team.playerIDs, ...playerIds]),
+          );
+          return { ...team, playerIDs: combinedIds };
+        }
+        return team;
+      });
+      return updatedTeams;
+    });
+    // const updatedTeams = teams.map((team) => {
+    //   if (team.id === teamId) {
+    //     const newIds = playerIds.filter((id) => !team.playerIDs.includes(id));
+    //     return { ...team, playerIds: [...team.playerIDs, ...newIds] };
+    //   }
+    //   return team;
+    // });
+
+    // setTeams(updatedTeams);
+    if (updatedTeams.length > 0) {
+      await saveData(KEYS.TEAMS, updatedTeams);
+    }
+  };
+
   const toggleArchiveEntity = async (
     type: "teams" | "players" | "games",
     id: string,
@@ -137,6 +166,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         games,
         addTeam,
         addPlayer,
+        linkPlayersToTeam,
         toggleArchiveEntity,
         updateTeam,
         togglePlayerAvailability,
