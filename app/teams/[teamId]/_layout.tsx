@@ -1,7 +1,8 @@
 import { useData } from "@/src/contexts/DataContext";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { Button, Text } from "react-native";
+import { Pressable, Text } from "react-native";
 
 export default function TeamLayout() {
   const router = useRouter();
@@ -17,12 +18,6 @@ export default function TeamLayout() {
         name="index"
         options={{
           title: "Team Details",
-          headerRight: () => (
-            <Button
-              title="Edit"
-              onPress={() => router.push(`/teams/${teamId}/editTeam`)}
-            />
-          ),
           headerTintColor: "black",
           headerLeft: (props) => (
             <HeaderBackButton
@@ -31,6 +26,19 @@ export default function TeamLayout() {
               onPress={() => router.back()}
               style={{ marginRight: -10 }}
             />
+          ),
+          headerRight: () => (
+            <Pressable
+              style={{ marginRight: -40 }}
+              onPress={() =>
+                router.push({
+                  pathname: "/teams/[teamId]/editTeam",
+                  params: { teamId: teamId },
+                })
+              }
+            >
+              <Ionicons name="pencil" size={24} color="black" />
+            </Pressable>
           ),
         }}
       />
