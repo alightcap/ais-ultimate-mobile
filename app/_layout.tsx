@@ -18,7 +18,7 @@ export default function RootLayout() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="games/newGame" />
-        <Stack.Screen name="games/[gameId]" />
+        <Stack.Screen name="games/[gameId]" options={{ headerShown: false }} />
       </Stack>
     </DataProvider>
   );

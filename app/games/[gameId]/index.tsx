@@ -1,9 +1,11 @@
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { useLocalSearchParams } from "expo-router";
+import { HeaderBackButton } from "@react-navigation/elements";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Text, View } from "react-native";
 
 export default function GameIndex() {
+  const router = useRouter();
   const { games, teams, players } = useData();
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
   const currentGame = games.find((g) => g.id === gameId);
@@ -20,6 +22,21 @@ export default function GameIndex() {
 
   return (
     <View style={GlobalStyles.container}>
+      <Stack.Screen
+        options={{
+          title: `${currentTeam.name}`,
+          headerShown: true,
+          headerTintColor: "black",
+          headerLeft: (props) => (
+            <HeaderBackButton
+              {...props}
+              displayMode="minimal"
+              onPress={() => router.back()}
+              style={{ marginRight: -10 }}
+            />
+          ),
+        }}
+      />
       <View style={{ flexDirection: "row" }}>
         <Text>{timeStamp}</Text>
         <Text>
