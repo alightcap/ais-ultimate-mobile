@@ -10,7 +10,7 @@ export default function Players() {
   const router = useRouter();
 
   const { teams, players } = useData();
-  const { teamId } = useLocalSearchParams();
+  const { teamId } = useLocalSearchParams<{ teamId: string }>();
 
   const [modalVisible, setModalVisible] = useState(false);
 

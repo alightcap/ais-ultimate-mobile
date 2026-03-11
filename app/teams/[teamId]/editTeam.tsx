@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Alert, Button, View } from "react-native";
 
 export default function EditTeam() {
-  const { teamId } = useLocalSearchParams();
+  const { teamId } = useLocalSearchParams<{ teamId: string }>();
   const { teams, updateTeam } = useData();
   const router = useRouter();
 

@@ -4,7 +4,7 @@ import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 
 export default function TeamLayout() {
-  const { teamId } = useLocalSearchParams();
+  const { teamId } = useLocalSearchParams<{ teamId: string }>();
   const { teams } = useData();
   const team = teams.find((t) => t.id === teamId);
 

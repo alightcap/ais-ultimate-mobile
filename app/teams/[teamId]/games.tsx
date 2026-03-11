@@ -8,7 +8,7 @@ import { FlatList, Text, View } from "react-native";
 
 export default function Games() {
   const { teams, games } = useData();
-  const { teamId } = useLocalSearchParams();
+  const { teamId } = useLocalSearchParams<{ teamId: string }>();
   const router = useRouter();
 
   const currentTeam = teams.find((t) => t.id === teamId);
@@ -25,7 +25,7 @@ export default function Games() {
           data={currentGames}
           renderItem={({ item }) => (
             <NavCard
-              route={`./game/${item.id}`}
+              route={`/games/${item.id}`}
               title={`vs. ${item.opponentName} ${getDate(item.timeStamp)}`}
             />
           )}

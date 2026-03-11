@@ -27,9 +27,10 @@ export default function NewGame() {
       Alert.alert("Error", "Please enter an opponent name");
       return;
     }
+    const newId = getId();
 
     addGame({
-      id: getId(),
+      id: newId,
       timeStamp: timeStamp,
       teamId: teamId,
       eventName: eventName,
@@ -39,7 +40,10 @@ export default function NewGame() {
       isOver: false,
       isArchived: false,
     });
-    router.back();
+    router.replace({
+      pathname: "/games/[gameId]",
+      params: { gameId: newId },
+    });
     {
       /** don't want to go back, want to go to this game's page,
        * while popping this page from the stack. */

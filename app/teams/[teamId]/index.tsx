@@ -5,7 +5,7 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 import { Button, Text, View } from "react-native";
 
 export default function TeamIndex() {
-  const { teamId } = useLocalSearchParams();
+  const { teamId } = useLocalSearchParams<{ teamId: string }>();
   const { teams, toggleArchiveEntity } = useData();
   const team = teams.find((t) => t.id === teamId);
 
