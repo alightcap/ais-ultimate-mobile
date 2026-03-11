@@ -1,5 +1,5 @@
 import { useData } from "@/src/contexts/DataContext";
-import { GlobalStyles } from "@/src/styles/global";
+import { Colors, GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams } from "expo-router";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
@@ -21,7 +21,7 @@ export default function PlayerIndex() {
         <Switch
           onValueChange={() => togglePlayerAvailability(player.id)}
           value={player.active}
-          trackColor={{ true: "#87CEEB" }}
+          trackColor={{ true: Colors.brandAccent }}
         />
       </View>
       {/* TODO add an edit button */}

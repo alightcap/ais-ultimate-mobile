@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Href, useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Colors } from "../styles/global";
 
 export default function NavCard({
   title,
@@ -24,12 +25,11 @@ const styles = StyleSheet.create({
   rowItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 8,
-    marginTop: 2,
-    backgroundColor: "skyblue",
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
     alignItems: "center",
-    minHeight: 44,
-    borderRadius: 10,
+    backgroundColor: Colors.brandAccent,
   },
   titleText: {
     fontSize: 20,

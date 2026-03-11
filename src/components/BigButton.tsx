@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
+import { Colors } from "../styles/global";
 
 export default function BigButton({
   onPress,
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    backgroundColor: "skyblue",
+    backgroundColor: Colors.brandAccent,
     margin: 20,
     padding: 20,
     borderRadius: 30,

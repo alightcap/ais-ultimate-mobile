@@ -1,18 +1,51 @@
 import { StyleSheet } from "react-native";
 
-export const Colors = {};
+const palette = {
+  primaryMid: "#0054a6",
+  primaryLight: "#52c6da",
+  primaryDark: "003656",
+  secondaryWhite: "#fff",
+  secondaryPink: "#f4eaea",
+
+  success: "#34c759",
+  danger: "#FF3b30",
+  warning: "#ff9500",
+
+  white: "#fff",
+  black: "#000",
+  gray100: "#f2f2f7",
+  gray500: "#8e8e93",
+  gray900: "#1c1c1e",
+};
+
+export const Colors = {
+  background: palette.white,
+  surface: palette.gray100,
+  text: palette.black,
+  textMuted: palette.gray500,
+  border: "#c6c6c8",
+
+  brandPrimary: palette.primaryMid,
+  brandAccent: palette.primaryLight,
+
+  active: palette.success,
+  archived: palette.gray500,
+  error: palette.danger,
+};
 
 export const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 16,
+    // marginBottom: 16,
     marginLeft: 2,
     marginRight: 2,
+    backgroundColor: Colors.background,
   },
   headingText: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 5,
+    fontSize: 24,
+    marginBottom: 10,
+    fontWeight: "bold",
+    color: Colors.text,
   },
   listContainer: {
     flex: 1,
