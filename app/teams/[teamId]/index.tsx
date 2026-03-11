@@ -25,7 +25,7 @@ export default function TeamIndex() {
         }}
       />
       <View style={GlobalStyles.listContainer}>
-        <NavCard route={`/teams/${team.id}/players`} title={"Players"} />
+        <NavCard route={`/teams/${team.id}/roster`} title={"Players"} />
         <NavCard route={`/teams/${team.id}/games`} title={"Games"} />
       </View>
       <View style={{ margin: 20 }}>

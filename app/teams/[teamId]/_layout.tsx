@@ -27,7 +27,7 @@ export default function TeamLayout() {
       }}
     >
       <Stack.Screen name="index" />
-      <Stack.Screen name="players" options={{ title: "Roster" }} />
+      <Stack.Screen name="roster" options={{ title: "Roster" }} />
       <Stack.Screen name="games" />
       <Stack.Screen name="editTeam" />
     </Stack>
