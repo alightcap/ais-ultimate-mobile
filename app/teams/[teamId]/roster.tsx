@@ -1,3 +1,4 @@
+import BigButton from "@/src/components/BigButton";
 import MedButton from "@/src/components/MedButton";
 import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
@@ -64,7 +65,7 @@ export default function Players() {
           </View>
         </View>
       </Modal>
-      <MedButton title="Add Player(s)" onPress={() => setModalVisible(true)} />
+      <BigButton title="Add Player(s)" onPress={() => setModalVisible(true)} />
     </View>
   );
 }

@@ -12,6 +12,7 @@ export default function PlayerIndex() {
 
   return (
     <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.headingText}>{player.name}</Text>
       <View style={styles.rowContainer}>
         <Text style={styles.displayText}>Number: </Text>
         <Text style={styles.displayText}>{player.number}</Text>
@@ -25,8 +26,6 @@ export default function PlayerIndex() {
         />
       </View>
       {/* TODO add an edit button */}
-      {/* TODO add toggle for status */}
-      {/* TODO add delete button */}
     </View>
   );
 }

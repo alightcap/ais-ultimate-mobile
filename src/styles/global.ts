@@ -43,7 +43,9 @@ export const GlobalStyles = StyleSheet.create({
   },
   headingText: {
     fontSize: 24,
+    marginTop: 10,
     marginBottom: 10,
+    textAlign: "center",
     fontWeight: "bold",
     color: Colors.text,
   },

@@ -20,7 +20,7 @@ export default function PlayerLayout() {
   return (
     <Stack
       screenOptions={{
-        headerTitle: `${currentPlayer.name} Details`,
+        headerTitle: "Player Details",
         headerTintColor: "black",
         headerLeft: (props) => (
           <HeaderBackButton

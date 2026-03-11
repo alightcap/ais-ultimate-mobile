@@ -1,7 +1,7 @@
 import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { Stack, router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { Button, Text, View } from "react-native";
 
 export default function TeamIndex() {
@@ -13,18 +13,8 @@ export default function TeamIndex() {
 
   return (
     <View style={GlobalStyles.container}>
-      <Stack.Screen
-        options={{
-          title: team.name,
-          headerRight: () => (
-            <Button
-              title="Edit"
-              onPress={() => router.push(`/teams/${teamId}/editTeam`)}
-            />
-          ),
-        }}
-      />
       <View style={GlobalStyles.listContainer}>
+        <Text style={GlobalStyles.headingText}>{team.name}</Text>
         <NavCard route={`/teams/${team.id}/roster`} title={"Players"} />
         <NavCard route={`/teams/${team.id}/games`} title={"Games"} />
       </View>
