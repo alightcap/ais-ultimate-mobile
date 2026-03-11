@@ -27,7 +27,7 @@ export default function TextInputFormRow({
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    margin: 20,
+    margin: 8,
     alignItems: "center",
   },
   formText: {

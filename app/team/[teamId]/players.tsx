@@ -1,17 +1,10 @@
+import MedButton from "@/src/components/MedButton";
 import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import {
-  Button,
-  FlatList,
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 export default function Players() {
   const router = useRouter();
@@ -47,7 +40,8 @@ export default function Players() {
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.emptyTop}>
           <View style={styles.modalView}>
-            <Pressable
+            <MedButton
+              title="New Player"
               onPress={() => {
                 setModalVisible(false);
                 router.push({
@@ -55,31 +49,18 @@ export default function Players() {
                   params: { teamId: teamId },
                 });
               }}
-              style={{ paddingBottom: 16 }}
-            >
-              <Text style={styles.buttonText}>New Player</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => setModalVisible(false)}
-              style={{ padding: 8 }}
-            >
-              <Text style={styles.buttonText}>Existing Player(s)</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => setModalVisible(false)}
-              style={{ paddingTop: 16 }}
-            >
-              <Text style={styles.buttonText}>Cancel</Text>
-            </Pressable>
+            />
+            <MedButton
+              title="Existing Player(s)"
+              onPress={() => {
+                setModalVisible(false);
+              }}
+            />
+            <MedButton title="Cancel" onPress={() => setModalVisible(false)} />
           </View>
         </View>
       </Modal>
-      <Button title="Add Player(s)" onPress={() => setModalVisible(true)} />
-      {/* <NewButton
-        route={{ pathname: "/player/newPlayer", params: { teamId: teamId } }}
-        title="New Player"
-      /> */}
+      <MedButton title="Add Player(s)" onPress={() => setModalVisible(true)} />
     </View>
   );
 }

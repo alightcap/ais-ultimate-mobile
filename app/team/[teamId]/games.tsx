@@ -1,14 +1,15 @@
+import BigButton from "@/src/components/BigButton";
 import NavCard from "@/src/components/NavCard";
-import NewButton from "@/src/components/NewButton";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { getDate } from "@/src/utils/dates";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { FlatList, Text, View } from "react-native";
 
 export default function Games() {
   const { teams, games } = useData();
   const { teamId } = useLocalSearchParams();
+  const router = useRouter();
 
   const currentTeam = teams.find((t) => t.id === teamId);
 
@@ -35,7 +36,7 @@ export default function Games() {
           }
         />
       </View>
-      <NewButton route="./newGame" title="NewPlayer" />
+      <BigButton onPress={() => router.push("./newGame")} title="NewPlayer" />
     </View>
   );
 }

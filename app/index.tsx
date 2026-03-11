@@ -1,4 +1,4 @@
-import NewButton from "@/src/components/NewButton";
+import BigButton from "@/src/components/BigButton";
 import TeamList from "@/src/components/TeamList";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
@@ -32,7 +32,10 @@ export default function TeamsIndex() {
         teams={activeTeams}
         emptyMessage="There are no teams to display."
       />
-      <NewButton route="/team/newTeam" title="New Team" />
+      <BigButton
+        onPress={() => router.push("/team/newTeam")}
+        title="New Team"
+      />
     </View>
   );
 }
