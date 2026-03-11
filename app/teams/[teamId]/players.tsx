@@ -27,7 +27,7 @@ export default function Players() {
         <FlatList
           data={roster}
           renderItem={({ item }) => (
-            <NavCard route={`/player/${item.id}`} title={item.name} />
+            <NavCard route={`/players/${item.id}`} title={item.name} />
           )}
           ListEmptyComponent={
             <Text style={GlobalStyles.empty}>
@@ -45,7 +45,7 @@ export default function Players() {
               onPress={() => {
                 setModalVisible(false);
                 router.push({
-                  pathname: "/player/newPlayer",
+                  pathname: "/players/newPlayer",
                   params: { teamId: teamId },
                 });
               }}
@@ -55,7 +55,7 @@ export default function Players() {
               onPress={() => {
                 setModalVisible(false);
                 router.push({
-                  pathname: "/player/selectExistingPlayers",
+                  pathname: "/players/selectExistingPlayers",
                   params: { teamId: teamId },
                 });
               }}

@@ -33,7 +33,7 @@ export default function TeamsIndex() {
         emptyMessage="There are no teams to display."
       />
       <BigButton
-        onPress={() => router.push("/team/newTeam")}
+        onPress={() => router.push("/teams/newTeam")}
         title="New Team"
       />
     </View>

@@ -19,14 +19,14 @@ export default function TeamIndex() {
           headerRight: () => (
             <Button
               title="Edit"
-              onPress={() => router.push(`/team/${teamId}/editTeam`)}
+              onPress={() => router.push(`/teams/${teamId}/editTeam`)}
             />
           ),
         }}
       />
       <View style={GlobalStyles.listContainer}>
-        <NavCard route={`/team/${team.id}/players`} title={"Players"} />
-        <NavCard route={`/team/${team.id}/games`} title={"Games"} />
+        <NavCard route={`/teams/${team.id}/players`} title={"Players"} />
+        <NavCard route={`/teams/${team.id}/games`} title={"Games"} />
       </View>
       <View style={{ margin: 20 }}>
         <Button
