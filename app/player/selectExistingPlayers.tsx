@@ -13,9 +13,9 @@ import {
 } from "react-native";
 
 export default function SelectExistingPlayers() {
+  const router = useRouter();
   const { teams, players, linkPlayersToTeam } = useData();
   const { teamId } = useLocalSearchParams<{ teamId: string }>();
-  const router = useRouter();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
@@ -73,7 +73,7 @@ export default function SelectExistingPlayers() {
           );
         }}
         ListEmptyComponent={
-          <Text style={styles.empty}>
+          <Text style={GlobalStyles.empty}>
             All existing player are already on this team.
           </Text>
         }
@@ -95,5 +95,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f8ff",
   },
   name: { fontSize: 18 },
-  empty: { textAlign: "center", marginTop: 50, color: "gray" },
 });

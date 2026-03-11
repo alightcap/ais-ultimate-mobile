@@ -30,13 +30,13 @@ export default function Games() {
             />
           )}
           ListEmptyComponent={
-            <Text style={GlobalStyles.headingText}>
+            <Text style={GlobalStyles.empty}>
               There are no games to display
             </Text>
           }
         />
       </View>
-      <BigButton onPress={() => router.push("./newGame")} title="NewPlayer" />
+      <BigButton onPress={() => router.push("./newGame")} title="New Game" />
     </View>
   );
 }

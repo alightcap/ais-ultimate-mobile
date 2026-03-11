@@ -11,7 +11,7 @@ export default function TeamList({ teams, emptyMessage }: TeamListProps) {
         keyExtractor={(item) => item.id}
         ListEmptyComponent={() => (
           <View>
-            <Text>{emptyMessage}</Text>
+            <Text style={GlobalStyles.empty}>{emptyMessage}</Text>
           </View>
         )}
         renderItem={({ item }) => (

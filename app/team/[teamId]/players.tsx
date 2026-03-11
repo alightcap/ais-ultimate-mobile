@@ -30,7 +30,7 @@ export default function Players() {
             <NavCard route={`/player/${item.id}`} title={item.name} />
           )}
           ListEmptyComponent={
-            <Text style={GlobalStyles.headingText}>
+            <Text style={GlobalStyles.empty}>
               There are no players to display
             </Text>
           }

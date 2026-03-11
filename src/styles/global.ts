@@ -17,4 +17,9 @@ export const GlobalStyles = StyleSheet.create({
   listContainer: {
     flex: 1,
   },
+  empty: {
+    textAlign: "center",
+    marginTop: 50,
+    color: "gray",
+  },
 });
