@@ -3,6 +3,7 @@ import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { getId } from "@/src/utils/uniqueId";
+import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -57,7 +58,14 @@ export default function NewPlayer() {
 
   return (
     <View style={GlobalStyles.container}>
-      <Stack.Screen options={{ title: `${currentTeam.name}` }} />
+      <Stack.Screen
+        options={{
+          title: `${currentTeam.name}`,
+          headerLeft: () => (
+            <HeaderBackButton tintColor="black" onPress={() => router.back()} />
+          ),
+        }}
+      />
       <Text style={GlobalStyles.headingText}>New Player</Text>
       <TextInputFormRow title="Name" item={newName} setItem={setNewName} />
       <TextInputFormRow

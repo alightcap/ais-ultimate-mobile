@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TextInputFormRowProps } from "../lib/types";
+import { Colors } from "../styles/global";
 
 export default function TextInputFormRow({
   title,
@@ -27,8 +28,10 @@ export default function TextInputFormRow({
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    margin: 8,
+    padding: 8,
     alignItems: "center",
+    backgroundColor: Colors.surface,
+    justifyContent: "space-between",
   },
   formText: {
     textAlign: "left",
@@ -39,5 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 5,
     borderWidth: 2,
+    borderRadius: 5,
+    maxWidth: "50%",
   },
 });

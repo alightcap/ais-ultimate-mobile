@@ -1,6 +1,7 @@
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -42,6 +43,9 @@ export default function SelectExistingPlayers() {
       <Stack.Screen
         options={{
           title: "Add Players",
+          headerLeft: () => (
+            <HeaderBackButton tintColor="black" onPress={() => router.back()} />
+          ),
           headerRight: () => (
             <Button
               title="Done"
