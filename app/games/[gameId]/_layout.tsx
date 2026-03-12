@@ -1,11 +1,13 @@
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { HeaderBackButton } from "@react-navigation/elements";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Text } from "react-native";
 
 export default function GameLayout() {
   const { gameId } = useLocalSearchParams();
   const { games, teams } = useData();
+  const router = useRouter();
 
   const currentGame = games.find((g) => g.id === gameId);
   if (!currentGame)
@@ -19,7 +21,22 @@ export default function GameLayout() {
 
   return (
     <Stack>
-      <Stack.Screen name="index" />
+      <Stack.Screen
+        name="index"
+        options={{
+          title: `${currentTeam.name}`,
+          headerShown: true,
+          headerTintColor: "black",
+          headerLeft: (props) => (
+            <HeaderBackButton
+              {...props}
+              displayMode="minimal"
+              onPress={() => router.back()}
+              style={{ marginRight: -10 }}
+            />
+          ),
+        }}
+      />
     </Stack>
   );
 }
