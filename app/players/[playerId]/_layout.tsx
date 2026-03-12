@@ -1,10 +1,11 @@
 import { useData } from "@/src/contexts/DataContext";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { router, Stack, useLocalSearchParams } from "expo-router";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 export default function PlayerLayout() {
-  const { playerId } = useLocalSearchParams();
+  const { playerId } = useLocalSearchParams<{ playerId: string }>();
   const { players } = useData();
 
   const currentPlayer = players.find((p) => p.id === playerId);
@@ -35,8 +36,19 @@ export default function PlayerLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: `${currentPlayer.name} Details`,
-          headerTitleAlign: "center",
+          headerRight: () => (
+            <Pressable
+              style={{ marginRight: -40 }}
+              onPress={() =>
+                router.push({
+                  pathname: "/players/[playerId]/editPlayer",
+                  params: { playerId: playerId },
+                })
+              }
+            >
+              <Ionicons name="pencil" size={24} color="black" />
+            </Pressable>
+          ),
         }}
       />
     </Stack>
