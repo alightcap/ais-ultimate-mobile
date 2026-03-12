@@ -51,6 +51,7 @@ export default function PlayerLayout() {
           ),
         }}
       />
+      <Stack.Screen name="editPlayer" />
     </Stack>
   );
 }

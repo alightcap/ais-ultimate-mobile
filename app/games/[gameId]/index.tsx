@@ -38,7 +38,13 @@ export default function GameIndex() {
         }}
       />
       <View style={{ flexDirection: "row" }}>
-        <Text>{timeStamp}</Text>
+        <Text>{new Date(timeStamp).toDateString()}</Text>
+        <Text>
+          {new Date(timeStamp).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Text>
         <Text>
           {ourScore} - {theirScore}
         </Text>

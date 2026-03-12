@@ -1,6 +1,12 @@
-export const getDate = (timeStamp: number) => {
-  const date = new Date(timeStamp);
-  const offset = date.getTimezoneOffset() * 60000;
-  const localISOdate = new Date(timeStamp - offset).toISOString().slice(0, 10);
-  return localISOdate;
+export const getDateTimeString = (timeStamp: number) => {
+  if (!timeStamp) return "";
+
+  return new Date(timeStamp).toLocaleDateString([], {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
 };

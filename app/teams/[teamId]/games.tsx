@@ -1,8 +1,7 @@
 import BigButton from "@/src/components/BigButton";
-import NavCard from "@/src/components/NavCard";
+import GameCard from "@/src/components/GameCard";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { getDate } from "@/src/utils/dates";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { FlatList, Text, View } from "react-native";
 
@@ -23,12 +22,7 @@ export default function Games() {
       <View style={GlobalStyles.listContainer}>
         <FlatList
           data={currentGames}
-          renderItem={({ item }) => (
-            <NavCard
-              route={`/games/${item.id}`}
-              title={`vs. ${item.opponentName} ${getDate(item.timeStamp)}`}
-            />
-          )}
+          renderItem={({ item }) => <GameCard game={item} />}
           ListEmptyComponent={
             <Text style={GlobalStyles.empty}>
               There are no games to display

@@ -43,7 +43,7 @@ export default function TeamLayout() {
         }}
       />
       <Stack.Screen name="roster" options={{ title: `${currentTeam.name}` }} />
-      <Stack.Screen name="games" />
+      <Stack.Screen name="games" options={{ title: `${currentTeam.name}` }} />
       <Stack.Screen name="editTeam" options={{ title: "Edit Team" }} />
     </Stack>
   );
