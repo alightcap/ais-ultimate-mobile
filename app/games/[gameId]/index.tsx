@@ -20,11 +20,7 @@ export default function GameIndex() {
 
   const roster = players.filter((p) => currentTeam.playerIDs.includes(p.id));
 
-  const { timeStamp, eventName, opponentName, ourScore, theirScore } =
-    currentGame;
-
-  const isTied = ourScore === theirScore;
-  const areWinning = ourScore > theirScore;
+  const { timeStamp, eventName, opponentName } = currentGame;
 
   return (
     <View style={GlobalStyles.container}>
@@ -41,6 +37,15 @@ export default function GameIndex() {
         <Text>{eventName}</Text>
       </View>
       <View style={styles.rowItem}>
+        <Text style={styles.itemHeadingText}>Statistics</Text>
+        <Text>Nav Arrow</Text>
+      </View>
+      <View style={styles.rowItem}>
+        <Text style={styles.itemHeadingText}>Recap</Text>
+        <Text>Nav Arrow</Text>
+      </View>
+      <Text>Game Configuration</Text>
+      <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Starting on</Text>
         <Text>Offense or Defence</Text>
         {/** add a toggle switch */}
@@ -53,14 +58,6 @@ export default function GameIndex() {
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Timeouts</Text>
         <Text>per half/floaters/taken</Text>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Statistics</Text>
-        <Text>Nav Arrow</Text>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Recap</Text>
-        <Text>Nav Arrow</Text>
       </View>
       {/* <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Wind</Text>

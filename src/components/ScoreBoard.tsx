@@ -1,5 +1,6 @@
 import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
 import { Game } from "../lib/types";
+import { Colors } from "../styles/global";
 
 export default function ScoreBoard({
   game,
@@ -26,12 +27,19 @@ export default function ScoreBoard({
 
 const styles = StyleSheet.create({
   scoreText: {
-    textDecorationLine: "underline",
+    borderWidth: 2,
+    borderRadius: 5,
+    paddingLeft: 2,
+    paddingRight: 2,
+    minWidth: 50,
+    textAlign: "center",
   },
   winning: {
-    textDecorationColor: "green",
+    borderColor: Colors.active,
+    borderStyle: "dotted",
   },
   losing: {
-    textDecorationColor: "red",
+    borderColor: Colors.error,
+    borderStyle: "dashed",
   },
 });

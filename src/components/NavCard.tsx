@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    borderBottomColor: Colors.border,
     alignItems: "center",
-    backgroundColor: Colors.brandAccent,
+    backgroundColor: Colors.surface,
   },
   titleText: {
     fontSize: 20,

@@ -12,6 +12,28 @@ export const games: Game[] = [
     isOver: false,
     isArchived: false,
   },
+  {
+    id: "utpjp1u",
+    timeStamp: 1773340473821,
+    teamId: "j0v81y1",
+    eventName: undefined,
+    opponentName: "Maynard Jackson",
+    ourScore: 0,
+    theirScore: 1,
+    isOver: false,
+    isArchived: false,
+  },
+  {
+    id: "0t2ejga",
+    timeStamp: 1773340473821,
+    teamId: "j0v81y1",
+    eventName: undefined,
+    opponentName: "Decatur",
+    ourScore: 1,
+    theirScore: 0,
+    isOver: false,
+    isArchived: false,
+  },
 ];
 
 export const players: Player[] = [
@@ -38,7 +60,7 @@ export const teams: Team[] = [
     id: "j0v81y1",
     name: "2026 Varsity Open AIS Eagles",
     playerIDs: ["41lye44", "5yewgrb"],
-    gameIDs: ["3jqki8x"],
+    gameIDs: ["3jqki8x", "utpjp1u", "0t2ejga"],
     isArchived: false,
   },
   {

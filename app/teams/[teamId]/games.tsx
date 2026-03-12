@@ -1,5 +1,6 @@
 import BigButton from "@/src/components/BigButton";
 import GameCard from "@/src/components/GameCard";
+import TeamRecord from "@/src/components/TeamRecord";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -19,6 +20,10 @@ export default function Games() {
   return (
     <View style={GlobalStyles.container}>
       <Text style={GlobalStyles.headingText}>Games</Text>
+      <TeamRecord
+        games={currentGames}
+        style={{ fontSize: 16, textAlign: "center", marginBottom: 10 }}
+      />
       <View style={GlobalStyles.listContainer}>
         <FlatList
           data={currentGames}
