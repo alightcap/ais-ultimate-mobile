@@ -1,3 +1,4 @@
+import ScoreBoard from "@/src/components/ScoreBoard";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { getDateTimeString } from "@/src/utils/dates";
@@ -29,12 +30,7 @@ export default function GameIndex() {
     <View style={GlobalStyles.container}>
       <View style={styles.rowItem}>
         <Text style={styles.scoreText}>{getDateTimeString(timeStamp)}</Text>
-        <Text
-          style={[
-            styles.scoreText,
-            !isTied ? (areWinning ? styles.winning : styles.losing) : {},
-          ]}
-        >{`${ourScore} - ${theirScore}`}</Text>
+        <ScoreBoard game={currentGame} style={{ fontSize: 16 }} />
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Opponent</Text>
