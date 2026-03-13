@@ -6,7 +6,7 @@ export default function RootLayout() {
   return (
     <DataProvider>
       <Stack screenOptions={DefaultStackOptions}>
-        <Stack.Screen name="index" options={{ title: "My Teams" }} />
+        <Stack.Screen name="index" options={{ title: "UltiAnalytics" }} />
         <Stack.Screen
           name="archivedTeams"
           options={{ title: "Archived Teams" }}

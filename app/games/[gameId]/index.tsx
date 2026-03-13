@@ -24,6 +24,7 @@ export default function GameIndex() {
 
   return (
     <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.headingText}>Game Details</Text>
       <View style={styles.rowItem}>
         <Text style={styles.scoreText}>{getDateTimeString(timeStamp)}</Text>
         <ScoreBoard game={currentGame} style={{ fontSize: 16 }} />
@@ -44,7 +45,7 @@ export default function GameIndex() {
         <Text style={styles.itemHeadingText}>Recap</Text>
         <Text>Nav Arrow</Text>
       </View>
-      <Text>Game Configuration</Text>
+      <Text style={GlobalStyles.headingText}>Game Configuration</Text>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Starting on</Text>
         <Text>Offense or Defence</Text>

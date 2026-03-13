@@ -19,11 +19,7 @@ export default function Games() {
 
   return (
     <View style={GlobalStyles.container}>
-      <Text style={GlobalStyles.headingText}>Games</Text>
-      <TeamRecord
-        games={currentGames}
-        style={{ fontSize: 16, textAlign: "center", marginBottom: 10 }}
-      />
+      <TeamRecord games={currentGames} style={GlobalStyles.headingText} />
       <View style={GlobalStyles.listContainer}>
         <FlatList
           data={currentGames}
