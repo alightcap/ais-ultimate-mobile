@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   scoreText: {
-    fontSize: 16,
+    fontSize: 19,
   },
   itemHeadingText: {
     fontWeight: "bold",

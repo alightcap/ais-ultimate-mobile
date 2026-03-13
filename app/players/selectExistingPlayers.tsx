@@ -42,10 +42,7 @@ export default function SelectExistingPlayers() {
     <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
-          title: "Add Players",
-          headerLeft: () => (
-            <HeaderBackButton tintColor="black" onPress={() => router.back()} />
-          ),
+          headerLeft: () => <HeaderBackButton onPress={() => router.back()} />,
           headerRight: () => (
             <Button
               title="Done"
