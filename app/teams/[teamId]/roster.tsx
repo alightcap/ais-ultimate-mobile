@@ -2,7 +2,7 @@ import BigButton from "@/src/components/BigButton";
 import MedButton from "@/src/components/MedButton";
 import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
-import { GlobalStyles } from "@/src/styles/global";
+import { Colors, GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
@@ -72,10 +72,10 @@ export default function Players() {
 
 const styles = StyleSheet.create({
   modalView: {
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     elevation: 5,
     padding: 32,
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: -2 },
     shadowRadius: 4,
@@ -87,10 +87,5 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingLeft: 8,
     paddingRight: 8,
-  },
-  buttonText: {
-    fontSize: 18,
-    textAlign: "center",
-    color: "blue",
   },
 });

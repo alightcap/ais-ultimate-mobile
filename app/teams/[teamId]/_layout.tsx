@@ -18,7 +18,6 @@ export default function TeamLayout() {
       <Stack.Screen
         name="index"
         options={{
-          ...DefaultStackOptions,
           title: "Team Details",
           headerLeft: (props) => (
             <HeaderBackButton
