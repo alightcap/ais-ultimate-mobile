@@ -1,7 +1,7 @@
 import BigButton from "@/src/components/BigButton";
 import TeamList from "@/src/components/TeamList";
 import { useData } from "@/src/contexts/DataContext";
-import { GlobalStyles } from "@/src/styles/global";
+import { Colors, GlobalStyles } from "@/src/styles/global";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useRouter } from "expo-router";
 import React from "react";
@@ -22,7 +22,11 @@ export default function TeamsIndex() {
               onPress={() => router.push("/archivedTeams")}
               style={{ marginRight: -36 }}
             >
-              <Ionicons name="archive-outline" size={24} />
+              <Ionicons
+                name="archive-outline"
+                size={24}
+                color={Colors.brandPrimary}
+              />
               {/** this does not work on android */}
             </Pressable>
           ),

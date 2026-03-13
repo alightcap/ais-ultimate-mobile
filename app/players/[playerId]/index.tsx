@@ -1,10 +1,11 @@
+import EditButton from "@/src/components/EditButton";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
 export default function PlayerIndex() {
-  const { playerId } = useLocalSearchParams();
+  const { playerId } = useLocalSearchParams<{ playerId: string }>();
   const { players, togglePlayerAvailability } = useData();
   const player = players.find((p) => p.id === playerId);
 
@@ -12,6 +13,18 @@ export default function PlayerIndex() {
 
   return (
     <View style={GlobalStyles.container}>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <EditButton
+              route={{
+                pathname: "/players/[playerId]/editPlayer",
+                params: { playerId: playerId },
+              }}
+            />
+          ),
+        }}
+      />
       <Text style={GlobalStyles.headingText}>{player.name}</Text>
       <View style={styles.rowContainer}>
         <Text style={styles.displayText}>Number: </Text>
