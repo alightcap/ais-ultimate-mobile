@@ -43,12 +43,6 @@ export default function SelectExistingPlayers() {
       <Stack.Screen
         options={{
           headerLeft: (props) => <HeaderBack {...props} />,
-          // <HeaderBackButton
-          //   {...props}
-          //   displayMode="minimal"
-          //   onPress={() => router.back()}
-          //   style={{ marginRight: -45 }}
-          // />,
           headerRight: () => (
             <Button
               title="Done"

@@ -38,7 +38,6 @@ export const Colors = {
 export const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginBottom: 16,
     marginLeft: 2,
     marginRight: 2,
     backgroundColor: Colors.background,

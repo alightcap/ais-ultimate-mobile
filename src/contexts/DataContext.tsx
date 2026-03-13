@@ -112,15 +112,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
       });
       return updatedTeams;
     });
-    // const updatedTeams = teams.map((team) => {
-    //   if (team.id === teamId) {
-    //     const newIds = playerIds.filter((id) => !team.playerIDs.includes(id));
-    //     return { ...team, playerIds: [...team.playerIDs, ...newIds] };
-    //   }
-    //   return team;
-    // });
-
-    // setTeams(updatedTeams);
     if (updatedTeams.length > 0) {
       await saveData(KEYS.TEAMS, updatedTeams);
     }

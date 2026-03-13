@@ -55,15 +55,7 @@ export default function NewGame() {
         options={{
           ...DefaultStackOptions,
           title: `${currentTeam.name}`,
-          headerLeft: (props) => (
-            <HeaderBack {...props} />
-            // <HeaderBackButton
-            //   {...props}
-            //   displayMode="minimal"
-            //   onPress={() => router.back()}
-            //   style={{ marginRight: -45 }}
-            // />
-          ),
+          headerLeft: (props) => <HeaderBack {...props} />,
         }}
       />
       <View style={{ flex: 1 }}>

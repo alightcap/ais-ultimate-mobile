@@ -23,15 +23,7 @@ export default function PlayerLayout() {
       screenOptions={{
         ...DefaultStackOptions,
         headerTitle: "Player Details",
-        headerLeft: (props) => (
-          <HeaderBack {...props} />
-          // <HeaderBackButton
-          //   {...props}
-          //   displayMode="minimal"
-          //   onPress={() => router.back()}
-          //   style={{ marginRight: -45 }}
-          // />
-        ),
+        headerLeft: (props) => <HeaderBack {...props} />,
       }}
     >
       <Stack.Screen name="index" />

@@ -61,12 +61,6 @@ export default function NewPlayer() {
       <Stack.Screen
         options={{
           headerLeft: (props) => <HeaderBack {...props} />,
-          // <HeaderBackButton
-          //   {...props}
-          //   displayMode="minimal"
-          //   onPress={() => router.back()}
-          //   style={{ marginRight: -45 }}
-          // />,
         }}
       />
       <Text style={GlobalStyles.headingText}>{`${currentTeam.name}`}</Text>
