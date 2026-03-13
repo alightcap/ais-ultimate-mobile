@@ -1,11 +1,11 @@
 import BigButton from "@/src/components/BigButton";
 import GameDateInput from "@/src/components/GameDateInput";
+import HeaderBack from "@/src/components/HeaderBack";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { DefaultStackOptions } from "@/src/styles/navigation";
 import { getId } from "@/src/utils/uniqueId";
-import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -55,7 +55,15 @@ export default function NewGame() {
         options={{
           ...DefaultStackOptions,
           title: `${currentTeam.name}`,
-          headerLeft: () => <HeaderBackButton onPress={() => router.back()} />,
+          headerLeft: (props) => (
+            <HeaderBack {...props} />
+            // <HeaderBackButton
+            //   {...props}
+            //   displayMode="minimal"
+            //   onPress={() => router.back()}
+            //   style={{ marginRight: -45 }}
+            // />
+          ),
         }}
       />
       <View style={{ flex: 1 }}>

@@ -1,7 +1,7 @@
+import HeaderBack from "@/src/components/HeaderBack";
 import { useData } from "@/src/contexts/DataContext";
 import { DefaultStackOptions } from "@/src/styles/navigation";
-import { HeaderBackButton } from "@react-navigation/elements";
-import { router, Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
 
 export default function PlayerLayout() {
@@ -24,12 +24,13 @@ export default function PlayerLayout() {
         ...DefaultStackOptions,
         headerTitle: "Player Details",
         headerLeft: (props) => (
-          <HeaderBackButton
-            {...props}
-            displayMode="minimal"
-            onPress={() => router.back()}
-            style={{ marginRight: -10 }}
-          />
+          <HeaderBack {...props} />
+          // <HeaderBackButton
+          //   {...props}
+          //   displayMode="minimal"
+          //   onPress={() => router.back()}
+          //   style={{ marginRight: -45 }}
+          // />
         ),
       }}
     >

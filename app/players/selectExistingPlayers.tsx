@@ -1,7 +1,7 @@
+import HeaderBack from "@/src/components/HeaderBack";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -42,7 +42,13 @@ export default function SelectExistingPlayers() {
     <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
-          headerLeft: () => <HeaderBackButton onPress={() => router.back()} />,
+          headerLeft: (props) => <HeaderBack {...props} />,
+          // <HeaderBackButton
+          //   {...props}
+          //   displayMode="minimal"
+          //   onPress={() => router.back()}
+          //   style={{ marginRight: -45 }}
+          // />,
           headerRight: () => (
             <Button
               title="Done"

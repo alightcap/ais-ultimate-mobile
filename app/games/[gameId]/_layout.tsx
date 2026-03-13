@@ -1,7 +1,7 @@
+import HeaderBack from "@/src/components/HeaderBack";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { DefaultStackOptions } from "@/src/styles/navigation";
-import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Text } from "react-native";
 
@@ -27,14 +27,14 @@ export default function GameLayout() {
         options={{
           title: `${currentTeam.name}`,
           headerShown: true,
-          headerTintColor: "black",
           headerLeft: (props) => (
-            <HeaderBackButton
-              {...props}
-              displayMode="minimal"
-              onPress={() => router.back()}
-              style={{ marginRight: -10 }}
-            />
+            <HeaderBack {...props} />
+            // <HeaderBackButton
+            //   {...props}
+            //   displayMode="minimal"
+            //   onPress={() => router.back()}
+            //   style={{ marginRight: -45 }}
+            // />
           ),
         }}
       />

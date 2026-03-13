@@ -1,9 +1,9 @@
+import HeaderBack from "@/src/components/HeaderBack";
 import MedButton from "@/src/components/MedButton";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { getId } from "@/src/utils/uniqueId";
-import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -60,7 +60,13 @@ export default function NewPlayer() {
     <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
-          headerLeft: () => <HeaderBackButton onPress={() => router.back()} />,
+          headerLeft: (props) => <HeaderBack {...props} />,
+          // <HeaderBackButton
+          //   {...props}
+          //   displayMode="minimal"
+          //   onPress={() => router.back()}
+          //   style={{ marginRight: -45 }}
+          // />,
         }}
       />
       <Text style={GlobalStyles.headingText}>{`${currentTeam.name}`}</Text>
