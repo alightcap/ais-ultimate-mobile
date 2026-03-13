@@ -1,4 +1,5 @@
 import { useData } from "@/src/contexts/DataContext";
+import { DefaultStackOptions } from "@/src/styles/navigation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { router, Stack, useLocalSearchParams } from "expo-router";
@@ -21,8 +22,8 @@ export default function PlayerLayout() {
   return (
     <Stack
       screenOptions={{
+        ...DefaultStackOptions,
         headerTitle: "Player Details",
-        headerTintColor: "black",
         headerLeft: (props) => (
           <HeaderBackButton
             {...props}
@@ -46,7 +47,7 @@ export default function PlayerLayout() {
                 })
               }
             >
-              <Ionicons name="pencil" size={24} color="black" />
+              <Ionicons name="pencil" size={24} />
             </Pressable>
           ),
         }}

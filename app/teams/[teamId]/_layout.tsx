@@ -1,4 +1,5 @@
 import { useData } from "@/src/contexts/DataContext";
+import { DefaultStackOptions } from "@/src/styles/navigation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
@@ -13,12 +14,12 @@ export default function TeamLayout() {
   if (!currentTeam) return <Text>Team not found</Text>;
 
   return (
-    <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
+    <Stack screenOptions={DefaultStackOptions}>
       <Stack.Screen
         name="index"
         options={{
+          ...DefaultStackOptions,
           title: "Team Details",
-          headerTintColor: "black",
           headerLeft: (props) => (
             <HeaderBackButton
               {...props}
@@ -37,7 +38,7 @@ export default function TeamLayout() {
                 })
               }
             >
-              <Ionicons name="pencil" size={24} color="black" />
+              <Ionicons name="pencil" size={24} />
             </Pressable>
           ),
         }}

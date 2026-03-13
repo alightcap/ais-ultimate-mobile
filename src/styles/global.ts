@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const palette = {
   primaryMid: "#0054a6",
   primaryLight: "#52c6da",
-  primaryDark: "003656",
+  primaryDark: "#003656",
   secondaryWhite: "#fff",
   secondaryPink: "#f4eaea",
 
@@ -31,6 +31,8 @@ export const Colors = {
   active: palette.success,
   archived: palette.gray500,
   error: palette.danger,
+  black: palette.black,
+  white: palette.white,
 };
 
 export const GlobalStyles = StyleSheet.create({

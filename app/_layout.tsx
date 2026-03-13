@@ -1,10 +1,11 @@
 import { DataProvider } from "@/src/contexts/DataContext";
+import { DefaultStackOptions } from "@/src/styles/navigation";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
     <DataProvider>
-      <Stack screenOptions={{ headerBackButtonDisplayMode: "minimal" }}>
+      <Stack screenOptions={DefaultStackOptions}>
         <Stack.Screen name="index" options={{ title: "My Teams" }} />
         <Stack.Screen
           name="archivedTeams"

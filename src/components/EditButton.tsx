@@ -7,7 +7,7 @@ export default function EditButton({ route }: { route: Href }) {
 
   return (
     <Pressable style={{ marginRight: -40 }} onPress={() => router.push(route)}>
-      <Ionicons name="pencil" size={24} color="black" />
+      <Ionicons name="pencil" size={24} />
     </Pressable>
   );
 }

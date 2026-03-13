@@ -1,5 +1,5 @@
 import { useData } from "@/src/contexts/DataContext";
-import { GlobalStyles } from "@/src/styles/global";
+import { Colors, GlobalStyles } from "@/src/styles/global";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
@@ -71,7 +71,7 @@ export default function SelectExistingPlayers() {
               <Ionicons
                 name={isSelected ? "checkbox" : "square-outline"}
                 size={24}
-                color={isSelected ? "#007aff" : "#ccc"}
+                color={isSelected ? Colors.brandPrimary : Colors.black}
               />
             </Pressable>
           );
