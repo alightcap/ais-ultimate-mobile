@@ -44,5 +44,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     maxWidth: "50%",
+    textAlign: "right",
   },
 });
