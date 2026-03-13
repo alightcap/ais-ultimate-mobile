@@ -2,11 +2,16 @@ import BigButton from "@/src/components/BigButton";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
+import { DefaultStackOptions } from "@/src/styles/navigation";
+import { getDateTimeString } from "@/src/utils/dates";
 import { getId } from "@/src/utils/uniqueId";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert, Platform, Pressable, Text, View } from "react-native";
 
 export default function NewGame() {
   const router = useRouter();
@@ -15,6 +20,8 @@ export default function NewGame() {
   const [timeStamp, setTimeStamp] = useState(Date.now());
   const [eventName, setEventName] = useState("");
   const [opponentName, setOpponentName] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
+  const currentDate = new Date(timeStamp);
 
   const currentTeam = teams.find((t) => t.id === teamId);
   if (!currentTeam) {
@@ -22,6 +29,19 @@ export default function NewGame() {
     router.back();
     return;
   }
+
+  const handleDateChange = (
+    event: DateTimePickerEvent,
+    selectedDate?: Date,
+  ) => {
+    if (Platform.OS === "android") {
+      setShowPicker(false);
+    }
+
+    if (selectedDate) {
+      setTimeStamp(selectedDate.getTime());
+    }
+  };
 
   const handleSave = () => {
     if (opponentName.trim() === "") {
@@ -45,20 +65,15 @@ export default function NewGame() {
       pathname: "/games/[gameId]",
       params: { gameId: newId },
     });
-    {
-      /** don't want to go back, want to go to this game's page,
-       * while popping this page from the stack. */
-    }
   };
 
   return (
     <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
+          ...DefaultStackOptions,
           title: `${currentTeam.name}`,
-          headerLeft: () => (
-            <HeaderBackButton tintColor="black" onPress={() => router.back()} />
-          ),
+          headerLeft: () => <HeaderBackButton onPress={() => router.back()} />,
         }}
       />
       <Text style={GlobalStyles.headingText}>New Game</Text>
@@ -68,7 +83,20 @@ export default function NewGame() {
         setItem={setOpponentName}
       />
       <TextInputFormRow title="Event" item={eventName} setItem={setEventName} />
-      {/** datetime picker for dates preloaded with today's date and time */}
+      <View style={{ flexDirection: "row" }}>
+        <Text>Date</Text>
+        <Pressable onPress={() => setShowPicker(true)}>
+          <Text>{getDateTimeString(timeStamp)}</Text>
+        </Pressable>
+      </View>
+      {showPicker && (
+        <DateTimePicker
+          value={currentDate}
+          mode="datetime"
+          display={Platform.OS === "ios" ? "spinner" : "default"}
+          onChange={handleDateChange}
+        />
+      )}
       <BigButton title="Start Game" onPress={() => handleSave()} />
     </View>
   );
