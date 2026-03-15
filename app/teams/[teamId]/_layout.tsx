@@ -20,8 +20,8 @@ export default function TeamLayout() {
           headerLeft: (props) => <HeaderBack {...props} />,
         }}
       />
-      <Stack.Screen name="roster" options={{ title: `${currentTeam.name}` }} />
-      <Stack.Screen name="games" options={{ title: `${currentTeam.name}` }} />
+      <Stack.Screen name="roster" options={{ title: "Roster" }} />
+      <Stack.Screen name="games" options={{ title: "Games" }} />
       <Stack.Screen name="editTeam" options={{ title: "Edit Team" }} />
     </Stack>
   );

@@ -37,7 +37,7 @@ export default function GameIndex() {
           ),
         }}
       />
-      <Text style={GlobalStyles.headingText}>Game Details</Text>
+      <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
       <View style={styles.rowItem}>
         <Text style={styles.scoreText}>{getDateTimeString(timeStamp)}</Text>
         <ScoreBoard game={currentGame} style={{ fontSize: 16 }} />

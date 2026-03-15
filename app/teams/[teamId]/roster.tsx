@@ -17,6 +17,7 @@ export default function Players() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const currentTeam = teams.find((t) => t.id === teamId);
+  if (!currentTeam) return <Text>Team not found</Text>;
 
   const roster = players.filter((player) =>
     currentTeam?.playerIDs.includes(player.id),
@@ -25,9 +26,11 @@ export default function Players() {
   return (
     <View style={GlobalStyles.container}>
       <Stack.Screen
-        options={{ headerLeft: (props) => <HeaderBack {...props} /> }}
+        options={{
+          headerLeft: (props) => <HeaderBack {...props} />,
+        }}
       />
-      <Text style={GlobalStyles.headingText}>Roster</Text>
+      <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
       <View style={GlobalStyles.listContainer}>
         <FlatList
           data={roster}

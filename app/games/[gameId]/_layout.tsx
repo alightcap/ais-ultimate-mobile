@@ -20,15 +20,15 @@ export default function GameLayout() {
   }
 
   return (
-    <Stack screenOptions={DefaultStackOptions}>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: `${currentTeam.name}`,
-          headerShown: true,
-          headerLeft: (props) => <HeaderBack {...props} />,
-        }}
-      />
+    <Stack
+      screenOptions={{
+        ...DefaultStackOptions,
+        headerTitle: "Game Details",
+        headerLeft: (props) => <HeaderBack {...props} />,
+      }}
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen name="editGame" />
     </Stack>
   );
 }

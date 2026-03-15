@@ -13,6 +13,7 @@ export default function Games() {
   const router = useRouter();
 
   const currentTeam = teams.find((t) => t.id === teamId);
+  if (!currentTeam) return <Text>Team not found</Text>;
 
   const currentGames = games.filter((game) =>
     currentTeam?.gameIDs.includes(game.id),
@@ -23,6 +24,7 @@ export default function Games() {
       <Stack.Screen
         options={{ headerLeft: (props) => <HeaderBack {...props} /> }}
       />
+      <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
       <TeamRecord games={currentGames} style={GlobalStyles.headingText} />
       <View style={GlobalStyles.listContainer}>
         <FlatList
