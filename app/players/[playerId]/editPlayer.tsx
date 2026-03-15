@@ -1,10 +1,10 @@
-import MedButton from "@/src/components/MedButton";
+import BigButton from "@/src/components/BigButton";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 
 export default function EditPlayer() {
   const { playerId } = useLocalSearchParams<{ playerId: string }>();
@@ -34,9 +34,12 @@ export default function EditPlayer() {
 
   return (
     <View style={GlobalStyles.container}>
-      <TextInputFormRow title="Name" item={name} setItem={setName} />
-      <TextInputFormRow title="Number" item={number} setItem={setNumber} />
-      <MedButton title="Save Changes" onPress={handleSave} />
+      <View style={GlobalStyles.contentContainer}>
+        <Text style={GlobalStyles.headingText}>Edit Player</Text>
+        <TextInputFormRow title="Name" item={name} setItem={setName} />
+        <TextInputFormRow title="Number" item={number} setItem={setNumber} />
+      </View>
+      <BigButton title="Save Changes" onPress={handleSave} />
     </View>
   );
 }

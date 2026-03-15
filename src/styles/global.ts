@@ -24,6 +24,7 @@ export const Colors = {
   text: palette.black,
   textMuted: palette.gray500,
   border: "#c6c6c8",
+  buttonPress: palette.gray500,
 
   brandPrimary: palette.primaryMid,
   brandAccent: palette.primaryLight,
@@ -41,6 +42,9 @@ export const GlobalStyles = StyleSheet.create({
     marginLeft: 2,
     marginRight: 2,
     backgroundColor: Colors.background,
+  },
+  contentContainer: {
+    flex: 1,
   },
   headingText: {
     fontSize: 24,

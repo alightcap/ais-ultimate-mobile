@@ -150,6 +150,16 @@ export function DataProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const updateGame = async (updatedGame: Game) => {
+    setGames((prevGames) => {
+      const updatedGames = prevGames.map((game) =>
+        game.id === updatedGame.id ? updatedGame : game,
+      );
+      saveData(KEYS.GAMES, updatedGames);
+      return updatedGames;
+    });
+  };
+
   const updatePlayer = async (updatedPlayer: Player) => {
     setPlayers((prevPlayers) => {
       const updatedPlayers = prevPlayers.map((player) =>
@@ -189,6 +199,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         addPlayer,
         linkPlayersToTeam,
         toggleArchiveEntity,
+        updateGame,
         updatePlayer,
         updateTeam,
         togglePlayerAvailability,

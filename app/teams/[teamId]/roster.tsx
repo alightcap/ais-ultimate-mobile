@@ -1,9 +1,10 @@
 import BigButton from "@/src/components/BigButton";
+import HeaderBack from "@/src/components/HeaderBack";
 import MedButton from "@/src/components/MedButton";
 import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
@@ -23,6 +24,9 @@ export default function Players() {
 
   return (
     <View style={GlobalStyles.container}>
+      <Stack.Screen
+        options={{ headerLeft: (props) => <HeaderBack {...props} /> }}
+      />
       <Text style={GlobalStyles.headingText}>Roster</Text>
       <View style={GlobalStyles.listContainer}>
         <FlatList

@@ -48,6 +48,7 @@ export interface DataContextType {
     id: string,
     isArchived: boolean,
   ) => Promise<void>;
+  updateGame: (updatedGame: Game) => Promise<void>;
   updatePlayer: (updatedPlayer: Player) => Promise<void>;
   updateTeam: (updatedTeam: Team) => Promise<void>;
   togglePlayerAvailability: (playerId: string) => void;

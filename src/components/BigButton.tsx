@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    backgroundColor: Colors.brandAccent,
+    backgroundColor: Colors.surface,
     margin: 20,
     padding: 20,
     borderRadius: 30,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   buttonPressed: {
-    backgroundColor: "#7ec8e3",
+    backgroundColor: Colors.buttonPress,
     transform: [{ scale: 0.98 }],
     elevation: 1,
   },

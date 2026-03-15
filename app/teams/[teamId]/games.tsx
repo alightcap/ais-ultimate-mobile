@@ -1,9 +1,10 @@
 import BigButton from "@/src/components/BigButton";
 import GameCard from "@/src/components/GameCard";
+import HeaderBack from "@/src/components/HeaderBack";
 import TeamRecord from "@/src/components/TeamRecord";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { FlatList, Text, View } from "react-native";
 
 export default function Games() {
@@ -19,6 +20,9 @@ export default function Games() {
 
   return (
     <View style={GlobalStyles.container}>
+      <Stack.Screen
+        options={{ headerLeft: (props) => <HeaderBack {...props} /> }}
+      />
       <TeamRecord games={currentGames} style={GlobalStyles.headingText} />
       <View style={GlobalStyles.listContainer}>
         <FlatList

@@ -1,4 +1,4 @@
-import MedButton from "@/src/components/MedButton";
+import BigButton from "@/src/components/BigButton";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
@@ -32,13 +32,15 @@ export default function EditTeam() {
 
   return (
     <View style={GlobalStyles.container}>
-      <TextInputFormRow
-        title="Team Name"
-        item={name}
-        setItem={setName}
-        autoFocus={true}
-      />
-      <MedButton title="Save Changes" onPress={handleSave} />
+      <View style={GlobalStyles.contentContainer}>
+        <TextInputFormRow
+          title="Team Name"
+          item={name}
+          setItem={setName}
+          autoFocus={true}
+        />
+      </View>
+      <BigButton title="Save Changes" onPress={handleSave} />
     </View>
   );
 }

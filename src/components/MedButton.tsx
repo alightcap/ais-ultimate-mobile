@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
+import { Colors } from "../styles/global";
 
 export default function MedButton({
   onPress,
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
-    backgroundColor: "skyblue",
+    backgroundColor: Colors.surface,
     margin: 8,
     padding: 8,
     borderRadius: 30,
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   buttonPressed: {
-    backgroundColor: "#7ec8e3",
+    backgroundColor: Colors.buttonPress,
     transform: [{ scale: 0.98 }],
     elevation: 1,
   },

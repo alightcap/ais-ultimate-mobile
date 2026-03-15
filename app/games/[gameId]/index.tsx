@@ -1,8 +1,9 @@
+import EditButton from "@/src/components/EditButton";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { getDateTimeString } from "@/src/utils/dates";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function GameIndex() {
@@ -24,10 +25,23 @@ export default function GameIndex() {
 
   return (
     <View style={GlobalStyles.container}>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <EditButton
+              route={{
+                pathname: "/games/[gameId]/editGame",
+                params: { gameId: gameId },
+              }}
+            />
+          ),
+        }}
+      />
       <Text style={GlobalStyles.headingText}>Game Details</Text>
       <View style={styles.rowItem}>
         <Text style={styles.scoreText}>{getDateTimeString(timeStamp)}</Text>
         <ScoreBoard game={currentGame} style={{ fontSize: 16 }} />
+        {/** consider moving scoreboard to heading */}
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Opponent</Text>
