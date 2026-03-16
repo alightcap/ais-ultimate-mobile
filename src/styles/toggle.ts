@@ -14,11 +14,9 @@ export const ToggleStyles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: "center",
     borderRadius: 6,
-    zIndex: 1,
   },
   activeButton: {
     backgroundColor: Colors.brandPrimary,
-    elevation: 2,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,

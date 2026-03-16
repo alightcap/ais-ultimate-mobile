@@ -24,7 +24,6 @@ export default function TeamsIndex() {
                 size={24}
                 color={Colors.brandPrimary}
               />
-              {/** this does not work on android */}
             </Pressable>
           ),
         }}

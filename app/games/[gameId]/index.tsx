@@ -1,4 +1,5 @@
 import EditButton from "@/src/components/EditButton";
+import HardCapPicker from "@/src/components/HardCapInput";
 import PointCapToggle from "@/src/components/PointCapToggle";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import StartOnToggle from "@/src/components/StartingOnToggle";
@@ -6,14 +7,35 @@ import { useData } from "@/src/contexts/DataContext";
 import { StartingOnMode } from "@/src/lib/types";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { getDateTimeString } from "@/src/utils/dates";
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function GameIndex() {
   const router = useRouter();
   const { games, teams, players, updateGame } = useData();
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
+
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["40%"], []);
+  const openSheet = () => bottomSheetRef.current?.expand();
+  const closeSheet = () => bottomSheetRef.current?.close();
+
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        opacity={0.5}
+      />
+    ),
+    [],
+  );
 
   const currentGame = games.find((g) => g.id === gameId);
 
@@ -24,6 +46,7 @@ export default function GameIndex() {
     currentGame?.startingOn ?? "offense",
   );
   const [pointCap, setPointCap] = useState<number>(currentGame?.pointCap ?? 13);
+  const [hardCap, setHardCap] = useState<number>(currentGame?.hardCap ?? 75);
 
   if (!currentGame) return <Text>Game not found</Text>;
   if (!currentTeam) return <Text>Team not found</Text>;
@@ -37,6 +60,11 @@ export default function GameIndex() {
   const handlePointCapChange = async (newPointCap: number) => {
     setPointCap(newPointCap);
     await updateGame({ ...currentGame, pointCap: newPointCap });
+  };
+
+  const handleHardCapChange = async (newHardCap: number) => {
+    setHardCap(newHardCap);
+    await updateGame({ ...currentGame, hardCap: newHardCap });
   };
 
   return (
@@ -88,15 +116,31 @@ export default function GameIndex() {
         />
       </View>
       <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Game To</Text>
+        <Text style={styles.itemHeadingText}>Point Cap</Text>
         <PointCapToggle
           currentPointCap={pointCap}
           onPointCapChange={handlePointCapChange}
         />
       </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Hard Cap</Text>
-        <Text>Time minutes</Text>
+      <View>
+        <Pressable onPress={openSheet} style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Hard Cap</Text>
+          <Text
+            style={[
+              styles.itemText,
+              {
+                backgroundColor: Colors.brandPrimary,
+                color: Colors.white,
+                padding: 4,
+                paddingHorizontal: 8,
+                borderRadius: 5,
+              },
+            ]}
+          >
+            {hardCap} mins
+          </Text>
+        </Pressable>
+
         {/** add a toggle switch? or decide what to do */}
         {/** how to add a push notification, or alarm, when hard cap goes on */}
       </View>
@@ -114,6 +158,28 @@ export default function GameIndex() {
         <Text>Details</Text>
         <Text>Nav Arrow</Text>
       </View> */}
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={-1}
+        snapPoints={snapPoints}
+        enablePanDownToClose
+        backdropComponent={renderBackdrop}
+        backgroundStyle={{ backgroundColor: Colors.surface }}
+        handleIndicatorStyle={{ backgroundColor: Colors.border }}
+      >
+        <BottomSheetView style={styles.sheetContent}>
+          <View style={styles.sheetHeader}>
+            <Text style={styles.sheetTitle}>Set Hard Cap</Text>
+            <Pressable onPress={closeSheet}>
+              <Text style={{ color: Colors.brandPrimary, fontWeight: "bold" }}>
+                Done
+              </Text>
+            </Pressable>
+          </View>
+          <HardCapPicker value={hardCap} onValueChange={handleHardCapChange} />
+        </BottomSheetView>
+      </BottomSheet>
     </View>
   );
 }
@@ -139,5 +205,19 @@ const styles = StyleSheet.create({
   itemHeadingText: {
     fontWeight: "bold",
     fontSize: 18,
+  },
+  sheetContent: {
+    padding: 20,
+    alignItems: "center",
+  },
+  sheetHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 20,
+  },
+  sheetTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
