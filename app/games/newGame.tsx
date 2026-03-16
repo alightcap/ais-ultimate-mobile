@@ -43,7 +43,7 @@ export default function NewGame() {
       isOver: false,
       isArchived: false,
       startingOn: "offense",
-      gameTo: 13,
+      pointCap: 13,
       hardCap: 75,
     });
     router.replace({

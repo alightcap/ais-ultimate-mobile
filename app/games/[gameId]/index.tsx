@@ -1,4 +1,5 @@
 import EditButton from "@/src/components/EditButton";
+import PointCapToggle from "@/src/components/PointCapToggle";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import StartOnToggle from "@/src/components/StartingOnToggle";
 import { useData } from "@/src/contexts/DataContext";
@@ -22,6 +23,7 @@ export default function GameIndex() {
   const [startingOn, setStartingOn] = useState<StartingOnMode>(
     currentGame?.startingOn ?? "offense",
   );
+  const [pointCap, setPointCap] = useState<number>(currentGame?.pointCap ?? 13);
 
   if (!currentGame) return <Text>Game not found</Text>;
   if (!currentTeam) return <Text>Team not found</Text>;
@@ -30,6 +32,11 @@ export default function GameIndex() {
   const handleStartingOnChange = async (newMode: "offense" | "defense") => {
     setStartingOn(newMode);
     await updateGame({ ...currentGame, startingOn: newMode });
+  };
+
+  const handlePointCapChange = async (newPointCap: number) => {
+    setPointCap(newPointCap);
+    await updateGame({ ...currentGame, pointCap: newPointCap });
   };
 
   return (
@@ -54,7 +61,7 @@ export default function GameIndex() {
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Opponent</Text>
-        <Text style={styles.itemText}>{opponentName}</Text>
+        <Text style={styles.scoreText}>{opponentName}</Text>
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Event</Text>
@@ -75,17 +82,17 @@ export default function GameIndex() {
       <Text style={GlobalStyles.headingText}>Configuration</Text>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Starting on</Text>
-        {/* <Text>Offense or Defense</Text> */}
         <StartOnToggle
           currentMode={startingOn}
           onModeChange={handleStartingOnChange}
         />
-        {/** add a toggle switch */}
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Game To</Text>
-        <Text>Odd number</Text>
-        {/** add a toggle switch? or decide what to do */}
+        <PointCapToggle
+          currentPointCap={pointCap}
+          onPointCapChange={handlePointCapChange}
+        />
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Hard Cap</Text>
@@ -115,7 +122,9 @@ const styles = StyleSheet.create({
   rowItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+    // padding: 10,
+    minHeight: 40,
+    padding: 6,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
     alignItems: "center",

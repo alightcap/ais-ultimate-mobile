@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { StartingOnMode } from "../lib/types";
-import { Colors } from "../styles/global";
+import { ToggleStyles } from "../styles/toggle";
 
 export default function StartingOnToggle({
   currentMode,
@@ -10,16 +10,19 @@ export default function StartingOnToggle({
   onModeChange: (mode: StartingOnMode) => void;
 }) {
   return (
-    <View style={styles.toggleContainer}>
+    <View style={ToggleStyles.container}>
       <Pressable
         onPress={() => onModeChange("offense")}
         style={[
-          styles.button,
-          currentMode === "offense" && styles.activeButton,
+          ToggleStyles.button,
+          currentMode === "offense" && ToggleStyles.activeButton,
         ]}
       >
         <Text
-          style={[styles.text, currentMode === "offense" && styles.activeText]}
+          style={[
+            ToggleStyles.text,
+            currentMode === "offense" && ToggleStyles.activeText,
+          ]}
         >
           Offense
         </Text>
@@ -27,12 +30,15 @@ export default function StartingOnToggle({
       <Pressable
         onPress={() => onModeChange("defense")}
         style={[
-          styles.button,
-          currentMode === "defense" && styles.activeButton,
+          ToggleStyles.button,
+          currentMode === "defense" && ToggleStyles.activeButton,
         ]}
       >
         <Text
-          style={[styles.text, currentMode === "defense" && styles.activeText]}
+          style={[
+            ToggleStyles.text,
+            currentMode === "defense" && ToggleStyles.activeText,
+          ]}
         >
           Defense
         </Text>
@@ -40,33 +46,3 @@ export default function StartingOnToggle({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  toggleContainer: {
-    flexDirection: "row",
-    backgroundColor: Colors.surface,
-    borderRadius: 8,
-    padding: 4,
-  },
-  button: {
-    paddingHorizontal: 8,
-    paddingVertical: 10,
-    alignItems: "center",
-    borderRadius: 6,
-  },
-  activeButton: {
-    backgroundColor: Colors.brandPrimary,
-    elevation: 2,
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  text: {
-    fontWeight: "600",
-    color: Colors.textMuted,
-  },
-  activeText: {
-    color: Colors.white,
-  },
-});

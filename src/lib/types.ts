@@ -2,7 +2,7 @@ import { KeyboardTypeOptions } from "react-native";
 
 export interface Game {
   eventName: string | undefined;
-  gameTo: number;
+  pointCap: number;
   hardCap: number; // in minutes
   id: string;
   isArchived: boolean;
