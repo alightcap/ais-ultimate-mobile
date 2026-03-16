@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
   scoreText: {
     borderWidth: 2,
     borderRadius: 5,
-    paddingLeft: 2,
-    paddingRight: 2,
+    paddingHorizontal: 6,
     minWidth: 50,
     textAlign: "center",
+    alignSelf: "center",
   },
   winning: {
     borderColor: Colors.active,

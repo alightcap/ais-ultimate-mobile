@@ -24,6 +24,7 @@ export interface Player {
 export interface Team {
   id: string;
   name: string;
+  shortName: string;
   playerIDs: string[];
   gameIDs: string[];
   isArchived: boolean;

@@ -79,7 +79,7 @@ export default function NewGame() {
         />
       </View>
 
-      <BigButton title="Start Game" onPress={() => handleSave()} />
+      <BigButton title="Create Game" onPress={() => handleSave()} />
     </View>
   );
 }

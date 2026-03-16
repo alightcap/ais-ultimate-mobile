@@ -20,6 +20,7 @@ export default function NewTeam() {
     addTeam({
       id: getId(),
       name: newName,
+      shortName: "",
       playerIDs: [],
       gameIDs: [],
       isArchived: false,

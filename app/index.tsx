@@ -18,10 +18,7 @@ export default function TeamsIndex() {
       <Stack.Screen
         options={{
           headerRight: () => (
-            <Pressable
-              onPress={() => router.push("/archivedTeams")}
-              style={{ marginRight: -36 }}
-            >
+            <Pressable onPress={() => router.push("/archivedTeams")}>
               <Ionicons
                 name="archive-outline"
                 size={24}

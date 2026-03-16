@@ -38,10 +38,10 @@ export default function GameIndex() {
         }}
       />
       <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
+      <ScoreBoard game={currentGame} style={GlobalStyles.headingText} />
       <View style={styles.rowItem}>
+        <Text style={styles.itemHeadingText}>Date</Text>
         <Text style={styles.scoreText}>{getDateTimeString(timeStamp)}</Text>
-        <ScoreBoard game={currentGame} style={{ fontSize: 16 }} />
-        {/** consider moving scoreboard to heading */}
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Opponent</Text>
@@ -52,6 +52,10 @@ export default function GameIndex() {
         <Text>{eventName}</Text>
       </View>
       <View style={styles.rowItem}>
+        <Text style={styles.itemHeadingText}>Weather</Text>
+        <Text>weatherKit</Text>
+      </View>
+      <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Statistics</Text>
         <Text>Nav Arrow</Text>
       </View>
@@ -59,7 +63,7 @@ export default function GameIndex() {
         <Text style={styles.itemHeadingText}>Recap</Text>
         <Text>Nav Arrow</Text>
       </View>
-      <Text style={GlobalStyles.headingText}>Game Configuration</Text>
+      <Text style={GlobalStyles.headingText}>Configuration</Text>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Starting on</Text>
         <Text>Offense or Defence</Text>
@@ -68,6 +72,11 @@ export default function GameIndex() {
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Game To</Text>
         <Text>Odd number or Time</Text>
+        {/** add a toggle switch? or decide what to do */}
+      </View>
+      <View style={styles.rowItem}>
+        <Text style={styles.itemHeadingText}>Half At</Text>
+        <Text>Half points, time, or first</Text>
         {/** add a toggle switch? or decide what to do */}
       </View>
       <View style={styles.rowItem}>
@@ -102,11 +111,5 @@ const styles = StyleSheet.create({
   itemHeadingText: {
     fontWeight: "bold",
     fontSize: 18,
-  },
-  winning: {
-    color: Colors.brandPrimary,
-  },
-  losing: {
-    color: Colors.error,
   },
 });
