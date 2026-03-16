@@ -1,15 +1,18 @@
 import { KeyboardTypeOptions } from "react-native";
 
 export interface Game {
-  id: string;
-  timeStamp: number;
-  teamId: string;
   eventName: string | undefined;
+  gameTo: number;
+  hardCap: number; // in minutes
+  id: string;
+  isArchived: boolean;
+  isOver: boolean;
   opponentName: string;
   ourScore: number;
+  startingOn: StartingOnMode;
+  teamId: string;
   theirScore: number;
-  isOver: boolean;
-  isArchived: boolean;
+  timeStamp: number;
 }
 
 export interface Player {
@@ -20,6 +23,8 @@ export interface Player {
   active: boolean;
   isArchived: boolean;
 }
+
+export type StartingOnMode = "offense" | "defense";
 
 export interface Team {
   id: string;

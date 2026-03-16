@@ -42,6 +42,9 @@ export default function NewGame() {
       theirScore: 0,
       isOver: false,
       isArchived: false,
+      startingOn: "offense",
+      gameTo: 13,
+      hardCap: 75,
     });
     router.replace({
       pathname: "/games/[gameId]",
@@ -72,7 +75,7 @@ export default function NewGame() {
         />
 
         <GameDateInput
-          label="Game Start: "
+          label="Date: "
           date={timeStamp}
           onChange={(newDate) => setTimeStamp(newDate)}
           style={{ fontSize: 20 }}

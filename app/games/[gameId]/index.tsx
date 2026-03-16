@@ -1,27 +1,36 @@
 import EditButton from "@/src/components/EditButton";
 import ScoreBoard from "@/src/components/ScoreBoard";
+import StartOnToggle from "@/src/components/StartingOnToggle";
 import { useData } from "@/src/contexts/DataContext";
+import { StartingOnMode } from "@/src/lib/types";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { getDateTimeString } from "@/src/utils/dates";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function GameIndex() {
   const router = useRouter();
-  const { games, teams, players } = useData();
+  const { games, teams, players, updateGame } = useData();
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
 
   const currentGame = games.find((g) => g.id === gameId);
-  if (!currentGame)
-    return <Text style={GlobalStyles.empty}>Game not found</Text>;
 
-  const currentTeam = teams.find((t) => t.id === currentGame.teamId);
-  if (!currentTeam)
-    return <Text style={GlobalStyles.empty}>Team not found</Text>;
+  const currentTeam = teams.find((t) => t.id === currentGame?.teamId);
 
-  const roster = players.filter((p) => currentTeam.playerIDs.includes(p.id));
+  const roster = players.filter((p) => currentTeam?.playerIDs.includes(p.id));
+  const [startingOn, setStartingOn] = useState<StartingOnMode>(
+    currentGame?.startingOn ?? "offense",
+  );
 
+  if (!currentGame) return <Text>Game not found</Text>;
+  if (!currentTeam) return <Text>Team not found</Text>;
   const { timeStamp, eventName, opponentName } = currentGame;
+
+  const handleStartingOnChange = async (newMode: "offense" | "defense") => {
+    setStartingOn(newMode);
+    await updateGame({ ...currentGame, startingOn: newMode });
+  };
 
   return (
     <View style={GlobalStyles.container}>
@@ -66,13 +75,23 @@ export default function GameIndex() {
       <Text style={GlobalStyles.headingText}>Configuration</Text>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Starting on</Text>
-        <Text>Offense or Defence</Text>
+        {/* <Text>Offense or Defense</Text> */}
+        <StartOnToggle
+          currentMode={startingOn}
+          onModeChange={handleStartingOnChange}
+        />
         {/** add a toggle switch */}
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Game To</Text>
-        <Text>Odd number or Time</Text>
+        <Text>Odd number</Text>
         {/** add a toggle switch? or decide what to do */}
+      </View>
+      <View style={styles.rowItem}>
+        <Text style={styles.itemHeadingText}>Hard Cap</Text>
+        <Text>Time minutes</Text>
+        {/** add a toggle switch? or decide what to do */}
+        {/** how to add a push notification, or alarm, when hard cap goes on */}
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Half At</Text>
