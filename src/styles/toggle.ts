@@ -7,12 +7,14 @@ export const ToggleStyles = StyleSheet.create({
     backgroundColor: Colors.surface,
     borderRadius: 8,
     padding: 4,
+    position: "relative",
   },
   button: {
     paddingHorizontal: 8,
     paddingVertical: 10,
     alignItems: "center",
     borderRadius: 6,
+    zIndex: 1,
   },
   activeButton: {
     backgroundColor: Colors.brandPrimary,
