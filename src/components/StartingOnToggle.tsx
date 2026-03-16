@@ -1,48 +1,25 @@
-import { Pressable, Text, View } from "react-native";
+import { StyleProp, TextStyle } from "react-native";
 import { StartingOnMode } from "../lib/types";
-import { ToggleStyles } from "../styles/toggle";
+import GenericToggle from "./GenericToggle";
 
 export default function StartingOnToggle({
   currentMode,
   onModeChange,
+  style,
 }: {
   currentMode: StartingOnMode;
   onModeChange: (mode: StartingOnMode) => void;
+  style?: StyleProp<TextStyle>;
 }) {
   return (
-    <View style={ToggleStyles.container}>
-      <Pressable
-        onPress={() => onModeChange("offense")}
-        style={[
-          ToggleStyles.button,
-          currentMode === "offense" && ToggleStyles.activeButton,
-        ]}
-      >
-        <Text
-          style={[
-            ToggleStyles.text,
-            currentMode === "offense" && ToggleStyles.activeText,
-          ]}
-        >
-          Offense
-        </Text>
-      </Pressable>
-      <Pressable
-        onPress={() => onModeChange("defense")}
-        style={[
-          ToggleStyles.button,
-          currentMode === "defense" && ToggleStyles.activeButton,
-        ]}
-      >
-        <Text
-          style={[
-            ToggleStyles.text,
-            currentMode === "defense" && ToggleStyles.activeText,
-          ]}
-        >
-          Defense
-        </Text>
-      </Pressable>
-    </View>
+    <GenericToggle
+      currentValue={currentMode}
+      onChange={onModeChange}
+      options={[
+        { label: "Offense", value: "offense" },
+        { label: "Defense", value: "defense" },
+      ]}
+      textStyle={style}
+    />
   );
 }

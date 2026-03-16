@@ -1,36 +1,23 @@
-import { Pressable, Text, View } from "react-native";
-import { ToggleStyles } from "../styles/toggle";
+import { StyleProp, TextStyle } from "react-native";
+import GenericToggle from "./GenericToggle";
 
 export default function PointCapToggle({
   currentPointCap,
   onPointCapChange,
+  style,
 }: {
   currentPointCap: number;
   onPointCapChange: (newPointCap: number) => void;
+  style?: StyleProp<TextStyle>;
 }) {
   const pointCaps = [11, 13, 15, 17];
 
   return (
-    <View style={ToggleStyles.container}>
-      {pointCaps.map((pointCap) => (
-        <Pressable
-          key={pointCap}
-          onPress={() => onPointCapChange(pointCap)}
-          style={[
-            ToggleStyles.button,
-            currentPointCap === pointCap && ToggleStyles.activeButton,
-          ]}
-        >
-          <Text
-            style={[
-              ToggleStyles.text,
-              currentPointCap === pointCap && ToggleStyles.activeText,
-            ]}
-          >
-            {pointCap}
-          </Text>
-        </Pressable>
-      ))}
-    </View>
+    <GenericToggle
+      currentValue={currentPointCap}
+      onChange={onPointCapChange}
+      options={pointCaps.map((p) => ({ label: p.toString(), value: p }))}
+      textStyle={style}
+    />
   );
 }

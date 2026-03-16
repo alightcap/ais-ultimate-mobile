@@ -3,7 +3,8 @@ import { KeyboardTypeOptions } from "react-native";
 export interface Game {
   eventName: string | undefined;
   pointCap: number;
-  hardCap: number; // in minutes
+  halfAt: HalfTimeMode;
+  hardCap: number;
   id: string;
   isArchived: boolean;
   isOver: boolean;
@@ -25,6 +26,7 @@ export interface Player {
 }
 
 export type StartingOnMode = "offense" | "defense";
+export type HalfTimeMode = "points" | "time" | "first";
 
 export interface Team {
   id: string;

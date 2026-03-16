@@ -11,7 +11,7 @@ export const ToggleStyles = StyleSheet.create({
   },
   button: {
     paddingHorizontal: 8,
-    paddingVertical: 10,
+    paddingVertical: 4,
     alignItems: "center",
     borderRadius: 6,
   },

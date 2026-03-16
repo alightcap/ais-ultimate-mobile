@@ -45,5 +45,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     maxWidth: "50%",
     textAlign: "right",
+    fontSize: 19,
   },
 });

@@ -1,10 +1,11 @@
 import EditButton from "@/src/components/EditButton";
+import HalfTimeToggle from "@/src/components/HalfTimeToggle";
 import HardCapPicker from "@/src/components/HardCapInput";
 import PointCapToggle from "@/src/components/PointCapToggle";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import StartOnToggle from "@/src/components/StartingOnToggle";
 import { useData } from "@/src/contexts/DataContext";
-import { StartingOnMode } from "@/src/lib/types";
+import { HalfTimeMode, StartingOnMode } from "@/src/lib/types";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { getDateTimeString } from "@/src/utils/dates";
 import BottomSheet, {
@@ -47,12 +48,15 @@ export default function GameIndex() {
   );
   const [pointCap, setPointCap] = useState<number>(currentGame?.pointCap ?? 13);
   const [hardCap, setHardCap] = useState<number>(currentGame?.hardCap ?? 75);
+  const [halfAt, setHalfAt] = useState<HalfTimeMode>(
+    currentGame?.halfAt ?? "points",
+  );
 
   if (!currentGame) return <Text>Game not found</Text>;
   if (!currentTeam) return <Text>Team not found</Text>;
   const { timeStamp, eventName, opponentName } = currentGame;
 
-  const handleStartingOnChange = async (newMode: "offense" | "defense") => {
+  const handleStartingOnChange = async (newMode: StartingOnMode) => {
     setStartingOn(newMode);
     await updateGame({ ...currentGame, startingOn: newMode });
   };
@@ -65,6 +69,11 @@ export default function GameIndex() {
   const handleHardCapChange = async (newHardCap: number) => {
     setHardCap(newHardCap);
     await updateGame({ ...currentGame, hardCap: newHardCap });
+  };
+
+  const handleHalfAtChange = async (newHalfAt: HalfTimeMode) => {
+    setHalfAt(newHalfAt);
+    await updateGame({ ...currentGame, halfAt: newHalfAt });
   };
 
   return (
@@ -113,6 +122,7 @@ export default function GameIndex() {
         <StartOnToggle
           currentMode={startingOn}
           onModeChange={handleStartingOnChange}
+          style={styles.itemText}
         />
       </View>
       <View style={styles.rowItem}>
@@ -120,44 +130,29 @@ export default function GameIndex() {
         <PointCapToggle
           currentPointCap={pointCap}
           onPointCapChange={handlePointCapChange}
+          style={styles.itemText}
         />
       </View>
       <View>
         <Pressable onPress={openSheet} style={styles.rowItem}>
           <Text style={styles.itemHeadingText}>Hard Cap</Text>
-          <Text
-            style={[
-              styles.itemText,
-              {
-                backgroundColor: Colors.brandPrimary,
-                color: Colors.white,
-                padding: 4,
-                paddingHorizontal: 8,
-                borderRadius: 5,
-              },
-            ]}
-          >
-            {hardCap} mins
+          <Text style={[styles.itemText, styles.interactiveText]}>
+            {hardCap} min
           </Text>
         </Pressable>
-
-        {/** add a toggle switch? or decide what to do */}
-        {/** how to add a push notification, or alarm, when hard cap goes on */}
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Half At</Text>
-        <Text>Half points, time, or first</Text>
-        {/** add a toggle switch? or decide what to do */}
+        <HalfTimeToggle
+          currentHalfTimeMode={halfAt}
+          onHalfTimeModeChange={handleHalfAtChange}
+          style={styles.itemText}
+        />
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Timeouts</Text>
         <Text>per half/floaters/taken</Text>
       </View>
-      {/* <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Wind</Text>
-        <Text>Details</Text>
-        <Text>Nav Arrow</Text>
-      </View> */}
 
       <BottomSheet
         ref={bottomSheetRef}
@@ -188,8 +183,6 @@ const styles = StyleSheet.create({
   rowItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    // padding: 10,
-    minHeight: 40,
     padding: 6,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
@@ -197,7 +190,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.surface,
   },
   itemText: {
-    fontSize: 22,
+    fontSize: 19,
+  },
+  interactiveText: {
+    backgroundColor: Colors.brandPrimary,
+    color: Colors.white,
+    padding: 4,
+    paddingHorizontal: 8,
+    borderRadius: 5,
+    fontWeight: "600",
   },
   scoreText: {
     fontSize: 19,
