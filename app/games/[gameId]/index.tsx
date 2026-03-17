@@ -123,7 +123,9 @@ export default function GameIndex() {
           <Text style={styles.itemHeadingText}>Recap</Text>
           <Text>Nav Arrow</Text>
         </View>
-        <Text style={GlobalStyles.headingText}>Configuration</Text>
+        <View style={GlobalStyles.titleContainer}>
+          <Text style={GlobalStyles.headingText}>Settings</Text>
+        </View>
         <View style={styles.rowItem}>
           <Text style={styles.itemHeadingText}>Starting on</Text>
           <StartOnToggle
