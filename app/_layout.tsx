@@ -11,9 +11,12 @@ export default function RootLayout() {
           <Stack.Screen name="index" options={{ title: "UltiAnalytics" }} />
           <Stack.Screen
             name="archivedTeams"
-            options={{ title: "Archived Teams" }}
+            options={{ title: "UltiAnalytics" }}
           />
-          <Stack.Screen name="teams/newTeam" options={{ title: "New Team" }} />
+          <Stack.Screen
+            name="teams/newTeam"
+            options={{ title: "UltiAnalytics" }}
+          />
           <Stack.Screen
             name="teams/[teamId]"
             options={{ headerShown: false }}

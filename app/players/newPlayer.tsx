@@ -60,12 +60,11 @@ export default function NewPlayer() {
     <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
-          headerTitle: `${currentTeam.name}`,
           headerLeft: (props) => <HeaderBack {...props} />,
         }}
       />
       <View style={GlobalStyles.titleContainer}>
-        <Text style={GlobalStyles.headingText}>New Player</Text>
+        <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
       </View>
       <View style={GlobalStyles.contentContainer}>
         <TextInputFormRow title="Name" item={newName} setItem={setNewName} />
