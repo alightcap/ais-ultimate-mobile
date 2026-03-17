@@ -26,11 +26,14 @@ export default function TeamIndex() {
           ),
         }}
       />
-      <View style={GlobalStyles.listContainer}>
+      <View style={GlobalStyles.titleContainer}>
         <Text style={GlobalStyles.headingText}>{team.name}</Text>
+      </View>
+      <View style={GlobalStyles.contentContainer}>
         <NavCard route={`/teams/${team.id}/roster`} title={"Players"} />
         <NavCard route={`/teams/${team.id}/games`} title={"Games"} />
       </View>
+      {/** what's that margin for? */}
       <View style={{ margin: 20 }}>
         <Button
           title={team.isArchived ? "Unarchive" : "Archive"}

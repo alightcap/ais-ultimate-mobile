@@ -30,8 +30,10 @@ export default function Players() {
           headerLeft: (props) => <HeaderBack {...props} />,
         }}
       />
-      <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
-      <View style={GlobalStyles.listContainer}>
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
+      </View>
+      <View style={GlobalStyles.contentContainer}>
         <FlatList
           data={roster}
           renderItem={({ item }) => (
@@ -44,6 +46,8 @@ export default function Players() {
           }
         />
       </View>
+
+      <BigButton title="Add Player(s)" onPress={() => setModalVisible(true)} />
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.emptyTop}>
@@ -72,7 +76,6 @@ export default function Players() {
           </View>
         </View>
       </Modal>
-      <BigButton title="Add Player(s)" onPress={() => setModalVisible(true)} />
     </View>
   );
 }

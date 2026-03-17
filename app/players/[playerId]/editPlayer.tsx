@@ -34,8 +34,10 @@ export default function EditPlayer() {
 
   return (
     <View style={GlobalStyles.container}>
-      <View style={GlobalStyles.contentContainer}>
+      <View style={GlobalStyles.titleContainer}>
         <Text style={GlobalStyles.headingText}>Edit Player</Text>
+      </View>
+      <View style={GlobalStyles.contentContainer}>
         <TextInputFormRow title="Name" item={name} setItem={setName} />
         <TextInputFormRow title="Number" item={number} setItem={setNumber} />
       </View>

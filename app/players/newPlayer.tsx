@@ -60,18 +60,23 @@ export default function NewPlayer() {
     <View style={GlobalStyles.container}>
       <Stack.Screen
         options={{
+          headerTitle: `${currentTeam.name}`,
           headerLeft: (props) => <HeaderBack {...props} />,
         }}
       />
-      <Text style={GlobalStyles.headingText}>{`${currentTeam.name}`}</Text>
-      <TextInputFormRow title="Name" item={newName} setItem={setNewName} />
-      <TextInputFormRow
-        title="Number"
-        item={newNumber}
-        setItem={setNewNumber}
-        placeholderText="0"
-        keyboardType="numeric"
-      />
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>New Player</Text>
+      </View>
+      <View style={GlobalStyles.contentContainer}>
+        <TextInputFormRow title="Name" item={newName} setItem={setNewName} />
+        <TextInputFormRow
+          title="Number"
+          item={newNumber}
+          setItem={setNewNumber}
+          placeholderText="0"
+          keyboardType="numeric"
+        />
+      </View>
       <MedButton title="Submit" onPress={() => handleSaveAndLeave()} />
       <MedButton
         title="Submit and Add Another"

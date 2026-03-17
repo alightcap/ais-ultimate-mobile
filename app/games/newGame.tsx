@@ -63,24 +63,28 @@ export default function NewGame() {
         }}
       />
       <View style={{ flex: 1 }}>
-        <Text style={GlobalStyles.headingText}>New Game</Text>
-        <TextInputFormRow
-          title="Opponent"
-          item={opponentName}
-          setItem={setOpponentName}
-        />
-        <TextInputFormRow
-          title="Event"
-          item={eventName}
-          setItem={setEventName}
-        />
+        <View style={GlobalStyles.titleContainer}>
+          <Text style={GlobalStyles.headingText}>New Game</Text>
+        </View>
+        <View style={GlobalStyles.contentContainer}>
+          <TextInputFormRow
+            title="Opponent"
+            item={opponentName}
+            setItem={setOpponentName}
+          />
+          <TextInputFormRow
+            title="Event"
+            item={eventName}
+            setItem={setEventName}
+          />
 
-        <GameDateInput
-          label="Date: "
-          date={timeStamp}
-          onChange={(newDate) => setTimeStamp(newDate)}
-          style={{ fontSize: 20 }}
-        />
+          <GameDateInput
+            label="Date: "
+            date={timeStamp}
+            onChange={(newDate) => setTimeStamp(newDate)}
+            style={{ fontSize: 20 }}
+          />
+        </View>
       </View>
 
       <BigButton title="Create Game" onPress={() => handleSave()} />

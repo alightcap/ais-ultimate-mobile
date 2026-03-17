@@ -91,11 +91,13 @@ export default function GameIndex() {
           ),
         }}
       />
-      <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
-      <ScoreBoard
-        game={currentGame}
-        style={[GlobalStyles.headingText, { color: "white" }]}
-      />
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
+        <ScoreBoard
+          game={currentGame}
+          style={[GlobalStyles.headingText, { color: "white" }]}
+        />
+      </View>
       <View style={GlobalStyles.contentContainer}>
         <View style={styles.rowItem}>
           <Text style={styles.itemHeadingText}>Date</Text>

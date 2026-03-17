@@ -35,20 +35,23 @@ export default function PlayerIndex() {
           ),
         }}
       />
-      <Text style={GlobalStyles.headingText}>{currentPlayer.name}</Text>
-      <View style={styles.rowContainer}>
-        <Text style={styles.displayText}>Number: </Text>
-        <Text style={styles.displayText}>{currentPlayer.number}</Text>
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>{currentPlayer.name}</Text>
       </View>
-      <View style={styles.rowContainer}>
-        <Text style={styles.displayText}>Playing: </Text>
-        <Switch
-          onValueChange={handleTogglePlayer}
-          value={isActive}
-          trackColor={{ true: Colors.brandAccent }}
-        />
+      <View style={GlobalStyles.contentContainer}>
+        <View style={styles.rowContainer}>
+          <Text style={styles.displayText}>Number: </Text>
+          <Text style={styles.displayText}>{currentPlayer.number}</Text>
+        </View>
+        <View style={styles.rowContainer}>
+          <Text style={styles.displayText}>Playing: </Text>
+          <Switch
+            onValueChange={handleTogglePlayer}
+            value={isActive}
+            trackColor={{ true: Colors.brandAccent }}
+          />
+        </View>
       </View>
-      {/* TODO add an edit button */}
     </View>
   );
 }

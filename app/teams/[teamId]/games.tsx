@@ -24,12 +24,14 @@ export default function Games() {
       <Stack.Screen
         options={{ headerLeft: (props) => <HeaderBack {...props} /> }}
       />
-      <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
-      <TeamRecord
-        games={currentGames}
-        style={[GlobalStyles.headingText, { color: "white" }]}
-      />
-      <View style={GlobalStyles.listContainer}>
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
+        <TeamRecord
+          games={currentGames}
+          style={[GlobalStyles.headingText, { color: "white" }]}
+        />
+      </View>
+      <View style={GlobalStyles.contentContainer}>
         <FlatList
           data={currentGames}
           renderItem={({ item }) => <GameCard game={item} />}

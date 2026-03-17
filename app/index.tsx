@@ -28,12 +28,15 @@ export default function TeamsIndex() {
           ),
         }}
       />
-
-      <Text style={GlobalStyles.headingText}>My Teams</Text>
-      <TeamList
-        teams={activeTeams}
-        emptyMessage="There are no teams to display."
-      />
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>My Teams</Text>
+      </View>
+      <View style={GlobalStyles.contentContainer}>
+        <TeamList
+          teams={activeTeams}
+          emptyMessage="There are no teams to display."
+        />
+      </View>
       <BigButton
         onPress={() => router.push("/teams/newTeam")}
         title="New Team"

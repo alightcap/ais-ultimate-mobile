@@ -4,7 +4,7 @@ import { GlobalStyles } from "@/src/styles/global";
 import { getId } from "@/src/utils/uniqueId";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Button, View } from "react-native";
+import { Alert, Button, Text, View } from "react-native";
 
 export default function NewTeam() {
   const router = useRouter();
@@ -30,7 +30,18 @@ export default function NewTeam() {
 
   return (
     <View style={GlobalStyles.container}>
-      <TextInputFormRow title="Team Name" item={newName} setItem={setNewName} />
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>New Team</Text>
+      </View>
+
+      <View style={GlobalStyles.contentContainer}>
+        <TextInputFormRow
+          title="Team Name"
+          item={newName}
+          setItem={setNewName}
+        />
+      </View>
+
       <Button title="Submit" onPress={handleSave} />
     </View>
   );

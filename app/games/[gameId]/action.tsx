@@ -16,9 +16,9 @@ export default function Action() {
   const activePlayers = roster.filter((p) => p.active);
 
   return (
-    <View>
+    <View style={GlobalStyles.container}>
       <Stack.Screen options={{ headerTitle: "Action" }} />
-      <View style={{ borderBottomWidth: 2, borderBottomColor: Colors.border }}>
+      <View style={GlobalStyles.titleContainer}>
         <ScoreBoard
           game={currentGame}
           style={[GlobalStyles.headingText, { color: Colors.white }]}

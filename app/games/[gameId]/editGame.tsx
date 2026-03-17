@@ -3,7 +3,7 @@ import GameDateInput from "@/src/components/GameDateInput";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
 
@@ -41,9 +41,10 @@ export default function EditGame() {
 
   return (
     <View style={GlobalStyles.container}>
-      <Stack.Screen />
-      <View style={GlobalStyles.contentContainer}>
+      <View style={GlobalStyles.titleContainer}>
         <Text style={GlobalStyles.headingText}>Edit Game</Text>
+      </View>
+      <View style={GlobalStyles.contentContainer}>
         <TextInputFormRow
           title="Opponent"
           item={opponentName}

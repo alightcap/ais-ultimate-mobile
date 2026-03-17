@@ -4,7 +4,7 @@ import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 
 export default function EditTeam() {
   const { teamId } = useLocalSearchParams<{ teamId: string }>();
@@ -32,6 +32,9 @@ export default function EditTeam() {
 
   return (
     <View style={GlobalStyles.container}>
+      <View style={GlobalStyles.titleContainer}>
+        <Text style={GlobalStyles.headingText}>Edit Team</Text>
+      </View>
       <View style={GlobalStyles.contentContainer}>
         <TextInputFormRow
           title="Team Name"
