@@ -14,7 +14,7 @@ export default function ScoreBoard({
   const areWinning = ourScore > theirScore;
 
   const getStatusStyle = () => {
-    if (isTied) return null;
+    if (isTied) return styles.tied;
     return areWinning ? styles.winning : styles.losing;
   };
 
@@ -27,19 +27,31 @@ export default function ScoreBoard({
 
 const styles = StyleSheet.create({
   scoreText: {
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingHorizontal: 6,
+    paddingHorizontal: 8,
     minWidth: 50,
     textAlign: "center",
     alignSelf: "center",
+    color: "white",
+    fontWeight: "800",
+    borderRadius: 5,
+    paddingVertical: 4,
+  },
+  indicatorText: {
+    padding: 4,
+    borderRadius: 5,
+    marginRight: 5,
+    width: 30,
+    textAlign: "center",
+    color: "white",
+    fontWeight: "800",
   },
   winning: {
-    borderColor: Colors.active,
-    borderStyle: "dotted",
+    backgroundColor: "green",
   },
   losing: {
-    borderColor: Colors.error,
-    borderStyle: "dashed",
+    backgroundColor: "red",
+  },
+  tied: {
+    backgroundColor: Colors.textMuted,
   },
 });

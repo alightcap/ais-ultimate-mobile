@@ -94,11 +94,11 @@ export default function GameIndex() {
       <ScoreBoard game={currentGame} style={GlobalStyles.headingText} />
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Date</Text>
-        <Text style={styles.scoreText}>{getDateTimeString(timeStamp)}</Text>
+        <Text style={styles.itemText}>{getDateTimeString(timeStamp)}</Text>
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Opponent</Text>
-        <Text style={styles.scoreText}>{opponentName}</Text>
+        <Text style={styles.itemText}>{opponentName}</Text>
       </View>
       <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Event</Text>
@@ -149,10 +149,10 @@ export default function GameIndex() {
           style={styles.itemText}
         />
       </View>
-      <View style={styles.rowItem}>
+      {/* <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Timeouts</Text>
         <Text>per half/floaters/taken</Text>
-      </View>
+      </View> */}
 
       <BottomSheet
         ref={bottomSheetRef}

@@ -25,7 +25,10 @@ export default function Games() {
         options={{ headerLeft: (props) => <HeaderBack {...props} /> }}
       />
       <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
-      <TeamRecord games={currentGames} style={GlobalStyles.headingText} />
+      <TeamRecord
+        games={currentGames}
+        style={[GlobalStyles.headingText, { color: "white" }]}
+      />
       <View style={GlobalStyles.listContainer}>
         <FlatList
           data={currentGames}

@@ -10,13 +10,13 @@ export default function TeamRecord({
   style?: StyleProp<TextStyle>;
 }) {
   const numWinning = games.filter((g) => g.ourScore > g.theirScore).length;
-  const numLosing = games.length - numWinning;
+  const numLosing = games.filter((g) => g.ourScore < g.theirScore).length;
 
   const isFiveHundred = numWinning === numLosing;
   const isWinningRecord = numWinning > numLosing;
 
   const getRecordStyle = () => {
-    if (isFiveHundred) return null;
+    if (isFiveHundred) return styles.fiveHundred;
     return isWinningRecord ? styles.winning : styles.losing;
   };
 
@@ -29,19 +29,21 @@ export default function TeamRecord({
 
 const styles = StyleSheet.create({
   recordText: {
-    borderWidth: 2,
     borderRadius: 5,
-    paddingHorizontal: 6,
+    paddingHorizontal: 8,
     minWidth: 50,
     textAlign: "center",
     alignSelf: "center",
+    color: "white",
+    paddingVertical: 4,
   },
   winning: {
-    borderColor: Colors.active,
-    borderStyle: "dotted",
+    backgroundColor: "green",
   },
   losing: {
-    borderColor: Colors.error,
-    borderStyle: "dashed",
+    backgroundColor: "red",
+  },
+  fiveHundred: {
+    backgroundColor: Colors.textMuted,
   },
 });

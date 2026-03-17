@@ -25,6 +25,7 @@ export const Colors = {
   textMuted: palette.gray500,
   border: "#c6c6c8",
   buttonPress: palette.gray500,
+  grayHighlight: palette.gray900,
 
   brandPrimary: palette.primaryMid,
   brandAccent: palette.primaryLight,
