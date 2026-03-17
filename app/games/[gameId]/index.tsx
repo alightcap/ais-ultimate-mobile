@@ -1,3 +1,4 @@
+import BigButton from "@/src/components/BigButton";
 import EditButton from "@/src/components/EditButton";
 import HalfTimeToggle from "@/src/components/HalfTimeToggle";
 import HardCapPicker from "@/src/components/HardCapInput";
@@ -91,68 +92,82 @@ export default function GameIndex() {
         }}
       />
       <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
-      <ScoreBoard game={currentGame} style={GlobalStyles.headingText} />
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Date</Text>
-        <Text style={styles.itemText}>{getDateTimeString(timeStamp)}</Text>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Opponent</Text>
-        <Text style={styles.itemText}>{opponentName}</Text>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Event</Text>
-        <Text>{eventName}</Text>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Weather</Text>
-        <Text>weatherKit</Text>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Statistics</Text>
-        <Text>Nav Arrow</Text>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Recap</Text>
-        <Text>Nav Arrow</Text>
-      </View>
-      <Text style={GlobalStyles.headingText}>Configuration</Text>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Starting on</Text>
-        <StartOnToggle
-          currentMode={startingOn}
-          onModeChange={handleStartingOnChange}
-          style={styles.itemText}
-        />
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Point Cap</Text>
-        <PointCapToggle
-          currentPointCap={pointCap}
-          onPointCapChange={handlePointCapChange}
-          style={styles.itemText}
-        />
-      </View>
-      <View>
-        <Pressable onPress={openSheet} style={styles.rowItem}>
-          <Text style={styles.itemHeadingText}>Hard Cap</Text>
-          <Text style={[styles.itemText, styles.interactiveText]}>
-            {hardCap} min
-          </Text>
-        </Pressable>
-      </View>
-      <View style={styles.rowItem}>
-        <Text style={styles.itemHeadingText}>Half At</Text>
-        <HalfTimeToggle
-          currentHalfTimeMode={halfAt}
-          onHalfTimeModeChange={handleHalfAtChange}
-          style={styles.itemText}
-        />
-      </View>
-      {/* <View style={styles.rowItem}>
+      <ScoreBoard
+        game={currentGame}
+        style={[GlobalStyles.headingText, { color: "white" }]}
+      />
+      <View style={GlobalStyles.contentContainer}>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Date</Text>
+          <Text style={styles.itemText}>{getDateTimeString(timeStamp)}</Text>
+        </View>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Opponent</Text>
+          <Text style={styles.itemText}>{opponentName}</Text>
+        </View>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Event</Text>
+          <Text>{eventName}</Text>
+        </View>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Weather</Text>
+          <Text>weatherKit</Text>
+        </View>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Statistics</Text>
+          <Text>Nav Arrow</Text>
+        </View>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Recap</Text>
+          <Text>Nav Arrow</Text>
+        </View>
+        <Text style={GlobalStyles.headingText}>Configuration</Text>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Starting on</Text>
+          <StartOnToggle
+            currentMode={startingOn}
+            onModeChange={handleStartingOnChange}
+            style={styles.itemText}
+          />
+        </View>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Point Cap</Text>
+          <PointCapToggle
+            currentPointCap={pointCap}
+            onPointCapChange={handlePointCapChange}
+            style={styles.itemText}
+          />
+        </View>
+        <View>
+          <Pressable onPress={openSheet} style={styles.rowItem}>
+            <Text style={styles.itemHeadingText}>Time Cap</Text>
+            <Text style={[styles.itemText, styles.interactiveText]}>
+              {hardCap} min
+            </Text>
+          </Pressable>
+        </View>
+        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Half At</Text>
+          <HalfTimeToggle
+            currentHalfTimeMode={halfAt}
+            onHalfTimeModeChange={handleHalfAtChange}
+            style={styles.itemText}
+          />
+        </View>
+        {/* <View style={styles.rowItem}>
         <Text style={styles.itemHeadingText}>Timeouts</Text>
         <Text>per half/floaters/taken</Text>
       </View> */}
+      </View>
+      <BigButton
+        title="Action"
+        onPress={() =>
+          router.push({
+            pathname: "/games/[gameId]/action",
+            params: { gameId: gameId },
+          })
+        }
+      />
 
       <BottomSheet
         ref={bottomSheetRef}
@@ -194,6 +209,10 @@ const styles = StyleSheet.create({
   },
   interactiveText: {
     backgroundColor: Colors.brandPrimary,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
     color: Colors.white,
     padding: 4,
     paddingHorizontal: 8,

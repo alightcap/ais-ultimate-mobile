@@ -29,6 +29,7 @@ export default function GameLayout() {
     >
       <Stack.Screen name="index" />
       <Stack.Screen name="editGame" />
+      <Stack.Screen name="action" />
     </Stack>
   );
 }

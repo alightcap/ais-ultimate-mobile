@@ -2,14 +2,24 @@ import EditButton from "@/src/components/EditButton";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { useState } from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
 export default function PlayerIndex() {
   const { playerId } = useLocalSearchParams<{ playerId: string }>();
-  const { players, togglePlayerAvailability } = useData();
-  const player = players.find((p) => p.id === playerId);
+  const { players, updatePlayer } = useData();
+  const currentPlayer = players.find((p) => p.id === playerId);
+  const [isActive, setIsActive] = useState<boolean>(
+    currentPlayer?.active ?? true,
+  );
 
-  if (!player) return <Text> Player not found</Text>;
+  if (!currentPlayer) return <Text> Player not found</Text>;
+
+  const handleTogglePlayer = async () => {
+    const nextActive = !isActive;
+    setIsActive(nextActive);
+    await updatePlayer({ ...currentPlayer, active: nextActive });
+  };
 
   return (
     <View style={GlobalStyles.container}>
@@ -25,16 +35,16 @@ export default function PlayerIndex() {
           ),
         }}
       />
-      <Text style={GlobalStyles.headingText}>{player.name}</Text>
+      <Text style={GlobalStyles.headingText}>{currentPlayer.name}</Text>
       <View style={styles.rowContainer}>
         <Text style={styles.displayText}>Number: </Text>
-        <Text style={styles.displayText}>{player.number}</Text>
+        <Text style={styles.displayText}>{currentPlayer.number}</Text>
       </View>
       <View style={styles.rowContainer}>
         <Text style={styles.displayText}>Playing: </Text>
         <Switch
-          onValueChange={() => togglePlayerAvailability(player.id)}
-          value={player.active}
+          onValueChange={handleTogglePlayer}
+          value={isActive}
           trackColor={{ true: Colors.brandAccent }}
         />
       </View>

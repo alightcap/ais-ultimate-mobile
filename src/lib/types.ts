@@ -59,7 +59,6 @@ export interface DataContextType {
   updateGame: (updatedGame: Game) => Promise<void>;
   updatePlayer: (updatedPlayer: Player) => Promise<void>;
   updateTeam: (updatedTeam: Team) => Promise<void>;
-  togglePlayerAvailability: (playerId: string) => void;
 }
 
 export interface TextInputFormRowProps {

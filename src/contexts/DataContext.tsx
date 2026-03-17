@@ -180,14 +180,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const togglePlayerAvailability = (playerId: string) => {
-    setPlayers((prevPlayers) =>
-      prevPlayers.map((p) =>
-        p.id === playerId ? { ...p, active: !p.active } : p,
-      ),
-    );
-  };
-
   return (
     <DataContext.Provider
       value={{
@@ -202,7 +194,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
         updateGame,
         updatePlayer,
         updateTeam,
-        togglePlayerAvailability,
       }}
     >
       {children}
