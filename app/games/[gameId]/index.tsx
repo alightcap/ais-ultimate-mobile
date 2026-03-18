@@ -53,9 +53,9 @@ export default function GameIndex() {
   const [halfAt, setHalfAt] = useState<HalfTimeMode>(
     currentGame?.halfAt ?? "points",
   );
-  const [hasPossession, setHasPossession] = useState<boolean>(
-    currentGame?.hasPossession ?? true,
-  );
+  // const [hasPossession, setHasPossession] = useState<boolean>(
+  //   currentGame?.hasPossession ?? true,
+  // );
 
   if (!currentGame) return <Text>Game not found</Text>;
   if (!currentTeam) return <Text>Team not found</Text>;
@@ -63,16 +63,16 @@ export default function GameIndex() {
 
   const handleStartingOnChange = async (newMode: StartingOnMode) => {
     setStartingOn(newMode);
-    const newHasPossession =
-      (currentGame?.actions?.length ?? 0) === 0
-        ? newMode === "offense"
-        : hasPossession;
-    setHasPossession(newHasPossession);
+    // const newHasPossession =
+    //   (currentGame?.points?.length ?? 0) === 0
+    //     ? newMode === "offense"
+    //     : hasPossession;
+    // setHasPossession(newHasPossession);
 
     await updateGame({
       ...currentGame,
       startingOn: newMode,
-      hasPossession: newHasPossession,
+      // hasPossession: newHasPossession,
     });
   };
 

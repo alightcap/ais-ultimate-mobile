@@ -19,9 +19,9 @@ export default function Players() {
   const currentTeam = teams.find((t) => t.id === teamId);
   if (!currentTeam) return <Text>Team not found</Text>;
 
-  const roster = players.filter((player) =>
-    currentTeam?.playerIDs.includes(player.id),
-  );
+  const roster = players
+    .filter((player) => currentTeam?.playerIDs.includes(player.id))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <View style={GlobalStyles.container}>
@@ -37,7 +37,10 @@ export default function Players() {
         <FlatList
           data={roster}
           renderItem={({ item }) => (
-            <NavCard route={`/players/${item.id}`} title={item.name} />
+            <NavCard
+              route={`/players/${item.id}`}
+              title={`${item.name} (${item.number})`} // clean this up with two distict text elements
+            />
           )}
           ListEmptyComponent={
             <Text style={GlobalStyles.empty}>

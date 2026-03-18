@@ -41,13 +41,14 @@ export default function NewGame() {
       ourScore: 0,
       theirScore: 0,
       isOver: false,
+      isUploaded: false,
       isArchived: false,
       startingOn: "offense",
       pointCap: 13,
       hardCap: 75,
       halfAt: "points",
-      hasPossession: true,
-      actions: [],
+      // hasPossession: true,
+      points: [],
     });
     router.replace({
       pathname: "/games/[gameId]",

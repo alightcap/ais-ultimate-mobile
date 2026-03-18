@@ -19,21 +19,23 @@ export interface DataContextType {
 }
 
 export interface Game {
-  actions: any[];
-  eventName: string | undefined;
+  points: any[]; //
+  eventName: string; //
   halfAt: HalfTimeMode;
-  hardCap: number;
-  hasPossession: boolean;
-  id: string;
+  hardCap: number; //
+  id: string; //
   isArchived: boolean;
   isOver: boolean;
-  opponentName: string;
+  isUploaded: boolean;
+  opponentName: string; //
   ourScore: number;
   pointCap: number;
-  startingOn: StartingOnMode;
+  startingOn: StartingOnMode; //
   teamId: string;
-  theirScore: number;
+  theirScore: number; //
   timeStamp: number;
+  // common to UltiAnalytics
+  //
 }
 
 export type HalfTimeMode = "first" | "points" | "time";
@@ -72,6 +74,19 @@ export interface TextInputFormRowProps {
   setItem: (text: string) => void;
   title: string;
 }
+
+/**
+ * Points:
+ * pointNumbe: number,
+ * currentLine: Player[],
+ * startedOn: "offense" | "defence",
+ * actions: Action[],
+ * result: "clean hold" | "hold" | "clean break" | "break",
+ * ourScoreChange: 0 | 1,
+ * theirScoreChange: 0 | 1,
+ * startTimeStamp: number,
+ * endTimeStamp: number,
+ */
 
 /**
  * Actions:
