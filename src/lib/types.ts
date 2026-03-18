@@ -1,5 +1,23 @@
 import { KeyboardTypeOptions } from "react-native";
 
+export interface DataContextType {
+  addGame: (newGame: Game) => Promise<void>;
+  addPlayer: (newPlayer: Player) => Promise<void>;
+  addTeam: (newTeam: Team) => Promise<void>;
+  games: Game[];
+  linkPlayersToTeam: (playerIds: string[], teamId: string) => Promise<void>;
+  players: Player[];
+  teams: Team[];
+  toggleArchiveEntity: (
+    type: "teams" | "players" | "games",
+    id: string,
+    isArchived: boolean,
+  ) => Promise<void>;
+  updateGame: (updatedGame: Game) => Promise<void>;
+  updatePlayer: (updatedPlayer: Player) => Promise<void>;
+  updateTeam: (updatedTeam: Team) => Promise<void>;
+}
+
 export interface Game {
   actions: any[];
   eventName: string | undefined;
@@ -18,58 +36,41 @@ export interface Game {
   timeStamp: number;
 }
 
+export type HalfTimeMode = "first" | "points" | "time";
+
 export interface Player {
+  active: boolean;
   id: string;
+  isArchived: boolean;
   name: string;
   number: number;
   teamIDs: string[];
-  active: boolean;
-  isArchived: boolean;
 }
 
-export type StartingOnMode = "offense" | "defense";
-export type HalfTimeMode = "points" | "time" | "first";
+export type StartingOnMode = "defense" | "offense";
 
 export interface Team {
-  id: string;
-  name: string;
-  shortName: string;
-  playerIDs: string[];
   gameIDs: string[];
+  id: string;
   isArchived: boolean;
+  name: string;
+  playerIDs: string[];
+  shortName: string;
 }
 
 export interface TeamListProps {
-  teams: Team[];
   emptyMessage: string;
   renderRightAction?: (team: Team) => React.ReactNode;
-}
-
-export interface DataContextType {
   teams: Team[];
-  players: Player[];
-  games: Game[];
-  addGame: (newGame: Game) => Promise<void>;
-  addTeam: (newTeam: Team) => Promise<void>;
-  addPlayer: (newPlayer: Player) => Promise<void>;
-  linkPlayersToTeam: (playerIds: string[], teamId: string) => Promise<void>;
-  toggleArchiveEntity: (
-    type: "teams" | "players" | "games",
-    id: string,
-    isArchived: boolean,
-  ) => Promise<void>;
-  updateGame: (updatedGame: Game) => Promise<void>;
-  updatePlayer: (updatedPlayer: Player) => Promise<void>;
-  updateTeam: (updatedTeam: Team) => Promise<void>;
 }
 
 export interface TextInputFormRowProps {
-  title: string;
-  item: string;
-  setItem: (text: string) => void;
   autoFocus?: boolean;
-  placeholderText?: string;
+  item: string;
   keyboardType?: KeyboardTypeOptions;
+  placeholderText?: string;
+  setItem: (text: string) => void;
+  title: string;
 }
 
 /**

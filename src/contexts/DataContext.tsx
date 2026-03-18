@@ -211,13 +211,13 @@ export function DataProvider({ children }: { children: ReactNode }) {
   return (
     <DataContext.Provider
       value={{
-        teams,
-        players,
-        games,
         addGame,
-        addTeam,
         addPlayer,
+        addTeam,
+        games,
         linkPlayersToTeam,
+        players,
+        teams,
         toggleArchiveEntity,
         updateGame,
         updatePlayer,
