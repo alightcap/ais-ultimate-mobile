@@ -9,6 +9,7 @@ import { useData } from "@/src/contexts/DataContext";
 import { HalfTimeMode, StartingOnMode } from "@/src/lib/types";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { getDateTimeString } from "@/src/utils/dates";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
@@ -19,7 +20,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function GameIndex() {
   const router = useRouter();
-  const { games, teams, players, updateGame } = useData();
+  const { games, teams, updateGame } = useData();
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
 
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -43,7 +44,7 @@ export default function GameIndex() {
 
   const currentTeam = teams.find((t) => t.id === currentGame?.teamId);
 
-  const roster = players.filter((p) => currentTeam?.playerIDs.includes(p.id));
+  // const roster = players.filter((p) => currentTeam?.playerIDs.includes(p.id));
   const [startingOn, setStartingOn] = useState<StartingOnMode>(
     currentGame?.startingOn ?? "offense",
   );
@@ -52,6 +53,9 @@ export default function GameIndex() {
   const [halfAt, setHalfAt] = useState<HalfTimeMode>(
     currentGame?.halfAt ?? "points",
   );
+  const [hasPossession, setHasPossession] = useState<boolean>(
+    currentGame?.hasPossession ?? true,
+  );
 
   if (!currentGame) return <Text>Game not found</Text>;
   if (!currentTeam) return <Text>Team not found</Text>;
@@ -59,7 +63,17 @@ export default function GameIndex() {
 
   const handleStartingOnChange = async (newMode: StartingOnMode) => {
     setStartingOn(newMode);
-    await updateGame({ ...currentGame, startingOn: newMode });
+    const newHasPossession =
+      (currentGame?.actions.length ?? 0) === 0
+        ? newMode === "offense"
+        : hasPossession;
+    setHasPossession(newHasPossession);
+
+    await updateGame({
+      ...currentGame,
+      startingOn: newMode,
+      hasPossession: newHasPossession,
+    });
   };
 
   const handlePointCapChange = async (newPointCap: number) => {
@@ -115,6 +129,19 @@ export default function GameIndex() {
           <Text style={styles.itemHeadingText}>Weather</Text>
           <Text>weatherKit</Text>
         </View>
+        <Pressable
+          onPress={() =>
+            router.push({
+              pathname: "../teams/[teamId]/roster",
+              params: { teamId: currentTeam.id },
+            })
+          }
+        >
+          <View style={styles.rowItem}>
+            <Text style={styles.itemHeadingText}>Roster</Text>
+            <Ionicons name="chevron-forward" size={20} color="black" />
+          </View>
+        </Pressable>
         <View style={styles.rowItem}>
           <Text style={styles.itemHeadingText}>Statistics</Text>
           <Text>Nav Arrow</Text>
@@ -207,6 +234,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
     alignItems: "center",
     backgroundColor: Colors.surface,
+    minHeight: 40,
   },
   itemText: {
     fontSize: 19,

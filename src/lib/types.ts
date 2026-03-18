@@ -1,15 +1,17 @@
 import { KeyboardTypeOptions } from "react-native";
 
 export interface Game {
+  actions: any[];
   eventName: string | undefined;
-  pointCap: number;
   halfAt: HalfTimeMode;
   hardCap: number;
+  hasPossession: boolean;
   id: string;
   isArchived: boolean;
   isOver: boolean;
   opponentName: string;
   ourScore: number;
+  pointCap: number;
   startingOn: StartingOnMode;
   teamId: string;
   theirScore: number;
@@ -69,3 +71,18 @@ export interface TextInputFormRowProps {
   placeholderText?: string;
   keyboardType?: KeyboardTypeOptions;
 }
+
+/**
+ * Actions:
+ * Catch,
+ * Drop,
+ * Goal,
+ * Throwaway,
+ * Pull,
+ * De,
+ * Callahan,
+ * PullOb,
+ * Stall,
+ * Halftime,
+ * GameOver,
+ */

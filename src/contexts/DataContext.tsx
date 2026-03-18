@@ -3,9 +3,15 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
-import { ActivityIndicator, View } from "react-native";
+import {
+  ActivityIndicator,
+  AppState,
+  AppStateStatus,
+  View,
+} from "react-native";
 import {
   games as placeholderGames,
   players as placeholderPlayers,
@@ -21,6 +27,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const appState = useRef(AppState.currentState);
 
   useEffect(() => {
     const init = async () => {
@@ -37,6 +44,27 @@ export function DataProvider({ children }: { children: ReactNode }) {
     };
     init();
   }, []);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      "change",
+      async (nextAppState: AppStateStatus) => {
+        if (
+          appState.current === "active" &&
+          nextAppState.match(/inactive|background/)
+        ) {
+          console.log("App moved to background, persisting data...");
+
+          await saveData(KEYS.PLAYERS, players);
+          await saveData(KEYS.GAMES, games);
+          await saveData(KEYS.TEAMS, teams);
+        }
+        appState.current = nextAppState;
+      },
+    );
+
+    return () => subscription.remove();
+  }, [players, games, teams]);
 
   if (isLoading) {
     return (
