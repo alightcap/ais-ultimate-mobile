@@ -64,7 +64,7 @@ export default function GameIndex() {
   const handleStartingOnChange = async (newMode: StartingOnMode) => {
     setStartingOn(newMode);
     const newHasPossession =
-      (currentGame?.actions.length ?? 0) === 0
+      (currentGame?.actions?.length ?? 0) === 0
         ? newMode === "offense"
         : hasPossession;
     setHasPossession(newHasPossession);
