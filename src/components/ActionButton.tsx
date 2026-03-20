@@ -1,9 +1,17 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, ViewStyle } from "react-native";
 import { Colors } from "../styles/global";
 
-export default function ActionButton({ label }: { label: string }) {
+export default function ActionButton({
+  label,
+  onPress,
+  style,
+}: {
+  label: string;
+  onPress?: () => void;
+  style?: ViewStyle;
+}) {
   return (
-    <Pressable style={styles.button}>
+    <Pressable style={[styles.button, style]} onPress={onPress}>
       <Text style={styles.buttonText}>{label}</Text>
     </Pressable>
   );
