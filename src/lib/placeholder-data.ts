@@ -2,6 +2,7 @@ import { Game, Player, Team } from "./types";
 
 export const games: Game[] = [
   {
+    currentLine: [],
     id: "3jqki8x",
     timeStamp: 1741544522000,
     teamId: "j0v81y1",
@@ -17,8 +18,10 @@ export const games: Game[] = [
     hardCap: 75,
     startingOn: "offense",
     pointCap: 13,
+    hasPossession: true,
   },
   {
+    currentLine: [],
     id: "utpjp1u",
     timeStamp: 1773340473821,
     teamId: "j0v81y1",
@@ -34,8 +37,10 @@ export const games: Game[] = [
     hardCap: 75,
     startingOn: "offense",
     pointCap: 13,
+    hasPossession: true,
   },
   {
+    currentLine: [],
     id: "0t2ejga",
     timeStamp: 1773340473821,
     teamId: "j0v81y1",
@@ -51,6 +56,7 @@ export const games: Game[] = [
     hardCap: 75,
     startingOn: "offense",
     pointCap: 13,
+    hasPossession: true,
   },
 ];
 

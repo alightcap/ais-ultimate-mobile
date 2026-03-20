@@ -19,10 +19,12 @@ export interface DataContextType {
 }
 
 export interface Game {
+  currentLine: Player[];
   points: any[]; //
   eventName: string; //
   halfAt: HalfTimeMode;
   hardCap: number; //
+  hasPossession: boolean;
   id: string; //
   isArchived: boolean;
   isOver: boolean;

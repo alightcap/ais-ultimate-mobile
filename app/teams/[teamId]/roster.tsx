@@ -38,7 +38,7 @@ export default function Players() {
           data={roster}
           renderItem={({ item }) => (
             <NavCard
-              route={`/players/${item.id}`}
+              route={`/players/${item.id}`} // indicate inactive players somehow?
               title={`${item.name} (${item.number})`} // clean this up with two distict text elements
             />
           )}

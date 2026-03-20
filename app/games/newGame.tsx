@@ -47,8 +47,9 @@ export default function NewGame() {
       pointCap: 13,
       hardCap: 75,
       halfAt: "points",
-      // hasPossession: true,
+      hasPossession: true,
       points: [],
+      currentLine: [],
     });
     router.replace({
       pathname: "/games/[gameId]",
