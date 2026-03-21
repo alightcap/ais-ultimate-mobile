@@ -1,3 +1,5 @@
+import BigButton from "@/src/components/BigButton";
+import DefenseView from "@/src/components/DefenseView";
 import OffenseView from "@/src/components/OffenseView";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import { useData } from "@/src/contexts/DataContext";
@@ -21,6 +23,7 @@ export default function Action() {
       ? currentGame?.currentLine
       : activePlayers.slice(0, 7),
   );
+  const [currentPoint, setCurrentPoint] = useState(currentGame?.points[-1]);
   const [currentPossession, setCurrentPossession] = useState(
     currentGame?.hasPossession,
   );
@@ -40,8 +43,16 @@ export default function Action() {
         />
       </View>
       <View style={GlobalStyles.contentContainer}>
-        <OffenseView currentLine={currentLine} />
+        {currentPossession ? (
+          <OffenseView currentLine={currentLine} currentPoint={currentPoint} />
+        ) : (
+          <DefenseView currentLine={currentLine} currentPoint={currentPoint} />
+        )}
       </View>
+      <BigButton
+        title="SWITCH"
+        onPress={() => setCurrentPossession(!currentPossession)}
+      />
     </View>
   );
 }

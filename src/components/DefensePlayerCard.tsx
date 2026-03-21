@@ -1,41 +1,27 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Pressable, StyleSheet, Text, TextStyle, View } from "react-native";
+import { StyleSheet, Text, TextStyle, View } from "react-native";
 import { Colors } from "../styles/global";
 import ActionButton from "./ActionButton";
 
-export default function OffensePlayerCard({
+export default function DefensePlayerCard({
   name,
-  hasDisc,
+  onD,
   textStyle,
-  onPress,
-  onCatch,
-  onDrop,
-  onGoal,
 }: {
   name: string;
-  hasDisc: boolean;
+  onD: () => void;
   textStyle?: TextStyle;
-  onPress?: () => void;
-  onCatch: () => void;
-  onDrop: () => void;
-  onGoal: () => void;
 }) {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.nameView} onPress={onPress}>
+      <View style={styles.nameView}>
         <Text style={[styles.nameText, textStyle]}>{name}</Text>
-      </Pressable>
+      </View>
       <View style={styles.arrowView}>
         <Ionicons name="arrow-forward" />
       </View>
       <View style={styles.buttonView}>
-        {!hasDisc && (
-          <>
-            <ActionButton label="Catch" onPress={onCatch} />
-            <ActionButton label="Drop" onPress={onDrop} />
-            <ActionButton label="Goal" onPress={onGoal} />
-          </>
-        )}
+        <ActionButton label="D" onPress={onD} />
       </View>
     </View>
   );
@@ -49,23 +35,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonView: {
-    flex: 3,
-    flexDirection: "row",
+    flex: 1,
   },
   container: {
     backgroundColor: Colors.surface,
     flexDirection: "row",
     height: 50,
   },
+  nameText: {
+    textAlign: "right",
+    fontWeight: "900",
+  },
   nameView: {
     flex: 1.5,
     height: "100%",
     justifyContent: "center",
     padding: 2,
-  },
-  nameText: {
-    textAlign: "right",
-    fontWeight: "900",
-    color: Colors.brandPrimary,
   },
 });
