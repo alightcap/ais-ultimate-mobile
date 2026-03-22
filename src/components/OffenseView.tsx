@@ -28,10 +28,11 @@ export default function OffenseView({
       <View style={{ flexDirection: "row" }}>
         <View style={{ flex: 5, margin: 2 }}>
           {currentLine.map((player) => (
-            <OffensePlayerCard
+            <OffensePlayerCard // may need to refactor the buttons out in order to hide them before a player picks up the disc
               key={player.id}
               name={player.name}
               hasDisc={selectedPlayer === player}
+              showButtons={selectedPlayer !== undefined}
               onPress={() => setSelectedPlayer(player)}
               onCatch={() => handleCatch(player)} // record catch from selected player to this player
               onDrop={() => {}} // record drop by this player, switch to defence
@@ -42,6 +43,7 @@ export default function OffenseView({
             name="UNKNOWN"
             hasDisc={false}
             textStyle={{ fontStyle: "italic" }}
+            showButtons={selectedPlayer !== undefined}
             onPress={() => {}}
             onCatch={() => {}}
             onDrop={() => {}}

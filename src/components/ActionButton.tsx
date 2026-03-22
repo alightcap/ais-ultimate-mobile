@@ -11,8 +11,19 @@ export default function ActionButton({
   style?: ViewStyle;
 }) {
   return (
-    <Pressable style={[styles.button, style]} onPress={onPress}>
-      <Text style={styles.buttonText}>{label}</Text>
+    <Pressable
+      style={({ pressed }) => [
+        styles.button,
+        pressed && styles.buttonPressed,
+        style,
+      ]}
+      onPress={onPress}
+    >
+      {({ pressed }) => (
+        <Text style={[styles.buttonText, pressed && styles.buttenTextPressed]}>
+          {label}
+        </Text>
+      )}
     </Pressable>
   );
 }
@@ -24,10 +35,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     margin: 2,
+    elevation: 3,
+  },
+  buttonPressed: {
+    transform: [{ scale: 0.98 }],
+    elevation: 1,
   },
   buttonText: {
     color: "white",
     textAlign: "center",
     fontWeight: 600,
+  },
+  buttenTextPressed: {
+    color: "#ccc",
   },
 });

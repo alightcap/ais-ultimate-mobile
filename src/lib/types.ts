@@ -1,4 +1,5 @@
 import { KeyboardTypeOptions } from "react-native";
+import { PointAction } from "./actions";
 
 export interface DataContextType {
   addGame: (newGame: Game) => Promise<void>;
@@ -20,7 +21,7 @@ export interface DataContextType {
 
 export interface Game {
   currentLine: Player[];
-  points: any[]; //
+  points: Point[]; //
   eventName: string; //
   halfAt: HalfTimeMode;
   hardCap: number; //
@@ -51,6 +52,16 @@ export interface Player {
   teamIDs: string[];
 }
 
+export interface Point {
+  number: number;
+  startTime: number;
+  startedOn: "offense" | "defense";
+  currentLine: Player[];
+  actions: PointAction[];
+  result: "clean hold" | "hold" | "clean break" | "break";
+  endTime: number;
+}
+
 export type StartingOnMode = "defense" | "offense";
 
 export interface Team {
@@ -76,31 +87,3 @@ export interface TextInputFormRowProps {
   setItem: (text: string) => void;
   title: string;
 }
-
-/**
- * Points:
- * pointNumbe: number,
- * currentLine: Player[],
- * startedOn: "offense" | "defence",
- * actions: Action[],
- * result: "clean hold" | "hold" | "clean break" | "break",
- * ourScoreChange: 0 | 1,
- * theirScoreChange: 0 | 1,
- * startTimeStamp: number,
- * endTimeStamp: number,
- */
-
-/**
- * Actions:
- * Catch,
- * Drop,
- * Goal,
- * Throwaway,
- * Pull,
- * De,
- * Callahan,
- * PullOb,
- * Stall,
- * Halftime,
- * GameOver,
- */

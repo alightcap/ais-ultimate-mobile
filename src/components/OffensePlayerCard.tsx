@@ -7,6 +7,7 @@ export default function OffensePlayerCard({
   name,
   hasDisc,
   textStyle,
+  showButtons,
   onPress,
   onCatch,
   onDrop,
@@ -15,6 +16,7 @@ export default function OffensePlayerCard({
   name: string;
   hasDisc: boolean;
   textStyle?: TextStyle;
+  showButtons: boolean;
   onPress?: () => void;
   onCatch: () => void;
   onDrop: () => void;
@@ -29,7 +31,7 @@ export default function OffensePlayerCard({
         <Ionicons name="arrow-forward" />
       </View>
       <View style={styles.buttonView}>
-        {!hasDisc && (
+        {showButtons && !hasDisc && (
           <>
             <ActionButton label="Catch" onPress={onCatch} />
             <ActionButton label="Drop" onPress={onDrop} />
