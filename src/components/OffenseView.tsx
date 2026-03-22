@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
-import { Player } from "../lib/types";
+import { Catch } from "../lib/actions";
+import { Player, Point } from "../lib/types";
 import { GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
 import OffensePlayerCard from "./OffensePlayerCard";
@@ -10,11 +11,20 @@ export default function OffenseView({
   currentPoint,
 }: {
   currentLine: Player[];
-  currentPoint: any;
+  currentPoint: Point;
 }) {
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>();
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>(
+    undefined,
+  );
 
   const handleCatch = (player: Player) => {
+    if (!selectedPlayer) return;
+    const reception: Catch = {
+      time: Date.now(),
+      thrower: selectedPlayer,
+      receiver: player,
+    };
+    currentPoint.actions.push(reception);
     // record catch from selected player to player
     // updatePoint({...currentPoint.actions.push()})
     setSelectedPlayer(player);
@@ -39,7 +49,7 @@ export default function OffenseView({
               onGoal={() => {}} // record goal from selected player to this player, go to pick line view
             />
           ))}
-          <OffensePlayerCard // how to handle Unkown player
+          {/* <OffensePlayerCard // how to handle Unkown player
             name="UNKNOWN"
             hasDisc={false}
             textStyle={{ fontStyle: "italic" }}
@@ -48,7 +58,7 @@ export default function OffenseView({
             onCatch={() => {}}
             onDrop={() => {}}
             onGoal={() => {}}
-          />
+          /> */}
         </View>
         <ActionButton
           label={"THROWAWAY".split("").join("\n")}

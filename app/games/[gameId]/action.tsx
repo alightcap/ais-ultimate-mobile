@@ -13,17 +13,24 @@ export default function Action() {
   const { games, teams, players } = useData();
 
   const currentGame = games.find((g) => g.id === gameId);
-  const currentTeam = teams.find((t) => t.id === currentGame?.teamId);
-  const roster = players.filter((p) => currentTeam?.playerIDs.includes(p.id));
+  const currentTeam = teams.find((t) => t.id === currentGame!.teamId);
+  const roster = players.filter((p) => currentTeam!.playerIDs.includes(p.id));
   const activePlayers = roster
     ?.filter((p) => p.active)
     .sort((a, b) => a.name.localeCompare(b.name));
-  const [currentLine, setCurrentLine] = useState(
-    (currentGame?.currentLine.length ?? 0 > 0)
-      ? currentGame?.currentLine
-      : activePlayers.slice(0, 7),
-  );
-  const [currentPoint, setCurrentPoint] = useState(currentGame?.points[-1]);
+  const unknownPlayer = roster.find((p) => p.id.includes("unknown"));
+
+  const [currentLine, setCurrentLine] = useState(() => {
+    const initialLine =
+      (currentGame!.currentLine.length ?? 0) > 0
+        ? currentGame!.currentLine
+        : activePlayers.slice(0, 7);
+
+    return unknownPlayer ? [...initialLine, unknownPlayer] : initialLine;
+  });
+
+  // what if the game just started?
+  const [currentPoint, setCurrentPoint] = useState(currentGame!.points[-1]);
   const [currentPossession, setCurrentPossession] = useState(
     currentGame?.hasPossession,
   );
@@ -32,6 +39,8 @@ export default function Action() {
   // if (!currentTeam) return <Text>Team not found</Text>;
   // if (!activePlayers) return <Text>Active Players not found</Text>;
   if (!currentLine) return <Text>No Line found</Text>;
+
+  console.log(currentLine);
 
   return (
     <View style={GlobalStyles.container}>

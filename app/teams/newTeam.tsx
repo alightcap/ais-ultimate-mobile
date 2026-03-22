@@ -1,5 +1,6 @@
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
+import { Player } from "@/src/lib/types";
 import { GlobalStyles } from "@/src/styles/global";
 import { getId } from "@/src/utils/uniqueId";
 import { useRouter } from "expo-router";
@@ -9,19 +10,29 @@ import { Alert, Button, Text, View } from "react-native";
 export default function NewTeam() {
   const router = useRouter();
   const [newName, setNewName] = useState("");
-  const { addTeam } = useData();
+  const { addTeam, addPlayer } = useData();
 
   const handleSave = () => {
     if (newName.trim() === "") {
       Alert.alert("Error", "Please enter a name.");
       return;
     }
+    const teamId = getId();
+    const unknown: Player = {
+      id: `${teamId}-unknown}`,
+      name: "UNKNOWN",
+      active: true,
+      isArchived: false,
+      teamIDs: [teamId],
+    };
+
+    addPlayer(unknown);
 
     addTeam({
-      id: getId(),
+      id: teamId,
       name: newName,
       shortName: "",
-      playerIDs: [],
+      playerIDs: [unknown.id],
       gameIDs: [],
       isArchived: false,
     });

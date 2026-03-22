@@ -36,12 +36,16 @@ export default function Players() {
       <View style={GlobalStyles.contentContainer}>
         <FlatList
           data={roster}
-          renderItem={({ item }) => (
-            <NavCard
-              route={`/players/${item.id}`} // indicate inactive players somehow?
-              title={`${item.name} (${item.number})`} // clean this up with two distict text elements
-            />
-          )}
+          renderItem={({ item }) => {
+            if (item.id.includes("unknown")) return null;
+            return (
+              <NavCard
+                route={`/players/${item.id}`} // indicate inactive players somehow?
+                title={`${item.name} (${item.number})`} // clean this up with two distict text elements
+                // number = {item.number}
+              />
+            );
+          }}
           ListEmptyComponent={
             <Text style={GlobalStyles.empty}>
               There are no players to display

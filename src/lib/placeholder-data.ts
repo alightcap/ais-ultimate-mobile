@@ -141,6 +141,13 @@ export const players: Player[] = [
     active: true,
     isArchived: false,
   },
+  {
+    id: "j0v81y1-unknown",
+    name: "UNKNOWN",
+    teamIDs: ["j0v81y1"],
+    active: true,
+    isArchived: false,
+  },
 ];
 
 export const teams: Team[] = [
@@ -158,6 +165,7 @@ export const teams: Team[] = [
       "17dynu7",
       "3sav9da",
       "415dq9q",
+      "j0v81y1-unknown",
     ],
     gameIDs: ["3jqki8x", "utpjp1u", "0t2ejga"],
     isArchived: false,

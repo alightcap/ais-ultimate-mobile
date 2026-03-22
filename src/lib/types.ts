@@ -48,7 +48,7 @@ export interface Player {
   id: string;
   isArchived: boolean;
   name: string;
-  number: number;
+  number?: number;
   teamIDs: string[];
 }
 
