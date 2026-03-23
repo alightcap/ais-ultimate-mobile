@@ -1,12 +1,20 @@
 import BigButton from "@/src/components/BigButton";
 import HeaderBack from "@/src/components/HeaderBack";
 import MedButton from "@/src/components/MedButton";
-import NavCard from "@/src/components/NavCard";
+import RosterPlayerCard from "@/src/components/RosterPlayerCard";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function Players() {
   const router = useRouter();
@@ -39,11 +47,18 @@ export default function Players() {
           renderItem={({ item }) => {
             if (item.id.includes("unknown")) return null;
             return (
-              <NavCard
-                route={`/players/${item.id}`} // indicate inactive players somehow?
-                title={`${item.name} (${item.number})`} // clean this up with two distict text elements
-                // number = {item.number}
-              />
+              <Pressable
+                style={styles.playerCard}
+                onPress={() =>
+                  router.push({
+                    pathname: "/players/[playerId]",
+                    params: { playerId: item.id },
+                  })
+                }
+              >
+                <RosterPlayerCard player={item} />
+                <Ionicons name="chevron-forward" size={20} />
+              </Pressable>
             );
           }}
           ListEmptyComponent={
@@ -104,5 +119,15 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingLeft: 8,
     paddingRight: 8,
+  },
+  playerCard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: Colors.surface,
+    height: 50,
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
+    paddingHorizontal: 6,
   },
 });
