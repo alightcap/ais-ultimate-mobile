@@ -6,7 +6,6 @@ import { useData } from "@/src/contexts/DataContext";
 import { Action } from "@/src/lib/actions";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
 export default function ActionView() {
@@ -14,60 +13,36 @@ export default function ActionView() {
   const { games, teams, players, updateGame } = useData();
 
   const currentGame = games.find((g) => g.id === gameId);
+  const currentTeam = teams.find((t) => t.id === currentGame!.teamId);
+
+  const unknownPlayer = players.find(
+    (p) => p.id === `${currentTeam!.id}-unknown`,
+  );
 
   const points = currentGame?.points || [];
   const currentPoint =
     points.length > 0
       ? points[points.length - 1]
       : {
-          number: 1,
-          startTime: Date.now(),
-          startedOn: currentGame!.hasPossession ? "offense" : "defense",
-          currentLine: [],
           actions: [],
-          ourScore: 0,
-          theirScore: 0,
         };
+  const isOffense = currentGame?.hasPossession;
 
-  const currentTeam = teams.find((t) => t.id === currentGame!.teamId);
-  const roster = players.filter((p) => currentTeam!.playerIDs.includes(p.id));
-  const activePlayers = roster
-    ?.filter((p) => p.active)
-    .sort((a, b) => a.name.localeCompare(b.name));
-  const unknownPlayer = roster.find((p) => p.id.includes("unknown"));
-
-  const [currentLine, setCurrentLine] = useState(() => {
-    const initialLine =
-      (currentGame!.currentLine.length ?? 0) > 0
-        ? currentGame!.currentLine
-        : activePlayers.slice(0, 7);
-
-    const alreadyHasUnkonw = initialLine.some((p) => p.id.includes("unknown"));
-
-    return unknownPlayer && !alreadyHasUnkonw
+  const activePlayers = players.filter(
+    (p) => p.teamIDs.includes(currentTeam!.id) && p.active,
+  );
+  const initialLine =
+    (currentGame?.currentLine.length ?? 0) > 0
+      ? currentGame!.currentLine
+      : activePlayers.slice(0, 7);
+  const alreadyHasUnkown = initialLine.some((p) => p.id.includes("unknown"));
+  const currentLine =
+    unknownPlayer && !alreadyHasUnkown
       ? [...initialLine, unknownPlayer]
       : initialLine;
-  });
-
-  // what if the game just started?
-  // const [currentPoint, setCurrentPoint] = useState(
-  //   currentGame!.points[-1] || {
-  //     number: 1,
-  //     startTime: Date.now(),
-  //     startedOn: currentGame!.hasPossession ? "offense" : "defense",
-  //     currentLine: currentLine,
-  //     actions: [],
-  //     ourScore: 0,
-  //     theirScore: 0,
-  //   },
-  // );
-  const [currentPossession, setCurrentPossession] = useState(
-    currentGame?.hasPossession,
-  );
 
   if (!currentGame) return <Text>Game not found</Text>;
-  // if (!currentTeam) return <Text>Team not found</Text>;
-  // if (!activePlayers) return <Text>Active Players not found</Text>;
+  if (!currentTeam) return <Text>Team not found</Text>;
   if (!currentLine) return <Text>No Line found</Text>;
 
   const handleAction = async (action: Action) => {
@@ -111,7 +86,7 @@ export default function ActionView() {
         />
       </View>
       <View style={GlobalStyles.contentContainer}>
-        {currentPossession ? (
+        {isOffense ? (
           <OffenseView currentLine={currentLine} onAction={handleAction} />
         ) : (
           <DefenseView currentLine={currentLine} onAction={handleAction} />
@@ -134,10 +109,7 @@ export default function ActionView() {
           ListEmptyComponent={<Text>No Actions Yet</Text>}
         />
       </View>
-      <BigButton
-        title="SWITCH"
-        onPress={() => setCurrentPossession(!currentPossession)}
-      />
+      <BigButton title="SWITCH" onPress={() => {}} />
     </View>
   );
 }
