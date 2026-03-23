@@ -1,5 +1,5 @@
 import { KeyboardTypeOptions } from "react-native";
-import { PointAction } from "./actions";
+import { Action } from "./actions";
 
 export interface DataContextType {
   addGame: (newGame: Game) => Promise<void>;
@@ -57,9 +57,11 @@ export interface Point {
   startTime: number;
   startedOn: "offense" | "defense";
   currentLine: Player[];
-  actions: PointAction[];
-  result: "clean hold" | "hold" | "clean break" | "break";
-  endTime: number;
+  actions: Action[];
+  result?: "clean hold" | "hold" | "clean break" | "break";
+  ourScore?: number;
+  theirScore?: number;
+  endTime?: number;
 }
 
 export type StartingOnMode = "defense" | "offense";

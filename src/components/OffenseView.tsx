@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
-import { Catch } from "../lib/actions";
-import { Player, Point } from "../lib/types";
+import { Action } from "../lib/actions";
+import { Player } from "../lib/types";
 import { GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
 import OffensePlayerCard from "./OffensePlayerCard";
 
 export default function OffenseView({
   currentLine,
-  currentPoint,
+  onAction,
 }: {
   currentLine: Player[];
-  currentPoint: Point;
+  onAction: (action: Action) => void;
 }) {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>(
     undefined,
@@ -19,14 +19,14 @@ export default function OffenseView({
 
   const handleCatch = (player: Player) => {
     if (!selectedPlayer) return;
-    const reception: Catch = {
+
+    onAction({
+      name: "catch",
       time: Date.now(),
       thrower: selectedPlayer,
       receiver: player,
-    };
-    currentPoint.actions.push(reception);
-    // record catch from selected player to player
-    // updatePoint({...currentPoint.actions.push()})
+    });
+
     setSelectedPlayer(player);
   };
 

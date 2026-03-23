@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import { Action } from "../lib/actions";
 import { Player } from "../lib/types";
 import { GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
@@ -6,10 +7,10 @@ import DefensePlayerCard from "./DefensePlayerCard";
 
 export default function DefenseView({
   currentLine,
-  currentPoint,
+  onAction,
 }: {
   currentLine: Player[];
-  currentPoint: any;
+  onAction: (action: Action) => void;
 }) {
   return (
     <View style={GlobalStyles.contentContainer}>
