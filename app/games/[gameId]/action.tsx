@@ -119,7 +119,7 @@ export default function ActionView() {
       </View>
       <View>
         <FlatList
-          data={currentPoint.actions}
+          data={currentPoint.actions.slice(-5)}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             if (item.name === "catch") {
