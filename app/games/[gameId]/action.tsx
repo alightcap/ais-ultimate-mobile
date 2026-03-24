@@ -109,7 +109,15 @@ export default function ActionView() {
           ListEmptyComponent={<Text>No Actions Yet</Text>}
         />
       </View>
-      <BigButton title="SWITCH" onPress={() => {}} />
+      <BigButton
+        title="SWITCH"
+        onPress={async () => {
+          await updateGame({
+            ...currentGame,
+            hasPossession: !currentGame.hasPossession,
+          });
+        }}
+      />
     </View>
   );
 }

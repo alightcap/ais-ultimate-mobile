@@ -27,11 +27,6 @@ export default function DefenseView({
               onD={() => {}}
             />
           ))}
-          <DefensePlayerCard
-            name="UNKNOWN"
-            onD={() => {}}
-            textStyle={{ fontStyle: "italic" }}
-          />
         </View>
 
         <View style={{ flex: 1 }}>

@@ -25,6 +25,8 @@ export default function OffenseView({
       time: Date.now(),
       thrower: selectedPlayer,
       receiver: player,
+      switchPossession: false,
+      endPoint: false,
     });
 
     setSelectedPlayer(player);
@@ -38,7 +40,7 @@ export default function OffenseView({
       <View style={{ flexDirection: "row" }}>
         <View style={{ flex: 5, margin: 2 }}>
           {currentLine.map((player) => (
-            <OffensePlayerCard // may need to refactor the buttons out in order to hide them before a player picks up the disc
+            <OffensePlayerCard
               key={player.id}
               name={player.name}
               hasDisc={selectedPlayer === player}
@@ -49,16 +51,6 @@ export default function OffenseView({
               onGoal={() => {}} // record goal from selected player to this player, go to pick line view
             />
           ))}
-          {/* <OffensePlayerCard // how to handle Unkown player
-            name="UNKNOWN"
-            hasDisc={false}
-            textStyle={{ fontStyle: "italic" }}
-            showButtons={selectedPlayer !== undefined}
-            onPress={() => {}}
-            onCatch={() => {}}
-            onDrop={() => {}}
-            onGoal={() => {}}
-          /> */}
         </View>
         <ActionButton
           label={"THROWAWAY".split("").join("\n")}
