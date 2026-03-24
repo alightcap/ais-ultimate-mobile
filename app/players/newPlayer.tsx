@@ -2,8 +2,8 @@ import HeaderBack from "@/src/components/HeaderBack";
 import MedButton from "@/src/components/MedButton";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
+import { createNewPlayer } from "@/src/lib/models";
 import { GlobalStyles } from "@/src/styles/global";
-import { getId } from "@/src/utils/uniqueId";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -23,14 +23,13 @@ export default function NewPlayer() {
   }
 
   const handleSave = () => {
-    addPlayer({
-      id: getId(),
-      name: newName,
-      number: parseInt(newNumber),
-      teamIDs: [teamId],
-      active: true,
-      isArchived: false,
-    });
+    addPlayer(
+      createNewPlayer({
+        name: newName,
+        teamId: teamId,
+        number: parseInt(newNumber) ? parseInt(newNumber) : 0,
+      }),
+    );
   };
 
   const validateName = () => {

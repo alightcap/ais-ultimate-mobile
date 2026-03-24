@@ -27,6 +27,21 @@ export const createNewGame = (params: {
   };
 };
 
+export const createNewPlayer = (params: {
+  name: string;
+  teamId: string;
+  number: number;
+}): Player => {
+  return {
+    active: true,
+    id: getId(),
+    isArchived: false,
+    name: params.name,
+    number: params.number,
+    teamIDs: [params.teamId],
+  };
+};
+
 export const createNewTeam = (params: {
   name: string;
   shortName?: string;
