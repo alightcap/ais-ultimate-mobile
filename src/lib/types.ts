@@ -54,9 +54,9 @@ export interface Player {
 
 export interface Point {
   number: number;
-  startTime: number;
-  startedOn: "offense" | "defense";
-  currentLine: Player[];
+  startTime?: number; // capture start time from first action.
+  startedOn?: "offense" | "defense";
+  currentLine?: Player[];
   actions: Action[];
   result?: "clean hold" | "hold" | "clean break" | "break";
   ourScore?: number;

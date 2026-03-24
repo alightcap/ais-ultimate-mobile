@@ -44,7 +44,6 @@ export default function GameIndex() {
 
   const currentTeam = teams.find((t) => t.id === currentGame?.teamId);
 
-  // const roster = players.filter((p) => currentTeam?.playerIDs.includes(p.id));
   const [startingOn, setStartingOn] = useState<StartingOnMode>(
     currentGame?.startingOn ?? "offense",
   );
@@ -53,42 +52,31 @@ export default function GameIndex() {
   const [halfAt, setHalfAt] = useState<HalfTimeMode>(
     currentGame?.halfAt ?? "points",
   );
-  // const [hasPossession, setHasPossession] = useState<boolean>(
-  //   currentGame?.hasPossession ?? true,
-  // );
 
-  if (!currentGame) return <Text>Game not found</Text>;
-  if (!currentTeam) return <Text>Team not found</Text>;
-  const { timeStamp, eventName, opponentName } = currentGame;
+  const { timeStamp, eventName, opponentName } = currentGame!;
 
   const handleStartingOnChange = async (newMode: StartingOnMode) => {
     setStartingOn(newMode);
-    // const newHasPossession =
-    //   (currentGame?.points?.length ?? 0) === 0
-    //     ? newMode === "offense"
-    //     : hasPossession;
-    // setHasPossession(newHasPossession);
 
     await updateGame({
-      ...currentGame,
+      ...currentGame!,
       startingOn: newMode,
-      // hasPossession: newHasPossession,
     });
   };
 
   const handlePointCapChange = async (newPointCap: number) => {
     setPointCap(newPointCap);
-    await updateGame({ ...currentGame, pointCap: newPointCap });
+    await updateGame({ ...currentGame!, pointCap: newPointCap });
   };
 
   const handleHardCapChange = async (newHardCap: number) => {
     setHardCap(newHardCap);
-    await updateGame({ ...currentGame, hardCap: newHardCap });
+    await updateGame({ ...currentGame!, hardCap: newHardCap });
   };
 
   const handleHalfAtChange = async (newHalfAt: HalfTimeMode) => {
     setHalfAt(newHalfAt);
-    await updateGame({ ...currentGame, halfAt: newHalfAt });
+    await updateGame({ ...currentGame!, halfAt: newHalfAt });
   };
 
   return (
@@ -106,9 +94,9 @@ export default function GameIndex() {
         }}
       />
       <View style={GlobalStyles.titleContainer}>
-        <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
+        <Text style={GlobalStyles.headingText}>{currentTeam!.name}</Text>
         <ScoreBoard
-          game={currentGame}
+          game={currentGame!}
           style={[GlobalStyles.headingText, { color: "white" }]}
         />
       </View>
@@ -133,7 +121,7 @@ export default function GameIndex() {
           onPress={() =>
             router.push({
               pathname: "../teams/[teamId]/roster",
-              params: { teamId: currentTeam.id },
+              params: { teamId: currentTeam!.id },
             })
           }
         >

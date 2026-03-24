@@ -3,9 +3,9 @@ import GameDateInput from "@/src/components/GameDateInput";
 import HeaderBack from "@/src/components/HeaderBack";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
+import { createNewGame } from "@/src/lib/models";
 import { GlobalStyles } from "@/src/styles/global";
 import { DefaultStackOptions } from "@/src/styles/navigation";
-import { getId } from "@/src/utils/uniqueId";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -30,30 +30,16 @@ export default function NewGame() {
       Alert.alert("Error", "Please enter an opponent name");
       return;
     }
-    const newId = getId();
-
-    addGame({
-      id: newId,
-      timeStamp: timeStamp,
-      teamId: teamId,
-      eventName: eventName,
+    const newGame = createNewGame({
+      teamId: currentTeam.id,
       opponentName: opponentName,
-      ourScore: 0,
-      theirScore: 0,
-      isOver: false,
-      isUploaded: false,
-      isArchived: false,
-      startingOn: "offense",
-      pointCap: 13,
-      hardCap: 75,
-      halfAt: "points",
-      hasPossession: true,
-      points: [],
-      currentLine: [],
+      eventName: eventName,
     });
+
+    addGame(newGame);
     router.replace({
       pathname: "/games/[gameId]",
-      params: { gameId: newId },
+      params: { gameId: newGame.id },
     });
   };
 
