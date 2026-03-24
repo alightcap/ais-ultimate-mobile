@@ -79,20 +79,22 @@ export function DataProvider({ children }: { children: ReactNode }) {
     entityId: string,
     teamKey: "gameIDs" | "playerIDs",
   ) => {
-    const updatedTeams = teams.map((team) => {
-      if (team.id === teamId) {
-        const currentIDs = team[teamKey] || [];
-        const alreadyExists = currentIDs.includes(entityId);
-        return {
-          ...team,
-          [teamKey]: alreadyExists ? currentIDs : [...currentIDs, entityId],
-        };
-      }
-      return team;
-    });
+    setTeams((prevTeams) => {
+      const updatedTeams = prevTeams.map((team) => {
+        if (team.id === teamId) {
+          const currentIDs = team[teamKey] || [];
+          if (currentIDs.includes(entityId)) return team;
+          return {
+            ...team,
+            [teamKey]: [...currentIDs, entityId],
+          };
+        }
+        return team;
+      });
 
-    setTeams(updatedTeams);
-    await saveData(KEYS.TEAMS, updatedTeams);
+      saveData(KEYS.TEAMS, updatedTeams);
+      return updatedTeams;
+    });
   };
 
   const addGame = async (newGame: Game) => {
@@ -120,9 +122,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
   };
 
   const addTeam = async (newTeam: Team) => {
-    const updatedTeams = [...teams, newTeam];
-    setTeams(updatedTeams);
-    saveData(KEYS.TEAMS, updatedTeams);
+    setTeams((prevTeams) => {
+      const updated = [...prevTeams, newTeam];
+      saveData(KEYS.TEAMS, updated);
+      return updated;
+    });
   };
 
   const linkPlayersToTeam = async (playerIds: string[], teamId: string) => {

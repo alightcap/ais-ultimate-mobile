@@ -1,5 +1,12 @@
 import { Player } from "./types";
 
+interface BaseAction {
+  name: string;
+  timeStamp: number;
+  switchPossession: boolean;
+  endPoint: boolean;
+}
+
 export type Action =
   | Catch
   | Drop
@@ -18,9 +25,8 @@ export type Turnover = Drop | Throwaway | De | Stall;
 
 export type EndPoint = Goal | Callahan;
 
-export interface Catch {
+export interface Catch extends BaseAction {
   name: "catch";
-  time: number;
   thrower: Player;
   receiver: Player;
   switchPossession: false;
@@ -29,7 +35,6 @@ export interface Catch {
 
 export interface Drop {
   name: "drop";
-  time: number;
   thrower: Player;
   receiver: Player;
   switchPossession: true;
@@ -38,7 +43,6 @@ export interface Drop {
 
 export interface Goal {
   name: "goal";
-  time: number;
   thrower: Player;
   receiver: Player;
   switchPossession: true;
@@ -47,7 +51,6 @@ export interface Goal {
 
 export interface Throwaway {
   name: "throwaway";
-  time: number;
   thrower: Player;
   switchPossession: true;
   endPoint: false;
@@ -55,16 +58,14 @@ export interface Throwaway {
 
 export interface Pull {
   name: "pull";
-  time: number;
   thrower: Player;
-  hangTIme: number;
+  hangTime: number;
   switchPossession: false;
   endPoint: false;
 }
 
 export interface De {
   name: "d";
-  time: number;
   defender: Player;
   switchPossession: true;
   endPoint: false;
@@ -72,7 +73,6 @@ export interface De {
 
 export interface Callahan {
   name: "callahan";
-  time: number;
   defender: Player;
   switchPossession: false;
   endPoint: true;
@@ -80,7 +80,6 @@ export interface Callahan {
 
 export interface PullOb {
   name: "pull ob";
-  time: number;
   thrower: Player;
   switchPossession: false;
   endPoint: false;
@@ -88,7 +87,6 @@ export interface PullOb {
 
 export interface Stall {
   name: "stall";
-  time: number;
   thrower: Player;
   switchPossession: true;
   endPoint: false;
@@ -96,28 +94,24 @@ export interface Stall {
 
 export interface Timeout {
   name: "timeout";
-  time: number;
   switchPossession: false;
   endPoint: false;
 }
 
 export interface Halftime {
   name: "halftime";
-  time: number;
   switchPossession: false;
   endPoint: false;
 }
 
 export interface GameOver {
   name: "game over";
-  time: number;
   switchPossession: false;
   endPoint: false;
 }
 
 export interface GameStart {
   name: "game start";
-  time: number;
   switchPossession: false;
   endPoint: false;
 }

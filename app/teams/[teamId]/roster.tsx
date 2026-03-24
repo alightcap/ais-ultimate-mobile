@@ -28,7 +28,11 @@ export default function Players() {
   if (!currentTeam) return <Text>Team not found</Text>;
 
   const roster = players
-    .filter((player) => currentTeam?.playerIDs.includes(player.id))
+    .filter(
+      (player) =>
+        currentTeam!.playerIDs.includes(player.id) &&
+        !player.id.includes("unknown"),
+    )
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
@@ -45,7 +49,6 @@ export default function Players() {
         <FlatList
           data={roster}
           renderItem={({ item }) => {
-            if (item.id.includes("unknown")) return null;
             return (
               <Pressable
                 style={styles.playerCard}
