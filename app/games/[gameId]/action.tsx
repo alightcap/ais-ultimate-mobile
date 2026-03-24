@@ -20,12 +20,13 @@ export default function ActionView() {
   );
 
   const points = currentGame?.points || [];
-  const currentPoint =
-    points.length > 0
-      ? points[points.length - 1]
-      : {
-          actions: [],
-        };
+  const currentPoint = points[points.length - 1] || { actions: [] };
+  // const currentPoint =
+  //   points.length > 0
+  //     ? points[points.length - 1]
+  //     : {
+  //         actions: [],
+  //       };
   const isOffense = currentGame?.hasPossession;
 
   const activePlayers = players.filter(
