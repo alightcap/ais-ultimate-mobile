@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { Action } from "../lib/actions";
+import { createCatchEvent, createDropEvent } from "../lib/models";
 import { Player } from "../lib/types";
 import { Colors, GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
@@ -20,32 +21,15 @@ export default function OffenseView({
   const handleCatch = (player: Player) => {
     if (!selectedPlayer) return;
 
-    onAction({
-      name: "catch",
-      timeStamp: Date.now(),
-      thrower: selectedPlayer,
-      receiver: player,
-      switchPossession: false,
-      endPoint: false,
-    });
+    onAction(createCatchEvent({ thrower: selectedPlayer, receiver: player }));
 
     setSelectedPlayer(player);
   };
 
   const handleDrop = (player: Player) => {
-    Alert.alert(player.name + " dropped the disc from " + selectedPlayer!.name);
-    // if (!selectedPlayer) return;
+    if (!selectedPlayer) return;
 
-    // onAction({
-    //   name: "drop",
-    //   timeStamp: Date.now(),
-    //   thrower: selectedPlayer,
-    //   receiver: player,
-    //   switchPossession: true,
-    //   endPoint: false,
-    // });
-
-    // swich to Defence view
+    onAction(createDropEvent({ thrower: selectedPlayer, receiver: player }));
   };
 
   return (

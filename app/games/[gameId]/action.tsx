@@ -54,19 +54,25 @@ export default function ActionView() {
     let ourScore = currentGame.ourScore;
     let theirScore = currentGame.theirScore;
 
-    if (action.name === "goal") {
-      if (action.thrower.name === "defense") {
-        theirScore += 1;
-      } else {
-        ourScore += 1;
-      }
+    let newPossession = currentGame.hasPossession;
+    if (action.switchPossession) {
+      newPossession = !currentGame.hasPossession;
     }
+
+    // if (action.name === "goal") {
+    //   if (action.thrower.name === "defense") {
+    //     theirScore += 1;
+    //   } else {
+    //     ourScore += 1;
+    //   }
+    // }
 
     const updatedGame = {
       ...currentGame,
       points: updatedPoints,
       ourScore,
       theirScore,
+      hasPossession: newPossession,
     };
 
     await updateGame(updatedGame);

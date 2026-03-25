@@ -1,4 +1,5 @@
 import { getId } from "../utils/uniqueId";
+import { Catch, Drop } from "./actions";
 import { Game, Player, Point, Team } from "./types";
 
 export const createNewGame = (params: {
@@ -71,5 +72,39 @@ export const createNewPoint = (pointNumber: number): Point => {
     number: pointNumber,
     startTime: Date.now(),
     actions: [],
+  };
+};
+
+export const createCatchEvent = ({
+  thrower,
+  receiver,
+}: {
+  thrower: Player;
+  receiver: Player;
+}): Catch => {
+  return {
+    name: "catch",
+    timeStamp: Date.now(),
+    thrower: thrower,
+    receiver: receiver,
+    switchPossession: false,
+    endPoint: false,
+  };
+};
+
+export const createDropEvent = ({
+  thrower,
+  receiver,
+}: {
+  thrower: Player;
+  receiver: Player;
+}): Drop => {
+  return {
+    name: "drop",
+    timeStamp: Date.now(),
+    thrower: thrower,
+    receiver: receiver,
+    switchPossession: true,
+    endPoint: false,
   };
 };
