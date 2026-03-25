@@ -1,4 +1,5 @@
 import { Catch } from "@/src/lib/actions";
+import { ActionCardStyle } from "@/src/styles/actionCard";
 import { Colors } from "@/src/styles/global";
 import { ArrowBendUpRightIcon, HandsClappingIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
@@ -9,23 +10,12 @@ export default function CatchActionCard({
   catchAction: Catch;
 }) {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        paddingHorizontal: 2,
-        paddingVertical: 9,
-        margin: 2,
-        backgroundColor: Colors.surface,
-        alignItems: "center",
-      }}
-    >
-      <View style={{ paddingHorizontal: 2 }}>
-        <HandsClappingIcon color={Colors.brandPrimary} weight="fill" />
-      </View>
+    <View style={ActionCardStyle}>
+      <HandsClappingIcon color={Colors.brandPrimary} weight="fill" />
+
       <Text>{catchAction.thrower.name}</Text>
-      <View style={{ marginHorizontal: 8 }}>
-        <ArrowBendUpRightIcon color={Colors.brandPrimary} />
-      </View>
+      <ArrowBendUpRightIcon color={Colors.brandPrimary} />
+
       <Text>{catchAction.receiver.name}</Text>
     </View>
   );

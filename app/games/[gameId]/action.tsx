@@ -1,4 +1,4 @@
-import CatchActionCard from "@/src/components/Action Cards/CatchActionCard";
+import ActionCard from "@/src/components/Action Cards/ActionCard";
 import BigButton from "@/src/components/BigButton";
 import DefenseView from "@/src/components/DefenseView";
 import OffenseView from "@/src/components/OffenseView";
@@ -99,19 +99,7 @@ export default function ActionView() {
           data={currentPoint.actions.slice(-3)}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
-            if (item.name === "catch") {
-              return (
-                <View
-                  style={{
-                    borderBottomColor: Colors.border,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <CatchActionCard catchAction={item} />
-                </View>
-              );
-            }
-            return null;
+            return <ActionCard action={item} />;
           }}
           ListEmptyComponent={<Text>No Actions Yet</Text>}
         />
