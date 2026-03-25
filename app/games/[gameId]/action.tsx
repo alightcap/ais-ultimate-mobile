@@ -88,13 +88,22 @@ export default function ActionView() {
           <DefenseView currentLine={currentLine} onAction={handleAction} />
         )}
       </View>
-      <View style={{ backgroundColor: Colors.surface }}>
+      <View style={{ margin: 2, backgroundColor: Colors.surface }}>
         <FlatList
           data={currentPoint.actions.slice(-3)}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             if (item.name === "catch") {
-              return <CatchActionCard catchAction={item} />;
+              return (
+                <View
+                  style={{
+                    borderBottomColor: Colors.border,
+                    borderBottomWidth: 1,
+                  }}
+                >
+                  <CatchActionCard catchAction={item} />
+                </View>
+              );
             }
             return null;
           }}

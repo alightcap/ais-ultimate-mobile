@@ -1,6 +1,6 @@
 import { Catch } from "@/src/lib/actions";
 import { Colors } from "@/src/styles/global";
-import { ArrowArcRightIcon, HandsClappingIcon } from "phosphor-react-native";
+import { ArrowBendUpRightIcon, HandsClappingIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 
 export default function CatchActionCard({
@@ -24,7 +24,7 @@ export default function CatchActionCard({
       </View>
       <Text>{catchAction.thrower.name}</Text>
       <View style={{ marginHorizontal: 8 }}>
-        <ArrowArcRightIcon color={Colors.brandPrimary} />
+        <ArrowBendUpRightIcon color={Colors.brandPrimary} />
       </View>
       <Text>{catchAction.receiver.name}</Text>
     </View>

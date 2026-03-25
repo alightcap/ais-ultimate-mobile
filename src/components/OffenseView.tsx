@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import { Action } from "../lib/actions";
 import { Player } from "../lib/types";
-import { GlobalStyles } from "../styles/global";
+import { Colors, GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
 import OffensePlayerCard from "./OffensePlayerCard";
 
@@ -32,12 +32,34 @@ export default function OffenseView({
     setSelectedPlayer(player);
   };
 
+  const handleDrop = (player: Player) => {
+    Alert.alert(player.name + " dropped the disc from " + selectedPlayer!.name);
+    // if (!selectedPlayer) return;
+
+    // onAction({
+    //   name: "drop",
+    //   timeStamp: Date.now(),
+    //   thrower: selectedPlayer,
+    //   receiver: player,
+    //   switchPossession: true,
+    //   endPoint: false,
+    // });
+
+    // swich to Defence view
+  };
+
   return (
-    <View style={GlobalStyles.contentContainer}>
+    <View style={[GlobalStyles.contentContainer, { flex: 1 }]}>
       <View style={{ height: 50 }}>
         <Text>Headings go here</Text>
       </View>
-      <View style={{ flexDirection: "row" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          flex: 1,
+          backgroundColor: Colors.surface,
+        }}
+      >
         <View style={{ flex: 5, margin: 2 }}>
           {currentLine.map((player) => (
             <OffensePlayerCard
@@ -47,7 +69,7 @@ export default function OffenseView({
               showButtons={selectedPlayer !== undefined}
               onPress={() => setSelectedPlayer(player)}
               onCatch={() => handleCatch(player)} // record catch from selected player to this player
-              onDrop={() => {}} // record drop by this player, switch to defence
+              onDrop={() => handleDrop(player)} // record drop by this player, switch to defence
               onGoal={() => {}} // record goal from selected player to this player, go to pick line view
             />
           ))}

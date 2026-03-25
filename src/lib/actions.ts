@@ -33,7 +33,7 @@ export interface Catch extends BaseAction {
   endPoint: false;
 }
 
-export interface Drop {
+export interface Drop extends BaseAction {
   name: "drop";
   thrower: Player;
   receiver: Player;
@@ -41,7 +41,7 @@ export interface Drop {
   endPoint: false;
 }
 
-export interface Goal {
+export interface Goal extends BaseAction {
   name: "goal";
   thrower: Player;
   receiver: Player;
@@ -49,14 +49,14 @@ export interface Goal {
   endPoint: true;
 }
 
-export interface Throwaway {
+export interface Throwaway extends BaseAction {
   name: "throwaway";
   thrower: Player;
   switchPossession: true;
   endPoint: false;
 }
 
-export interface Pull {
+export interface Pull extends BaseAction {
   name: "pull";
   thrower: Player;
   hangTime: number;
@@ -64,53 +64,53 @@ export interface Pull {
   endPoint: false;
 }
 
-export interface De {
+export interface De extends BaseAction {
   name: "d";
   defender: Player;
   switchPossession: true;
   endPoint: false;
 }
 
-export interface Callahan {
+export interface Callahan extends BaseAction {
   name: "callahan";
   defender: Player;
   switchPossession: false;
   endPoint: true;
 }
 
-export interface PullOb {
+export interface PullOb extends BaseAction {
   name: "pull ob";
   thrower: Player;
   switchPossession: false;
   endPoint: false;
 }
 
-export interface Stall {
+export interface Stall extends BaseAction {
   name: "stall";
   thrower: Player;
   switchPossession: true;
   endPoint: false;
 }
 
-export interface Timeout {
+export interface Timeout extends BaseAction {
   name: "timeout";
   switchPossession: false;
   endPoint: false;
 }
 
-export interface Halftime {
+export interface Halftime extends BaseAction {
   name: "halftime";
   switchPossession: false;
   endPoint: false;
 }
 
-export interface GameOver {
+export interface GameOver extends BaseAction {
   name: "game over";
   switchPossession: false;
   endPoint: false;
 }
 
-export interface GameStart {
+export interface GameStart extends BaseAction {
   name: "game start";
   switchPossession: false;
   endPoint: false;
