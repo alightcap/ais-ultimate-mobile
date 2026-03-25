@@ -54,7 +54,7 @@ export interface Player {
 
 export interface Point {
   number: number;
-  startTime?: number; // capture start time from first action.
+  startTime: number;
   startedOn?: "offense" | "defense";
   currentLine?: Player[];
   actions: Action[];

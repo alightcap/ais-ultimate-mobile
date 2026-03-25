@@ -1,3 +1,4 @@
+import CatchActionCard from "@/src/components/Action Cards/CatchActionCard";
 import BigButton from "@/src/components/BigButton";
 import DefenseView from "@/src/components/DefenseView";
 import OffenseView from "@/src/components/OffenseView";
@@ -87,17 +88,13 @@ export default function ActionView() {
           <DefenseView currentLine={currentLine} onAction={handleAction} />
         )}
       </View>
-      <View>
+      <View style={{ backgroundColor: Colors.surface }}>
         <FlatList
-          data={currentPoint.actions.slice(-5)}
+          data={currentPoint.actions.slice(-3)}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             if (item.name === "catch") {
-              return (
-                <Text>
-                  {item.name} from {item.thrower.name} to {item.receiver.name}
-                </Text>
-              );
+              return <CatchActionCard catchAction={item} />;
             }
             return null;
           }}

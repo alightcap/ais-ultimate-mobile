@@ -22,7 +22,7 @@ export default function OffenseView({
 
     onAction({
       name: "catch",
-      time: Date.now(),
+      timeStamp: Date.now(),
       thrower: selectedPlayer,
       receiver: player,
       switchPossession: false,

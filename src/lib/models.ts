@@ -12,7 +12,7 @@ export const createNewGame = (params: {
     opponentName: params.opponentName,
     eventName: params.eventName || "",
     currentLine: [],
-    points: [initialPoint()],
+    points: [createNewPoint(1)],
     ourScore: 0,
     theirScore: 0,
     hasPossession: true,
@@ -66,9 +66,10 @@ export const createUnknownPlayer = (teamId: string): Player => {
   };
 };
 
-export const initialPoint = (): Point => {
+export const createNewPoint = (pointNumber: number): Point => {
   return {
-    number: 1,
+    number: pointNumber,
+    startTime: Date.now(),
     actions: [],
   };
 };

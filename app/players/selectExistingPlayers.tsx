@@ -24,7 +24,9 @@ export default function SelectExistingPlayers() {
   if (!currentTeam) return <Text>Team not found</Text>;
 
   const availablePlayers = players.filter(
-    (player) => !currentTeam?.playerIDs.includes(player.id),
+    (player) =>
+      !currentTeam!.playerIDs.includes(player.id) &&
+      !player.id.includes("unknown"),
   );
 
   const toggleSelection = (id: string) => {

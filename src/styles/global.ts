@@ -66,5 +66,6 @@ export const GlobalStyles = StyleSheet.create({
   titleContainer: {
     borderBottomColor: Colors.border,
     borderBottomWidth: 1,
+    // flex: 1,
   },
 });
