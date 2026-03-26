@@ -4,11 +4,11 @@ import { Colors } from "@/src/styles/global";
 import { ShieldCheckeredIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 
-export default function DeActionCard({ dAction }: { dAction: De }) {
+export default function DeActionCard({ action }: { action: De }) {
   return (
     <View style={ActionCardStyle}>
       <ShieldCheckeredIcon color={Colors.brandPrimary} weight="fill" />
-      <Text>D by {dAction.defender.name}</Text>
+      <Text>D by {action.defender.name}</Text>
     </View>
   );
 }

@@ -55,7 +55,7 @@ export default function ActionView() {
 
     let ourScore = currentGame.ourScore;
     let theirScore = currentGame.theirScore;
-    if (action.name === "goal") {
+    if (action.name === "goal for") {
       ourScore += 1;
     }
 
@@ -102,6 +102,7 @@ export default function ActionView() {
           <DefenseView
             currentLine={currentLine}
             onAction={handleAction}
+            opponentName={currentGame.opponentName}
             ourScore={currentGame.ourScore}
             theirScore={currentGame.theirScore}
           />

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.winningHighlight,
   },
   losing: {
-    backgroundColor: "red",
+    backgroundColor: Colors.losingHighlight,
   },
   tied: {
     backgroundColor: Colors.textMuted,

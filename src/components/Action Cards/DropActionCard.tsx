@@ -4,7 +4,7 @@ import { Colors } from "@/src/styles/global";
 import { HandPointingIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 
-export default function DropActionCard({ dropAction }: { dropAction: Drop }) {
+export default function DropActionCard({ action }: { action: Drop }) {
   return (
     <View style={ActionCardStyle}>
       <HandPointingIcon
@@ -12,7 +12,7 @@ export default function DropActionCard({ dropAction }: { dropAction: Drop }) {
         style={{ transform: [{ rotate: "180deg" }] }}
       />
       <Text>
-        {dropAction.receiver.name} drops from {dropAction.thrower.name}
+        {action.receiver.name} drops from {action.thrower.name}
       </Text>
     </View>
   );

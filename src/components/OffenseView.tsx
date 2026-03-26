@@ -4,8 +4,8 @@ import { Action } from "../lib/actions";
 import {
   createCatchEvent,
   createDropEvent,
-  createGoalEvent,
-  createThrowawayEvent,
+  createGoalForEvent,
+  createThrowawayForEvent,
 } from "../lib/models";
 import { Player } from "../lib/types";
 import { Colors, GlobalStyles } from "../styles/global";
@@ -41,10 +41,10 @@ export default function OffenseView({
     onAction(createDropEvent({ thrower: selectedPlayer, receiver: player }));
   };
 
-  const handleGoal = (player: Player) => {
+  const handleGoalFor = (player: Player) => {
     if (!selectedPlayer) return;
 
-    const goal = createGoalEvent({
+    const goal = createGoalForEvent({
       thrower: selectedPlayer,
       receiver: player,
       ourScore: ourScore,
@@ -54,10 +54,10 @@ export default function OffenseView({
     onAction(goal);
   };
 
-  const handleThrowaway = () => {
+  const handleThrowawayFor = () => {
     if (!selectedPlayer) return;
 
-    onAction(createThrowawayEvent({ thrower: selectedPlayer }));
+    onAction(createThrowawayForEvent({ thrower: selectedPlayer }));
   };
 
   return (
@@ -82,13 +82,13 @@ export default function OffenseView({
               onPress={() => setSelectedPlayer(player)}
               onCatch={() => handleCatch(player)}
               onDrop={() => handleDrop(player)}
-              onGoal={() => handleGoal(player)} // record goal from selected player to this player, go to pick line view
+              onGoal={() => handleGoalFor(player)}
             />
           ))}
         </View>
         <ActionButton
           label={"THROWAWAY".split("").join("\n")}
-          onPress={() => handleThrowaway()} // record throwaway and switch to defence
+          onPress={() => handleThrowawayFor()}
         />
       </View>
     </View>

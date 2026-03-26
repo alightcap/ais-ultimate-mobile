@@ -1,11 +1,11 @@
-import { Goal } from "@/src/lib/actions";
+import { GoalFor } from "@/src/lib/actions";
 import { ActionCardStyle } from "@/src/styles/actionCard";
 import { Colors } from "@/src/styles/global";
 import { SirenIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 import ScoreBoard from "../ScoreBoard";
 
-export default function GoalActionCard({ goalAction }: { goalAction: Goal }) {
+export default function GoalForActionCard({ action }: { action: GoalFor }) {
   return (
     <View style={ActionCardStyle}>
       <View
@@ -13,13 +13,13 @@ export default function GoalActionCard({ goalAction }: { goalAction: Goal }) {
       >
         <SirenIcon color={Colors.winningHighlight} weight="fill" />
         <Text style={{ fontWeight: "900" }}>
-          {goalAction.receiver.name} scores from {goalAction.thrower.name}
+          {action.receiver.name} scores from {action.thrower.name}
         </Text>
       </View>
       <View>
         <ScoreBoard
-          ourScore={goalAction.score.ourScore + 1}
-          theirScore={goalAction.score.theirScore}
+          ourScore={action.score.ourScore + 1}
+          theirScore={action.score.theirScore}
         />
       </View>
     </View>

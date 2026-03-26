@@ -4,11 +4,7 @@ import { Colors } from "@/src/styles/global";
 import { HandsClappingIcon } from "phosphor-react-native";
 import { Text, View } from "react-native";
 
-export default function CatchActionCard({
-  catchAction,
-}: {
-  catchAction: Catch;
-}) {
+export default function CatchActionCard({ action }: { action: Catch }) {
   return (
     <View style={ActionCardStyle}>
       <HandsClappingIcon
@@ -17,7 +13,7 @@ export default function CatchActionCard({
         style={{ transform: [{ rotate: "90deg" }] }}
       />
       <Text>
-        {catchAction.receiver.name} caught from {catchAction.thrower.name}
+        {action.receiver.name} caught from {action.thrower.name}
       </Text>
     </View>
   );

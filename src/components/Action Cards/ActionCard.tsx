@@ -4,33 +4,33 @@ import { StyleSheet, Text, View } from "react-native";
 import CatchActionCard from "./CatchActionCard";
 import DeActionCard from "./DeActionCard";
 import DropActionCard from "./DropActionCard";
-import GoalActionCard from "./GoalActionCard";
-import ThrowawayActionCard from "./ThrowawayActionCard";
+import GoalForActionCard from "./GoalForActionCard";
+import ThrowawayAgainstActionCard from "./ThrowawayAgainstActionCard";
+import ThrowawayActionCard from "./ThrowawayForActionCard";
 
 export default function ActionCard({ action }: { action: Action }) {
-  const isGoalFor = () => {
-    return action.name === "goal";
-  };
-
   return (
     <View
       style={[
         styles.actionCardContainer,
-        isGoalFor() && styles.goalForContainer,
+        action.name === "goal for" && styles.goalForSurface,
+        action.category === "defense" && styles.dLineActionSurface,
       ]}
     >
       {(() => {
         switch (action.name) {
           case "catch":
-            return <CatchActionCard catchAction={action} />;
+            return <CatchActionCard action={action} />;
           case "drop":
-            return <DropActionCard dropAction={action} />;
+            return <DropActionCard action={action} />;
           case "d":
-            return <DeActionCard dAction={action} />;
-          case "throwaway":
-            return <ThrowawayActionCard throwawayAction={action} />;
-          case "goal":
-            return <GoalActionCard goalAction={action} />;
+            return <DeActionCard action={action} />;
+          case "throwaway for":
+            return <ThrowawayActionCard action={action} />;
+          case "goal for":
+            return <GoalForActionCard action={action} />;
+          case "throwaway against":
+            return <ThrowawayAgainstActionCard action={action} />;
           default:
             return (
               <View>
@@ -55,7 +55,10 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
     borderBottomWidth: 1,
   },
-  goalForContainer: {
+  goalForSurface: {
     backgroundColor: Colors.winningSurface,
+  },
+  dLineActionSurface: {
+    backgroundColor: Colors.awaySurface,
   },
 });

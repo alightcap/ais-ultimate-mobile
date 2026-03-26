@@ -43,6 +43,7 @@ export const Colors = {
   winningHighlight: palette.sportEmerald,
   losingSurface: palette.subtleRose,
   losingHighlight: palette.crimsonActive,
+  awaySurface: palette.gray500,
 };
 
 export const GlobalStyles = StyleSheet.create({

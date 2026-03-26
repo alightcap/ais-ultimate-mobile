@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { Action } from "../lib/actions";
-import { createDeEvent } from "../lib/models";
+import { createDeEvent, createThrowawayAgainstEvent } from "../lib/models";
 import { Player } from "../lib/types";
 import { GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
@@ -9,16 +9,22 @@ import DefensePlayerCard from "./DefensePlayerCard";
 export default function DefenseView({
   currentLine,
   onAction,
+  opponentName,
   ourScore,
   theirScore,
 }: {
   currentLine: Player[];
   onAction: (action: Action) => void;
+  opponentName: string;
   ourScore: number;
   theirScore: number;
 }) {
   const handleD = (player: Player) => {
     onAction(createDeEvent({ defender: player }));
+  };
+
+  const handleThrowaway = () => {
+    onAction(createThrowawayAgainstEvent(opponentName));
   };
 
   return (
@@ -41,7 +47,7 @@ export default function DefenseView({
         <View style={{ flex: 1 }}>
           <ActionButton
             label={"THROWAWAY".split("").join("\n")}
-            onPress={() => {}}
+            onPress={() => handleThrowaway()}
           />
         </View>
         <View style={{ flex: 1, justifyContent: "center" }}>

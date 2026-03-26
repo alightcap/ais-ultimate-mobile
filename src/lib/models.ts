@@ -1,5 +1,12 @@
 import { getId } from "../utils/uniqueId";
-import { Catch, De, Drop, Goal, Throwaway } from "./actions";
+import {
+  Catch,
+  De,
+  Drop,
+  GoalFor,
+  ThrowawayAgainst,
+  ThrowawayFor,
+} from "./actions";
 import { Game, Player, Point, Team } from "./types";
 
 export const createNewGame = (params: {
@@ -84,6 +91,7 @@ export const createCatchEvent = ({
 }): Catch => {
   return {
     name: "catch",
+    category: "offense",
     timeStamp: Date.now(),
     thrower: thrower,
     receiver: receiver,
@@ -95,6 +103,7 @@ export const createCatchEvent = ({
 export const createDeEvent = ({ defender }: { defender: Player }): De => {
   return {
     name: "d",
+    category: "defense",
     timeStamp: Date.now(),
     defender: defender,
     switchPossession: true,
@@ -111,6 +120,7 @@ export const createDropEvent = ({
 }): Drop => {
   return {
     name: "drop",
+    category: "offense",
     timeStamp: Date.now(),
     thrower: thrower,
     receiver: receiver,
@@ -119,7 +129,7 @@ export const createDropEvent = ({
   };
 };
 
-export const createGoalEvent = ({
+export const createGoalForEvent = ({
   thrower,
   receiver,
   ourScore,
@@ -129,9 +139,10 @@ export const createGoalEvent = ({
   receiver: Player;
   ourScore: number;
   theirScore: number;
-}): Goal => {
+}): GoalFor => {
   return {
-    name: "goal",
+    name: "goal for",
+    category: "offense",
     timeStamp: Date.now(),
     thrower: thrower,
     receiver: receiver,
@@ -141,15 +152,29 @@ export const createGoalEvent = ({
   };
 };
 
-export const createThrowawayEvent = ({
+export const createThrowawayForEvent = ({
   thrower,
 }: {
   thrower: Player;
-}): Throwaway => {
+}): ThrowawayFor => {
   return {
-    name: "throwaway",
+    name: "throwaway for",
+    category: "offense",
     timeStamp: Date.now(),
     thrower: thrower,
+    switchPossession: true,
+    endPoint: false,
+  };
+};
+
+export const createThrowawayAgainstEvent = (
+  opponentName: string,
+): ThrowawayAgainst => {
+  return {
+    name: "throwaway against",
+    category: "defense",
+    timeStamp: Date.now(),
+    opponentName: opponentName,
     switchPossession: true,
     endPoint: false,
   };
