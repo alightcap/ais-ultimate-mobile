@@ -47,6 +47,7 @@ export interface Goal extends BaseAction {
   name: "goal";
   thrower: Player;
   receiver: Player;
+  score: { ourScore: number; theirScore: number };
   switchPossession: true;
   endPoint: true;
 }

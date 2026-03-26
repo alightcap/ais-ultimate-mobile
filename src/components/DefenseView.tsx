@@ -9,9 +9,13 @@ import DefensePlayerCard from "./DefensePlayerCard";
 export default function DefenseView({
   currentLine,
   onAction,
+  ourScore,
+  theirScore,
 }: {
   currentLine: Player[];
   onAction: (action: Action) => void;
+  ourScore: number;
+  theirScore: number;
 }) {
   const handleD = (player: Player) => {
     onAction(createDeEvent({ defender: player }));

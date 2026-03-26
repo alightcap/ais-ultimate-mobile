@@ -15,9 +15,13 @@ import OffensePlayerCard from "./OffensePlayerCard";
 export default function OffenseView({
   currentLine,
   onAction,
+  ourScore,
+  theirScore,
 }: {
   currentLine: Player[];
   onAction: (action: Action) => void;
+  ourScore: number;
+  theirScore: number;
 }) {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>(
     undefined,
@@ -40,7 +44,15 @@ export default function OffenseView({
   const handleGoal = (player: Player) => {
     if (!selectedPlayer) return;
 
-    onAction(createGoalEvent({ thrower: selectedPlayer, receiver: player }));
+    const goal = createGoalEvent({
+      thrower: selectedPlayer,
+      receiver: player,
+      ourScore: ourScore,
+      theirScore: theirScore,
+    });
+    console.log(goal);
+
+    onAction(goal);
   };
 
   const handleThrowaway = () => {

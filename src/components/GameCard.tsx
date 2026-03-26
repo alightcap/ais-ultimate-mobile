@@ -24,7 +24,11 @@ export default function GameCard({ game }: { game: Game }) {
           <Text style={styles.oppText}>{`vs. ${game.opponentName}`}</Text>
         </View>
         <View style={styles.row}>
-          <ScoreBoard game={game} style={{ fontSize: 18 }} />
+          <ScoreBoard
+            ourScore={game.ourScore}
+            theirScore={game.theirScore}
+            style={{ fontSize: 18 }}
+          />
           <Ionicons name="chevron-forward" size={24} color="black" />
         </View>
       </View>

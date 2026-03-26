@@ -122,15 +122,20 @@ export const createDropEvent = ({
 export const createGoalEvent = ({
   thrower,
   receiver,
+  ourScore,
+  theirScore,
 }: {
   thrower: Player;
   receiver: Player;
+  ourScore: number;
+  theirScore: number;
 }): Goal => {
   return {
     name: "goal",
     timeStamp: Date.now(),
     thrower: thrower,
     receiver: receiver,
+    score: { ourScore, theirScore },
     switchPossession: true,
     endPoint: true,
   };

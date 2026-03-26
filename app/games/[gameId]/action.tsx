@@ -87,9 +87,19 @@ export default function ActionView() {
       </View>
       <View style={GlobalStyles.contentContainer}>
         {isOffense ? (
-          <OffenseView currentLine={currentLine} onAction={handleAction} />
+          <OffenseView
+            currentLine={currentLine}
+            onAction={handleAction}
+            ourScore={currentGame.ourScore}
+            theirScore={currentGame.theirScore}
+          />
         ) : (
-          <DefenseView currentLine={currentLine} onAction={handleAction} />
+          <DefenseView
+            currentLine={currentLine}
+            onAction={handleAction}
+            ourScore={currentGame.ourScore}
+            theirScore={currentGame.theirScore}
+          />
         )}
       </View>
       <View style={{ margin: 2, backgroundColor: Colors.surface }}>
