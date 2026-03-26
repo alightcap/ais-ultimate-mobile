@@ -27,7 +27,7 @@ export default function GameCard({ game }: { game: Game }) {
           <ScoreBoard
             ourScore={game.ourScore}
             theirScore={game.theirScore}
-            style={{ fontSize: 18 }}
+            style={{ fontSize: 20 }}
           />
           <Ionicons name="chevron-forward" size={24} color="black" />
         </View>

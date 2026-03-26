@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   recordText: {
     borderRadius: 5,
     paddingHorizontal: 8,
-    minWidth: 50,
+    minWidth: 65,
     textAlign: "center",
     alignSelf: "center",
     color: "white",

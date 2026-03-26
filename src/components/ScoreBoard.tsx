@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     borderRadius: 5,
     paddingVertical: 4,
+    minWidth: 65,
   },
   winning: {
     backgroundColor: Colors.winningHighlight,

@@ -62,13 +62,13 @@ export default function OffenseView({
 
   return (
     <View style={[GlobalStyles.contentContainer, { flex: 1 }]}>
-      <View style={{ height: 50 }}>
+      <View style={{ flex: 0.5 }}>
         <Text>Headings go here</Text>
       </View>
       <View
         style={{
           flexDirection: "row",
-          flex: 1,
+          // flex: 1,
           backgroundColor: Colors.surface,
         }}
       >

@@ -86,14 +86,14 @@ export default function ActionView() {
   return (
     <View style={GlobalStyles.container}>
       <Stack.Screen options={{ headerTitle: "Action" }} />
-      <View style={GlobalStyles.titleContainer}>
+      <View style={[GlobalStyles.titleContainer, { flex: 1 }]}>
         <ScoreBoard
           ourScore={currentGame.ourScore}
           theirScore={currentGame.theirScore}
           style={[GlobalStyles.headingText, { color: Colors.white }]}
         />
       </View>
-      <View style={GlobalStyles.contentContainer}>
+      <View style={[GlobalStyles.contentContainer, { flex: 8 }]}>
         {isOffense ? (
           <OffenseView
             currentLine={currentLine}
@@ -111,7 +111,7 @@ export default function ActionView() {
           />
         )}
       </View>
-      <View style={{ margin: 2, backgroundColor: Colors.surface }}>
+      <View style={{ margin: 2, backgroundColor: Colors.surface, flex: 2.3 }}>
         <FlatList
           data={recentActions}
           keyExtractor={(item, index) => index.toString()}
@@ -121,15 +121,17 @@ export default function ActionView() {
           ListEmptyComponent={<Text>No Actions Yet</Text>}
         />
       </View>
-      <BigButton
-        title="SWITCH"
-        onPress={async () => {
-          await updateGame({
-            ...currentGame,
-            hasPossession: !currentGame.hasPossession,
-          });
-        }}
-      />
+      <View style={{ flex: 2 }}>
+        <BigButton
+          title="SWITCH"
+          onPress={async () => {
+            await updateGame({
+              ...currentGame,
+              hasPossession: !currentGame.hasPossession,
+            });
+          }}
+        />
+      </View>
     </View>
   );
 }
