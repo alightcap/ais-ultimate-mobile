@@ -7,7 +7,10 @@ const palette = {
   secondaryWhite: "#fff",
   secondaryPink: "#f4eaea",
 
-  success: "#34c759",
+  sportEmerald: "#2E7D32",
+  modernSage: "#C8E6C9",
+  subtleRose: "#fdecea",
+  crimsonActive: "#c62828",
   danger: "#FF3b30",
   warning: "#ff9500",
 
@@ -30,11 +33,16 @@ export const Colors = {
   brandPrimary: palette.primaryMid,
   brandAccent: palette.primaryLight,
 
-  active: palette.success,
+  active: palette.sportEmerald,
   archived: palette.gray500,
   error: palette.danger,
   black: palette.black,
   white: palette.white,
+
+  winningSurface: palette.modernSage,
+  winningHighlight: palette.sportEmerald,
+  losingSurface: palette.subtleRose,
+  losingHighlight: palette.crimsonActive,
 };
 
 export const GlobalStyles = StyleSheet.create({

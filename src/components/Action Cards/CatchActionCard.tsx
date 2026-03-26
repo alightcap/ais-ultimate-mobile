@@ -11,8 +11,11 @@ export default function CatchActionCard({
 }) {
   return (
     <View style={ActionCardStyle}>
-      <HandsClappingIcon color={Colors.brandPrimary} weight="fill" />
-
+      <HandsClappingIcon
+        color={Colors.brandPrimary}
+        weight="fill"
+        style={{ transform: [{ rotate: "90deg" }] }}
+      />
       <Text>
         {catchAction.receiver.name} caught from {catchAction.thrower.name}
       </Text>

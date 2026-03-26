@@ -28,7 +28,6 @@ export default function ScoreBoard({
 const styles = StyleSheet.create({
   scoreText: {
     paddingHorizontal: 8,
-    minWidth: 50,
     textAlign: "center",
     alignSelf: "center",
     color: "white",
@@ -36,17 +35,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 4,
   },
-  indicatorText: {
-    padding: 4,
-    borderRadius: 5,
-    marginRight: 5,
-    width: 30,
-    textAlign: "center",
-    color: "white",
-    fontWeight: "800",
-  },
   winning: {
-    backgroundColor: "green",
+    backgroundColor: Colors.winningHighlight,
   },
   losing: {
     backgroundColor: "red",
