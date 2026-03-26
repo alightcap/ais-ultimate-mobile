@@ -75,6 +75,11 @@ export default function ActionView() {
     await updateGame(updatedGame);
   };
 
+  // TODO: clean this up so that the player list is always the same size,
+  // no matter how many players are selected.
+  // Event list should calculate how many events it can show based on the
+  // size of the box it is in.
+
   return (
     <View style={GlobalStyles.container}>
       <Stack.Screen options={{ headerTitle: "Action" }} />

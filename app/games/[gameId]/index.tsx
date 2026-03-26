@@ -99,7 +99,7 @@ export default function GameIndex() {
         <Text style={GlobalStyles.headingText}>{currentTeam!.name}</Text>
         <ScoreBoard
           ourScore={currentGame.ourScore}
-          theirScore={currentGame.ourScore}
+          theirScore={currentGame.theirScore}
           style={[GlobalStyles.headingText, { color: "white" }]}
         />
       </View>

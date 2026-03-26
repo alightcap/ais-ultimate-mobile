@@ -50,7 +50,6 @@ export default function OffenseView({
       ourScore: ourScore,
       theirScore: theirScore,
     });
-    console.log(goal);
 
     onAction(goal);
   };
