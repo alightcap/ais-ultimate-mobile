@@ -1,5 +1,5 @@
 import { getId } from "../utils/uniqueId";
-import { Catch, Drop } from "./actions";
+import { Catch, De, Drop, Goal, Throwaway } from "./actions";
 import { Game, Player, Point, Team } from "./types";
 
 export const createNewGame = (params: {
@@ -92,6 +92,16 @@ export const createCatchEvent = ({
   };
 };
 
+export const createDeEvent = ({ defender }: { defender: Player }): De => {
+  return {
+    name: "d",
+    timeStamp: Date.now(),
+    defender: defender,
+    switchPossession: true,
+    endPoint: false,
+  };
+};
+
 export const createDropEvent = ({
   thrower,
   receiver,
@@ -104,6 +114,37 @@ export const createDropEvent = ({
     timeStamp: Date.now(),
     thrower: thrower,
     receiver: receiver,
+    switchPossession: true,
+    endPoint: false,
+  };
+};
+
+export const createGoalEvent = ({
+  thrower,
+  receiver,
+}: {
+  thrower: Player;
+  receiver: Player;
+}): Goal => {
+  return {
+    name: "goal",
+    timeStamp: Date.now(),
+    thrower: thrower,
+    receiver: receiver,
+    switchPossession: true,
+    endPoint: true,
+  };
+};
+
+export const createThrowawayEvent = ({
+  thrower,
+}: {
+  thrower: Player;
+}): Throwaway => {
+  return {
+    name: "throwaway",
+    timeStamp: Date.now(),
+    thrower: thrower,
     switchPossession: true,
     endPoint: false,
   };

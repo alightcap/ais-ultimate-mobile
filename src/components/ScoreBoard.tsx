@@ -1,15 +1,15 @@
 import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
-import { Game } from "../lib/types";
 import { Colors } from "../styles/global";
 
 export default function ScoreBoard({
-  game,
+  ourScore,
+  theirScore,
   style,
 }: {
-  game: Game;
+  ourScore: number;
+  theirScore: number;
   style?: StyleProp<TextStyle>;
 }) {
-  const { ourScore, theirScore } = game;
   const isTied = ourScore === theirScore;
   const areWinning = ourScore > theirScore;
 

@@ -11,7 +11,9 @@ export type Action =
   | Catch
   | Drop
   | Goal
+  | GoalD
   | Throwaway
+  | ThrowawayD
   | Pull
   | De
   | Callahan
@@ -49,9 +51,21 @@ export interface Goal extends BaseAction {
   endPoint: true;
 }
 
+export interface GoalD extends BaseAction {
+  name: "goal d";
+  switchPossession: true;
+  endPoint: true;
+}
+
 export interface Throwaway extends BaseAction {
   name: "throwaway";
   thrower: Player;
+  switchPossession: true;
+  endPoint: false;
+}
+
+export interface ThrowawayD extends BaseAction {
+  name: "throwaway d";
   switchPossession: true;
   endPoint: false;
 }

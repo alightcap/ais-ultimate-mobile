@@ -53,7 +53,9 @@ export default function GameIndex() {
     currentGame?.halfAt ?? "points",
   );
 
-  const { timeStamp, eventName, opponentName } = currentGame!;
+  if (!currentGame) return;
+
+  const { timeStamp, eventName, opponentName } = currentGame;
 
   const handleStartingOnChange = async (newMode: StartingOnMode) => {
     setStartingOn(newMode);
@@ -96,7 +98,8 @@ export default function GameIndex() {
       <View style={GlobalStyles.titleContainer}>
         <Text style={GlobalStyles.headingText}>{currentTeam!.name}</Text>
         <ScoreBoard
-          game={currentGame!}
+          ourScore={currentGame.ourScore}
+          theirScore={currentGame.ourScore}
           style={[GlobalStyles.headingText, { color: "white" }]}
         />
       </View>

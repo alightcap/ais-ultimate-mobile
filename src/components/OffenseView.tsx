@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
 import { Action } from "../lib/actions";
-import { createCatchEvent, createDropEvent } from "../lib/models";
+import {
+  createCatchEvent,
+  createDropEvent,
+  createGoalEvent,
+  createThrowawayEvent,
+} from "../lib/models";
 import { Player } from "../lib/types";
 import { Colors, GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
@@ -32,6 +37,18 @@ export default function OffenseView({
     onAction(createDropEvent({ thrower: selectedPlayer, receiver: player }));
   };
 
+  const handleGoal = (player: Player) => {
+    if (!selectedPlayer) return;
+
+    onAction(createGoalEvent({ thrower: selectedPlayer, receiver: player }));
+  };
+
+  const handleThrowaway = () => {
+    if (!selectedPlayer) return;
+
+    onAction(createThrowawayEvent({ thrower: selectedPlayer }));
+  };
+
   return (
     <View style={[GlobalStyles.contentContainer, { flex: 1 }]}>
       <View style={{ height: 50 }}>
@@ -52,15 +69,15 @@ export default function OffenseView({
               hasDisc={selectedPlayer === player}
               showButtons={selectedPlayer !== undefined}
               onPress={() => setSelectedPlayer(player)}
-              onCatch={() => handleCatch(player)} // record catch from selected player to this player
-              onDrop={() => handleDrop(player)} // record drop by this player, switch to defence
-              onGoal={() => {}} // record goal from selected player to this player, go to pick line view
+              onCatch={() => handleCatch(player)}
+              onDrop={() => handleDrop(player)}
+              onGoal={() => handleGoal(player)} // record goal from selected player to this player, go to pick line view
             />
           ))}
         </View>
         <ActionButton
           label={"THROWAWAY".split("").join("\n")}
-          onPress={() => {}} // record throwaway and switch to defence
+          onPress={() => handleThrowaway()} // record throwaway and switch to defence
         />
       </View>
     </View>

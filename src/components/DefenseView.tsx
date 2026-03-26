@@ -1,5 +1,6 @@
 import { Text, View } from "react-native";
 import { Action } from "../lib/actions";
+import { createDeEvent } from "../lib/models";
 import { Player } from "../lib/types";
 import { GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
@@ -12,6 +13,10 @@ export default function DefenseView({
   currentLine: Player[];
   onAction: (action: Action) => void;
 }) {
+  const handleD = (player: Player) => {
+    onAction(createDeEvent({ defender: player }));
+  };
+
   return (
     <View style={GlobalStyles.contentContainer}>
       <View style={{ height: 50 }}>
@@ -24,7 +29,7 @@ export default function DefenseView({
             <DefensePlayerCard
               key={player.id}
               name={player.name}
-              onD={() => {}}
+              onD={() => handleD(player)}
             />
           ))}
         </View>

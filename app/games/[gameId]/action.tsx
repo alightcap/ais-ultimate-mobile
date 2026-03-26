@@ -14,32 +14,34 @@ export default function ActionView() {
   const { games, teams, players, updateGame } = useData();
 
   const currentGame = games.find((g) => g.id === gameId);
-  const currentTeam = teams.find((t) => t.id === currentGame!.teamId);
+  if (!currentGame) return <Text>Game not found</Text>;
+
+  const currentTeam = teams.find((t) => t.id === currentGame.teamId);
+  if (!currentTeam) return <Text>Team not found</Text>;
 
   const unknownPlayer = players.find(
-    (p) => p.id === `${currentTeam!.id}-unknown`,
+    (p) => p.id === `${currentTeam.id}-unknown`,
   );
 
-  const points = currentGame?.points || [];
+  const points = currentGame.points || [];
   const currentPoint = points[points.length - 1] || { actions: [] };
-  const isOffense = currentGame?.hasPossession;
+  const isOffense = currentGame.hasPossession;
 
   const activePlayers = players.filter(
-    (p) => p.teamIDs.includes(currentTeam!.id) && p.active,
+    (p) => p.teamIDs.includes(currentTeam.id) && p.active,
   );
   const initialLine =
-    (currentGame?.currentLine.length ?? 0) > 0
-      ? currentGame!.currentLine
+    (currentGame.currentLine.length ?? 0) > 0
+      ? currentGame.currentLine
       : activePlayers.slice(0, 7);
   const alreadyHasUnkown = initialLine.some((p) => p.id.includes("unknown"));
   const currentLine =
     unknownPlayer && !alreadyHasUnkown
       ? [...initialLine, unknownPlayer]
       : initialLine;
-
-  if (!currentGame) return <Text>Game not found</Text>;
-  if (!currentTeam) return <Text>Team not found</Text>;
   if (!currentLine) return <Text>No Line found</Text>;
+
+  const recentActions = [...currentPoint.actions].reverse().slice(0, 3);
 
   const handleAction = async (action: Action) => {
     if (!currentGame) return;
@@ -53,19 +55,14 @@ export default function ActionView() {
 
     let ourScore = currentGame.ourScore;
     let theirScore = currentGame.theirScore;
+    if (action.name === "goal") {
+      ourScore += 1;
+    }
 
     let newPossession = currentGame.hasPossession;
     if (action.switchPossession) {
       newPossession = !currentGame.hasPossession;
     }
-
-    // if (action.name === "goal") {
-    //   if (action.thrower.name === "defense") {
-    //     theirScore += 1;
-    //   } else {
-    //     ourScore += 1;
-    //   }
-    // }
 
     const updatedGame = {
       ...currentGame,
@@ -83,7 +80,8 @@ export default function ActionView() {
       <Stack.Screen options={{ headerTitle: "Action" }} />
       <View style={GlobalStyles.titleContainer}>
         <ScoreBoard
-          game={currentGame}
+          ourScore={currentGame.ourScore}
+          theirScore={currentGame.theirScore}
           style={[GlobalStyles.headingText, { color: Colors.white }]}
         />
       </View>
@@ -96,7 +94,7 @@ export default function ActionView() {
       </View>
       <View style={{ margin: 2, backgroundColor: Colors.surface }}>
         <FlatList
-          data={currentPoint.actions.slice(-3)}
+          data={recentActions}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             return <ActionCard action={item} />;
