@@ -5,3 +5,10 @@ export const ActionCardStyle: ViewStyle = {
   gap: 10,
   alignItems: "center",
 };
+
+export const GoalActionCardStyle: ViewStyle = {
+  gap: 10,
+  flex: 1,
+  flexDirection: "row",
+  alignItems: "center",
+};

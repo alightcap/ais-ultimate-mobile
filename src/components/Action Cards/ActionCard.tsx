@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import CatchActionCard from "./CatchActionCard";
 import DeActionCard from "./DeActionCard";
 import DropActionCard from "./DropActionCard";
+import GoalAgainstActionCard from "./GoalAgainstActionCard";
 import GoalForActionCard from "./GoalForActionCard";
 import ThrowawayAgainstActionCard from "./ThrowawayAgainstActionCard";
 import ThrowawayActionCard from "./ThrowawayForActionCard";
@@ -13,8 +14,9 @@ export default function ActionCard({ action }: { action: Action }) {
     <View
       style={[
         styles.actionCardContainer,
-        action.name === "goal for" && styles.goalForSurface,
         action.category === "defense" && styles.dLineActionSurface,
+        action.name === "goal for" && styles.goalForSurface,
+        action.name === "goal against" && styles.goalAgainstSurface,
       ]}
     >
       {(() => {
@@ -31,6 +33,8 @@ export default function ActionCard({ action }: { action: Action }) {
             return <GoalForActionCard action={action} />;
           case "throwaway against":
             return <ThrowawayAgainstActionCard action={action} />;
+          case "goal against":
+            return <GoalAgainstActionCard action={action} />;
           default:
             return (
               <View>
@@ -57,6 +61,9 @@ const styles = StyleSheet.create({
   },
   goalForSurface: {
     backgroundColor: Colors.winningSurface,
+  },
+  goalAgainstSurface: {
+    backgroundColor: Colors.losingSurface,
   },
   dLineActionSurface: {
     backgroundColor: Colors.awaySurface,

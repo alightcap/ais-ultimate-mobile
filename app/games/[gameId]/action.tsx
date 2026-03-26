@@ -58,6 +58,9 @@ export default function ActionView() {
     if (action.name === "goal for") {
       ourScore += 1;
     }
+    if (action.name === "goal against") {
+      theirScore += 1;
+    }
 
     let newPossession = currentGame.hasPossession;
     if (action.switchPossession) {

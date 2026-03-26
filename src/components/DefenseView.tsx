@@ -1,6 +1,10 @@
 import { Text, View } from "react-native";
 import { Action } from "../lib/actions";
-import { createDeEvent, createThrowawayAgainstEvent } from "../lib/models";
+import {
+  createDeEvent,
+  createGoalAgainstEvent,
+  createThrowawayAgainstEvent,
+} from "../lib/models";
 import { Player } from "../lib/types";
 import { GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
@@ -23,8 +27,18 @@ export default function DefenseView({
     onAction(createDeEvent({ defender: player }));
   };
 
-  const handleThrowaway = () => {
+  const handleThrowawayAgainst = () => {
     onAction(createThrowawayAgainstEvent(opponentName));
+  };
+
+  const handleGoalAgainst = () => {
+    onAction(
+      createGoalAgainstEvent({
+        opponentName: opponentName,
+        ourScore: ourScore,
+        theirScore: theirScore,
+      }),
+    );
   };
 
   return (
@@ -47,13 +61,13 @@ export default function DefenseView({
         <View style={{ flex: 1 }}>
           <ActionButton
             label={"THROWAWAY".split("").join("\n")}
-            onPress={() => handleThrowaway()}
+            onPress={() => handleThrowawayAgainst()}
           />
         </View>
         <View style={{ flex: 1, justifyContent: "center" }}>
           <ActionButton
             label="They Scored"
-            onPress={() => {}}
+            onPress={() => handleGoalAgainst()}
             style={{ height: 50 }}
           />
         </View>

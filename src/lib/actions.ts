@@ -58,6 +58,7 @@ export interface GoalAgainst extends BaseAction {
   name: "goal against";
   category: "defense";
   opponentName: string;
+  score: { ourScore: number; theirScore: number };
   switchPossession: true;
   endPoint: true;
 }

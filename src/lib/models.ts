@@ -3,6 +3,7 @@ import {
   Catch,
   De,
   Drop,
+  GoalAgainst,
   GoalFor,
   ThrowawayAgainst,
   ThrowawayFor,
@@ -146,6 +147,26 @@ export const createGoalForEvent = ({
     timeStamp: Date.now(),
     thrower: thrower,
     receiver: receiver,
+    score: { ourScore, theirScore },
+    switchPossession: true,
+    endPoint: true,
+  };
+};
+
+export const createGoalAgainstEvent = ({
+  opponentName,
+  ourScore,
+  theirScore,
+}: {
+  opponentName: string;
+  ourScore: number;
+  theirScore: number;
+}): GoalAgainst => {
+  return {
+    name: "goal against",
+    category: "defense",
+    opponentName: opponentName,
+    timeStamp: Date.now(),
     score: { ourScore, theirScore },
     switchPossession: true,
     endPoint: true,
