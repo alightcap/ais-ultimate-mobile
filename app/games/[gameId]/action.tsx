@@ -1,13 +1,8 @@
-import ActionCard from "@/src/components/Action Cards/ActionCard";
-import BigButton from "@/src/components/BigButton";
-import DefenseView from "@/src/components/DefenseView";
-import OffenseView from "@/src/components/OffenseView";
-import ScoreBoard from "@/src/components/ScoreBoard";
+import TestAction from "@/src/components/TestAction";
 import { useData } from "@/src/contexts/DataContext";
 import { Action } from "@/src/lib/actions";
-import { Colors, GlobalStyles } from "@/src/styles/global";
-import { Stack, useLocalSearchParams } from "expo-router";
-import { FlatList, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { Text } from "react-native";
 
 export default function ActionView() {
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
@@ -84,54 +79,55 @@ export default function ActionView() {
   // size of the box it is in.
 
   return (
-    <View style={GlobalStyles.container}>
-      <Stack.Screen options={{ headerTitle: "Action" }} />
-      <View style={[GlobalStyles.titleContainer, { flex: 1 }]}>
-        <ScoreBoard
-          ourScore={currentGame.ourScore}
-          theirScore={currentGame.theirScore}
-          style={[GlobalStyles.headingText, { color: Colors.white }]}
-        />
-      </View>
-      <View style={[GlobalStyles.contentContainer, { flex: 8 }]}>
-        {isOffense ? (
-          <OffenseView
-            currentLine={currentLine}
-            onAction={handleAction}
-            ourScore={currentGame.ourScore}
-            theirScore={currentGame.theirScore}
-          />
-        ) : (
-          <DefenseView
-            currentLine={currentLine}
-            onAction={handleAction}
-            opponentName={currentGame.opponentName}
-            ourScore={currentGame.ourScore}
-            theirScore={currentGame.theirScore}
-          />
-        )}
-      </View>
-      <View style={{ margin: 2, backgroundColor: Colors.surface, flex: 2.3 }}>
-        <FlatList
-          data={recentActions}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => {
-            return <ActionCard action={item} />;
-          }}
-          ListEmptyComponent={<Text>No Actions Yet</Text>}
-        />
-      </View>
-      <View style={{ flex: 2 }}>
-        <BigButton
-          title="SWITCH"
-          onPress={async () => {
-            await updateGame({
-              ...currentGame,
-              hasPossession: !currentGame.hasPossession,
-            });
-          }}
-        />
-      </View>
-    </View>
+    <TestAction />
+    //   <View style={GlobalStyles.container}>
+    //     <Stack.Screen options={{ headerTitle: "Action" }} />
+    //     <View style={[GlobalStyles.titleContainer, { flex: 1 }]}>
+    //       <ScoreBoard
+    //         ourScore={currentGame.ourScore}
+    //         theirScore={currentGame.theirScore}
+    //         style={[GlobalStyles.headingText, { color: Colors.white }]}
+    //       />
+    //     </View>
+    //     <View style={[GlobalStyles.contentContainer, { flex: 8 }]}>
+    //       {isOffense ? (
+    //         <OffenseView
+    //           currentLine={currentLine}
+    //           onAction={handleAction}
+    //           ourScore={currentGame.ourScore}
+    //           theirScore={currentGame.theirScore}
+    //         />
+    //       ) : (
+    //         <DefenseView
+    //           currentLine={currentLine}
+    //           onAction={handleAction}
+    //           opponentName={currentGame.opponentName}
+    //           ourScore={currentGame.ourScore}
+    //           theirScore={currentGame.theirScore}
+    //         />
+    //       )}
+    //     </View>
+    //     <View style={{ margin: 2, backgroundColor: Colors.surface, flex: 3 }}>
+    //       <FlatList
+    //         data={recentActions}
+    //         keyExtractor={(item, index) => index.toString()}
+    //         renderItem={({ item }) => {
+    //           return <ActionCard action={item} />;
+    //         }}
+    //         ListEmptyComponent={<Text>No Actions Yet</Text>}
+    //       />
+    //     </View>
+    //     <View style={{ flex: 2 }}>
+    //       <BigButton
+    //         title="SWITCH"
+    //         onPress={async () => {
+    //           await updateGame({
+    //             ...currentGame,
+    //             hasPossession: !currentGame.hasPossession,
+    //           });
+    //         }}
+    //       />
+    //     </View>
+    //   </View>
   );
 }

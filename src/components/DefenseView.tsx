@@ -43,7 +43,7 @@ export default function DefenseView({
 
   return (
     <View style={GlobalStyles.contentContainer}>
-      <View style={{ height: 50 }}>
+      <View style={{ flex: 0.5 }}>
         <Text>Headings go here</Text>
       </View>
 

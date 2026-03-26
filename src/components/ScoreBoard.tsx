@@ -1,15 +1,30 @@
-import { StyleProp, StyleSheet, Text, TextStyle } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "../styles/global";
 
 export default function ScoreBoard({
   ourScore,
   theirScore,
-  style,
+  size = "medium",
 }: {
   ourScore: number;
   theirScore: number;
-  style?: StyleProp<TextStyle>;
+  size?: "small" | "medium" | "large";
 }) {
+  const sizeStyles = {
+    small: {
+      view: { width: 55, height: 24 },
+      font: { fontSize: 12, lineHeight: 24 },
+    },
+    medium: {
+      view: { width: 75, height: 32 },
+      font: { fontSize: 16, lineHeight: 32 },
+    },
+    large: {
+      view: { width: 100, height: 45 },
+      font: { fontSize: 24, lineHeight: 45 },
+    },
+  };
+
   const isTied = ourScore === theirScore;
   const areWinning = ourScore > theirScore;
 
@@ -19,22 +34,22 @@ export default function ScoreBoard({
   };
 
   return (
-    <Text
-      style={[styles.scoreText, getStatusStyle(), style]}
-    >{`${ourScore} - ${theirScore}`}</Text>
+    <View style={[styles.container, getStatusStyle(), sizeStyles[size].view]}>
+      <Text
+        style={[styles.scoreText, sizeStyles[size].font]}
+      >{`${ourScore} - ${theirScore}`}</Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    borderRadius: 6,
+  },
   scoreText: {
-    paddingHorizontal: 8,
     textAlign: "center",
-    alignSelf: "center",
-    color: "white",
     fontWeight: "800",
-    borderRadius: 5,
-    paddingVertical: 4,
-    minWidth: 65,
+    color: "white",
   },
   winning: {
     backgroundColor: Colors.winningHighlight,
