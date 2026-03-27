@@ -50,8 +50,7 @@ export const Colors = {
 export const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    marginLeft: 2,
-    marginRight: 2,
+    marginHorizontal: 2,
     backgroundColor: Colors.background,
   },
   contentContainer: {

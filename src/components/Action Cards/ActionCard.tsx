@@ -51,13 +51,11 @@ export default function ActionCard({ action }: { action: Action }) {
 
 const styles = StyleSheet.create({
   actionCardContainer: {
-    margin: 2,
     backgroundColor: Colors.surface,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
     justifyContent: "center",
     borderBottomColor: Colors.border,
     borderBottomWidth: 1,
+    flex: 1,
   },
   goalForSurface: {
     backgroundColor: Colors.winningSurface,

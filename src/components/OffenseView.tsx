@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { Action } from "../lib/actions";
 import {
   createCatchEvent,
@@ -8,7 +8,7 @@ import {
   createThrowawayForEvent,
 } from "../lib/models";
 import { Player } from "../lib/types";
-import { Colors, GlobalStyles } from "../styles/global";
+import { Colors } from "../styles/global";
 import ActionButton from "./ActionButton";
 import OffensePlayerCard from "./OffensePlayerCard";
 
@@ -61,18 +61,16 @@ export default function OffenseView({
   };
 
   return (
-    <View style={[GlobalStyles.contentContainer, { flex: 1 }]}>
-      <View style={{ flex: 0.5 }}>
-        <Text>Headings go here</Text>
-      </View>
+    <View style={{ flex: 1 }}>
       <View
         style={{
           flexDirection: "row",
-          // flex: 1,
           backgroundColor: Colors.surface,
+          gap: 2,
+          flex: 1,
         }}
       >
-        <View style={{ flex: 5, margin: 2 }}>
+        <View style={{ flex: 5, gap: 2 }}>
           {currentLine.map((player) => (
             <OffensePlayerCard
               key={player.id}
@@ -86,10 +84,12 @@ export default function OffenseView({
             />
           ))}
         </View>
-        <ActionButton
-          label={"THROWAWAY".split("").join("\n")}
-          onPress={() => handleThrowawayFor()}
-        />
+        <View style={{ flex: 1 }}>
+          <ActionButton
+            label={"THROWAWAY".split("").join("\n")}
+            onPress={() => handleThrowawayFor()}
+          />
+        </View>
       </View>
     </View>
   );

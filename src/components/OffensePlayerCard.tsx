@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { ArrowRightIcon } from "phosphor-react-native";
 import { Pressable, StyleSheet, Text, TextStyle, View } from "react-native";
 import { Colors } from "../styles/global";
 import ActionButton from "./ActionButton";
@@ -6,7 +6,6 @@ import ActionButton from "./ActionButton";
 export default function OffensePlayerCard({
   name,
   hasDisc,
-  textStyle,
   showButtons,
   onPress,
   onCatch,
@@ -23,21 +22,23 @@ export default function OffensePlayerCard({
   onGoal: () => void;
 }) {
   return (
-    <View style={styles.container}>
-      <Pressable style={styles.nameView} onPress={onPress}>
-        <Text style={[styles.nameText, textStyle]}>{name}</Text>
-      </Pressable>
-      <View style={styles.arrowView}>
-        <Ionicons name="arrow-forward" />
-      </View>
-      <View style={styles.buttonView}>
-        {showButtons && !hasDisc && (
-          <>
-            <ActionButton label="Catch" onPress={onCatch} />
-            <ActionButton label="Drop" onPress={onDrop} />
-            <ActionButton label="Goal" onPress={onGoal} />
-          </>
-        )}
+    <View style={{ flex: 1 }}>
+      <View style={styles.rowContainer}>
+        <Pressable style={styles.nameView} onPress={onPress}>
+          <Text style={styles.nameText}>{name}</Text>
+        </Pressable>
+        <View style={styles.arrowView}>
+          <ArrowRightIcon size={16} />
+        </View>
+        <View style={styles.buttonView}>
+          {showButtons && !hasDisc && (
+            <>
+              <ActionButton label="Catch" onPress={onCatch} />
+              <ActionButton label="Drop" onPress={onDrop} />
+              <ActionButton label="Goal" onPress={onGoal} />
+            </>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -53,17 +54,17 @@ const styles = StyleSheet.create({
   buttonView: {
     flex: 3,
     flexDirection: "row",
+    gap: 2,
   },
-  container: {
-    backgroundColor: Colors.surface,
+  rowContainer: {
     flexDirection: "row",
-    height: 50,
+    flex: 1,
+    gap: 6,
   },
   nameView: {
-    flex: 1.5,
+    flex: 1.75,
     height: "100%",
     justifyContent: "center",
-    padding: 2,
   },
   nameText: {
     textAlign: "right",

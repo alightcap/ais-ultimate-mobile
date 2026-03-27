@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../styles/global";
 
 export default function BigButton({
@@ -9,16 +9,21 @@ export default function BigButton({
   title: string;
 }) {
   return (
-    <Pressable
-      style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
-      onPress={onPress}
-    >
-      {({ pressed }) => (
-        <Text style={[styles.buttonText, pressed && { opacity: 0.7 }]}>
-          {title}
-        </Text>
-      )}
-    </Pressable>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.button,
+          pressed && styles.buttonPressed,
+        ]}
+        onPress={onPress}
+      >
+        {({ pressed }) => (
+          <Text style={[styles.buttonText, pressed && { opacity: 0.7 }]}>
+            {title}
+          </Text>
+        )}
+      </Pressable>
+    </View>
   );
 }
 
@@ -29,8 +34,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: Colors.surface,
-    margin: 20,
-    padding: 20,
+    justifyContent: "center",
+    height: 55,
+    width: "90%",
     borderRadius: 30,
     elevation: 3,
     shadowColor: "#000",

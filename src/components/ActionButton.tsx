@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flex: 1,
     justifyContent: "center",
-    margin: 2,
     elevation: 3,
   },
   buttonPressed: {

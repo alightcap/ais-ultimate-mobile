@@ -95,12 +95,17 @@ export default function GameIndex() {
           ),
         }}
       />
-      <View style={GlobalStyles.titleContainer}>
+      <View
+        style={[
+          GlobalStyles.titleContainer,
+          { alignItems: "center", padding: 6 },
+        ]}
+      >
         <Text style={GlobalStyles.headingText}>{currentTeam!.name}</Text>
         <ScoreBoard
           ourScore={currentGame.ourScore}
           theirScore={currentGame.theirScore}
-          style={[GlobalStyles.headingText, { color: "white" }]}
+          size="large"
         />
       </View>
       <View style={GlobalStyles.contentContainer}>
