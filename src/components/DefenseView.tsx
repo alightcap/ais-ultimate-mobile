@@ -53,13 +53,13 @@ export default function DefenseView({
           ))}
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1.5 }}>
           <ActionButton
             label={"THROWAWAY".split("").join("\n")}
             onPress={() => handleThrowawayAgainst()}
           />
         </View>
-        <View style={{ flex: 1, justifyContent: "center" }}>
+        <View style={{ flex: 1.5, justifyContent: "center" }}>
           <ActionButton
             label="They Scored"
             onPress={() => handleGoalAgainst()}

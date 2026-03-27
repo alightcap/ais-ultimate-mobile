@@ -1,17 +1,20 @@
 import ActionCard from "@/src/components/Action Cards/ActionCard";
 import BigButton from "@/src/components/BigButton";
 import DefenseView from "@/src/components/DefenseView";
+import LineView from "@/src/components/LineView";
 import OffenseView from "@/src/components/OffenseView";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import { useData } from "@/src/contexts/DataContext";
 import { Action } from "@/src/lib/actions";
 import { Colors } from "@/src/styles/global";
 import { useLocalSearchParams } from "expo-router";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 export default function ActionView() {
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
   const { games, teams, players, updateGame } = useData();
+  const [lineModalVisible, setLineModalVisible] = useState(false);
 
   const currentGame = games.find((g) => g.id === gameId);
   if (!currentGame) return <Text>Game not found</Text>;
@@ -76,6 +79,10 @@ export default function ActionView() {
     };
 
     await updateGame(updatedGame);
+
+    if (action.endPoint) {
+      setLineModalVisible(true);
+    }
   };
 
   // TODO:
@@ -137,15 +144,25 @@ export default function ActionView() {
       </View>
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <BigButton
-          title="SWITCH"
-          onPress={async () => {
-            await updateGame({
-              ...currentGame,
-              hasPossession: !currentGame.hasPossession,
-            });
-          }}
+          title="Show Line"
+          onPress={() => setLineModalVisible(true)}
         />
       </View>
+
+      <Modal
+        animationType="slide"
+        visible={lineModalVisible}
+        onRequestClose={() => setLineModalVisible(false)}
+      >
+        <LineView
+          roster={activePlayers}
+          currentLine={currentLine}
+          ourScore={currentGame.ourScore}
+          theirScore={currentGame.theirScore}
+          isOffense={currentGame.hasPossession}
+          onClose={() => setLineModalVisible(false)}
+        />
+      </Modal>
     </View>
   );
 }

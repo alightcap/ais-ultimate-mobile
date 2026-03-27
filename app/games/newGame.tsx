@@ -56,7 +56,7 @@ export default function NewGame() {
         <View style={GlobalStyles.titleContainer}>
           <Text style={GlobalStyles.headingText}>New Game</Text>
         </View>
-        <View style={GlobalStyles.contentContainer}>
+        <View style={[GlobalStyles.contentContainer, { flex: 8 }]}>
           <TextInputFormRow
             title="Opponent"
             item={opponentName}
@@ -76,8 +76,9 @@ export default function NewGame() {
           />
         </View>
       </View>
-
-      <BigButton title="Create Game" onPress={() => handleSave()} />
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <BigButton title="Create Game" onPress={() => handleSave()} />
+      </View>
     </View>
   );
 }
