@@ -80,6 +80,7 @@ export default function OffenseView({
               onCatch={() => handleCatch(player)}
               onDrop={() => handleDrop(player)}
               onGoal={() => handleGoalFor(player)}
+              // unknown needs to be able to throw to unknown
             />
           ))}
         </View>

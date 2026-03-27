@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Player } from "../lib/types";
 import { Colors } from "../styles/global";
 import BigButton from "./BigButton";
+import LinePlayerCard from "./LinePlayerCard";
 import ScoreBoard from "./ScoreBoard";
 
 export default function LineView({
@@ -45,14 +46,17 @@ export default function LineView({
       </View>
       <View style={{ flex: 7, flexDirection: "row" }}>
         <View
-          style={{ flex: 3, backgroundColor: "orange" }} // current line
+          style={{ flex: 3, backgroundColor: Colors.surface }} // current line
         >
-          {currentLine.map(
-            (player) =>
-              !player.id.includes("unknown") && (
-                <Text key={player.id}>{player.name}</Text>
-              ),
-          )}
+          <View style={{ gap: 4, margin: 4 }}>
+            {currentLine.map(
+              (player) =>
+                !player.id.includes("unknown") && (
+                  <LinePlayerCard player={player} key={player.id} />
+                  // <Text key={player.id}>{player.name}</Text>
+                ),
+            )}
+          </View>
         </View>
         <View style={{ flex: 6, backgroundColor: "blue" }}>
           {roster.map(
