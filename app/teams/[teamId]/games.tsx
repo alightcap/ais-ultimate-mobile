@@ -31,7 +31,7 @@ export default function Games() {
           style={[GlobalStyles.headingText, { color: "white" }]}
         />
       </View>
-      <View style={GlobalStyles.contentContainer}>
+      <View style={[GlobalStyles.contentContainer, { flex: 7 }]}>
         <FlatList
           data={currentGames}
           renderItem={({ item }) => <GameCard game={item} />}
@@ -42,15 +42,17 @@ export default function Games() {
           }
         />
       </View>
-      <BigButton
-        onPress={() =>
-          router.push({
-            pathname: "/games/newGame",
-            params: { teamId: teamId },
-          })
-        }
-        title="New Game"
-      />
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <BigButton
+          onPress={() =>
+            router.push({
+              pathname: "/games/newGame",
+              params: { teamId: teamId },
+            })
+          }
+          title="New Game"
+        />
+      </View>
     </View>
   );
 }

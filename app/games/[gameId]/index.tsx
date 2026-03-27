@@ -108,7 +108,7 @@ export default function GameIndex() {
           size="large"
         />
       </View>
-      <View style={GlobalStyles.contentContainer}>
+      <View style={[GlobalStyles.contentContainer, { flex: 7 }]}>
         <View style={styles.rowItem}>
           <Text style={styles.itemHeadingText}>Date</Text>
           <Text style={styles.itemText}>{getDateTimeString(timeStamp)}</Text>
@@ -186,15 +186,17 @@ export default function GameIndex() {
         <Text>per half/floaters/taken</Text>
       </View> */}
       </View>
-      <BigButton
-        title="Action"
-        onPress={() =>
-          router.push({
-            pathname: "/games/[gameId]/action",
-            params: { gameId: gameId },
-          })
-        }
-      />
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <BigButton
+          title="Action"
+          onPress={() =>
+            router.push({
+              pathname: "/games/[gameId]/action",
+              params: { gameId: gameId },
+            })
+          }
+        />
+      </View>
 
       <BottomSheet
         ref={bottomSheetRef}

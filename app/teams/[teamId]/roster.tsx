@@ -45,7 +45,7 @@ export default function Players() {
       <View style={GlobalStyles.titleContainer}>
         <Text style={GlobalStyles.headingText}>{currentTeam.name}</Text>
       </View>
-      <View style={GlobalStyles.contentContainer}>
+      <View style={[GlobalStyles.contentContainer, { flex: 7 }]}>
         <FlatList
           data={roster}
           renderItem={({ item }) => {
@@ -71,8 +71,12 @@ export default function Players() {
           }
         />
       </View>
-
-      <BigButton title="Add Player(s)" onPress={() => setModalVisible(true)} />
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <BigButton
+          title="Add Player(s)"
+          onPress={() => setModalVisible(true)}
+        />
+      </View>
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.emptyTop}>

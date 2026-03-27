@@ -31,16 +31,18 @@ export default function TeamsIndex() {
       <View style={GlobalStyles.titleContainer}>
         <Text style={GlobalStyles.headingText}>My Teams</Text>
       </View>
-      <View style={GlobalStyles.contentContainer}>
+      <View style={[GlobalStyles.contentContainer, { flex: 7 }]}>
         <TeamList
           teams={activeTeams}
           emptyMessage="There are no teams to display."
         />
       </View>
-      <BigButton
-        onPress={() => router.push("/teams/newTeam")}
-        title="New Team"
-      />
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <BigButton
+          onPress={() => router.push("/teams/newTeam")}
+          title="New Team"
+        />
+      </View>
     </View>
   );
 }
