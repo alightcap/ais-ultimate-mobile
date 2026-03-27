@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { Action } from "../lib/actions";
 import {
   createDeEvent,
@@ -6,7 +6,6 @@ import {
   createThrowawayAgainstEvent,
 } from "../lib/models";
 import { Player } from "../lib/types";
-import { GlobalStyles } from "../styles/global";
 import ActionButton from "./ActionButton";
 import DefensePlayerCard from "./DefensePlayerCard";
 
@@ -42,13 +41,9 @@ export default function DefenseView({
   };
 
   return (
-    <View style={GlobalStyles.contentContainer}>
-      <View style={{ flex: 0.5 }}>
-        <Text>Headings go here</Text>
-      </View>
-
-      <View style={{ flexDirection: "row" }}>
-        <View style={{ flex: 2.75, margin: 2 }}>
+    <View style={{ flex: 1 }}>
+      <View style={{ flexDirection: "row", gap: 2, flex: 1 }}>
+        <View style={{ flex: 4, gap: 2 }}>
           {currentLine.map((player) => (
             <DefensePlayerCard
               key={player.id}
@@ -71,6 +66,7 @@ export default function DefenseView({
             style={{ height: 50 }}
           />
         </View>
+        <View style={{ flex: 1 }}></View>
       </View>
     </View>
   );

@@ -1,27 +1,27 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Text, TextStyle, View } from "react-native";
+import { ArrowRightIcon } from "phosphor-react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "../styles/global";
 import ActionButton from "./ActionButton";
 
 export default function DefensePlayerCard({
   name,
   onD,
-  textStyle,
 }: {
   name: string;
   onD: () => void;
-  textStyle?: TextStyle;
 }) {
   return (
-    <View style={styles.container}>
-      <View style={styles.nameView}>
-        <Text style={[styles.nameText, textStyle]}>{name}</Text>
-      </View>
-      <View style={styles.arrowView}>
-        <Ionicons name="arrow-forward" />
-      </View>
-      <View style={styles.buttonView}>
-        <ActionButton label="D" onPress={onD} />
+    <View style={{ flex: 1 }}>
+      <View style={styles.rowContainer}>
+        <View style={styles.nameView}>
+          <Text style={styles.nameText}>{name}</Text>
+        </View>
+        <View style={styles.arrowView}>
+          <ArrowRightIcon size={16} />
+        </View>
+        <View style={styles.buttonView}>
+          <ActionButton label="D" onPress={onD} />
+        </View>
       </View>
     </View>
   );
@@ -37,19 +37,19 @@ const styles = StyleSheet.create({
   buttonView: {
     flex: 1,
   },
-  container: {
+  rowContainer: {
     backgroundColor: Colors.surface,
     flexDirection: "row",
-    height: 50,
+    flex: 1,
+    gap: 6,
   },
   nameText: {
     textAlign: "right",
     fontWeight: "900",
   },
   nameView: {
-    flex: 1.5,
+    flex: 1.75,
     height: "100%",
     justifyContent: "center",
-    padding: 2,
   },
 });

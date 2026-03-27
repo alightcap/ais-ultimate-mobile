@@ -113,7 +113,7 @@ export default function ActionView() {
       <View style={{ flex: 3, backgroundColor: "orange" }}>
         <FlatList
           data={recentActions}
-          contentContainerStyle={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1 }}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             return (

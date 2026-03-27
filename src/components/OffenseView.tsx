@@ -61,11 +61,10 @@ export default function OffenseView({
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: Colors.surface }}>
       <View
         style={{
           flexDirection: "row",
-          backgroundColor: Colors.surface,
           gap: 2,
           flex: 1,
         }}
