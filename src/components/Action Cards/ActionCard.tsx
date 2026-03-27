@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
     borderBottomWidth: 1,
     flex: 1,
+    height: 50, // would like this to be flex, but...
+    padding: 6,
   },
   goalForSurface: {
     backgroundColor: Colors.winningSurface,

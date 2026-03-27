@@ -110,7 +110,7 @@ export default function ActionView() {
           />
         )}
       </View>
-      <View style={{ flex: 3, backgroundColor: "orange" }}>
+      <View style={{ flex: 3 }}>
         <FlatList
           data={recentActions}
           contentContainerStyle={{ flexGrow: 1 }}

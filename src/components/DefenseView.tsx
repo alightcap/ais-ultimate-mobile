@@ -63,7 +63,6 @@ export default function DefenseView({
           <ActionButton
             label="They Scored"
             onPress={() => handleGoalAgainst()}
-            style={{ height: 50 }}
           />
         </View>
         <View style={{ flex: 1 }}></View>
