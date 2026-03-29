@@ -6,6 +6,8 @@ import OffenseView from "@/src/components/OffenseView";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import { useData } from "@/src/contexts/DataContext";
 import { Action } from "@/src/lib/actions";
+import { createNewPoint } from "@/src/lib/models";
+import { Point } from "@/src/lib/types";
 import { Colors } from "@/src/styles/global";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
@@ -17,22 +19,24 @@ export default function ActionView() {
   const [lineModalVisible, setLineModalVisible] = useState(false);
 
   const currentGame = games.find((g) => g.id === gameId);
-  if (!currentGame) return <Text>Game not found</Text>;
 
-  const currentTeam = teams.find((t) => t.id === currentGame.teamId);
-  if (!currentTeam) return <Text>Team not found</Text>;
+  const currentTeam = teams.find((t) => t.id === currentGame!.teamId);
 
   const unknownPlayer = players.find(
-    (p) => p.id === `${currentTeam.id}-unknown`,
+    (p) => p.id === `${currentTeam!.id}-unknown`,
   );
 
-  const points = currentGame.points || [];
-  const currentPoint = points[points.length - 1] || { actions: [] };
+  const points = currentGame!.points || [];
+  const [currentPoint, setCurrentPoint] = useState<Point>(points[-1]);
+  if (!currentGame) return <Text>Game not found</Text>;
+  if (!currentTeam) return <Text>Team not found</Text>;
+
   const isOffense = currentGame.hasPossession;
 
   const activePlayers = players.filter(
-    (p) => p.teamIDs.includes(currentTeam.id) && p.active,
+    (p) => p.teamIDs.includes(currentTeam!.id) && p.active,
   );
+
   const initialLine =
     (currentGame.currentLine.length ?? 0) > 0
       ? currentGame.currentLine
@@ -49,8 +53,9 @@ export default function ActionView() {
   const handleAction = async (action: Action) => {
     if (!currentGame) return;
 
-    const updatedPoints = [...(currentGame.points || [])];
+    let updatedPoints = [...(currentGame.points || [])];
     const lastPointIndex = updatedPoints.length - 1;
+
     updatedPoints[lastPointIndex] = {
       ...updatedPoints[lastPointIndex],
       actions: [...updatedPoints[lastPointIndex].actions, action],
@@ -70,6 +75,13 @@ export default function ActionView() {
       newPossession = !currentGame.hasPossession;
     }
 
+    if (action.endPoint) {
+      const nextPoint = createNewPoint(currentPoint.number + 1);
+      updatedPoints = [...updatedPoints, nextPoint];
+      setCurrentPoint(nextPoint);
+      setLineModalVisible(true);
+    }
+
     const updatedGame = {
       ...currentGame,
       points: updatedPoints,
@@ -77,18 +89,6 @@ export default function ActionView() {
       theirScore,
       hasPossession: newPossession,
     };
-
-    if (action.endPoint) {
-      currentLine.map((player) => {
-        const playerData = currentGame.rosterData[player.name];
-        if (playerData !== undefined) {
-          currentGame.rosterData[player.name] += 1;
-        } else {
-          currentGame.rosterData[player.name] = 1;
-        }
-      });
-      setLineModalVisible(true);
-    }
 
     await updateGame(updatedGame);
   };
@@ -163,7 +163,7 @@ export default function ActionView() {
       >
         <LineView
           roster={activePlayers}
-          rosterData={currentGame.rosterData}
+          points={currentGame.points}
           currentLine={currentLine}
           ourScore={currentGame.ourScore}
           theirScore={currentGame.theirScore}

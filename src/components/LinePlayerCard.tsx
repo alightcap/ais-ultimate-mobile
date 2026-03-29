@@ -1,13 +1,13 @@
 import { Text, View } from "react-native";
-import { Player } from "../lib/types";
+import { Player, PlayerStats } from "../lib/types";
 import { Colors } from "../styles/global";
 
 export default function LinePlayerCard({
   player,
-  rosterData,
+  playerStats,
 }: {
   player: Player;
-  rosterData: any;
+  playerStats: PlayerStats;
 }) {
   return (
     <View
@@ -17,11 +17,18 @@ export default function LinePlayerCard({
         borderRadius: 6,
       }}
     >
-      <View style={{ flexDirection: "row" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingHorizontal: 4,
+        }}
+      >
         <Text style={{ color: "white", fontWeight: "800", fontSize: 18 }}>
           {player.name}
         </Text>
-        <Text style={{ color: "white" }}>{rosterData.pointsPlayed || 0}</Text>
+        <Text style={{ color: "white" }}>{playerStats.pointsPlayed}</Text>
       </View>
     </View>
   );

@@ -22,7 +22,6 @@ export const createNewGame = (params: {
     eventName: params.eventName || "",
     currentLine: [],
     points: [createNewPoint(1)],
-    rosterData: {},
     ourScore: 0,
     theirScore: 0,
     hasPossession: true,

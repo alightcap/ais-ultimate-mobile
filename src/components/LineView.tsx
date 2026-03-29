@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Player } from "../lib/types";
+import { Player, PlayerStats, Point } from "../lib/types";
 import { Colors } from "../styles/global";
 import BigButton from "./BigButton";
 import LinePlayerCard from "./LinePlayerCard";
@@ -8,7 +8,7 @@ import ScoreBoard from "./ScoreBoard";
 
 export default function LineView({
   roster,
-  rosterData, // points played, point streaks, etc...
+  points, // points played, point streaks, etc...
   currentLine,
   ourScore,
   theirScore,
@@ -16,7 +16,7 @@ export default function LineView({
   onClose,
 }: {
   roster: Player[];
-  rosterData?: any;
+  points: Point[];
   currentLine: Player[];
   ourScore: number;
   theirScore: number;
@@ -24,6 +24,17 @@ export default function LineView({
   onClose: () => void;
 }) {
   const insets = useSafeAreaInsets();
+
+  const playerStats: Record<string, PlayerStats> = {};
+  roster.forEach((p) => (playerStats[p.id] = { pointsPlayed: 0 }));
+
+  points.forEach((point) => {
+    point.currentLine?.forEach((player) => {
+      if (playerStats[player.id]) {
+        playerStats[player.id].pointsPlayed++;
+      }
+    });
+  });
 
   return (
     <View
@@ -57,11 +68,7 @@ export default function LineView({
                   <LinePlayerCard
                     key={player.id}
                     player={player}
-                    rosterData={
-                      rosterData[player.name] !== undefined
-                        ? rosterData[player.name]
-                        : {}
-                    }
+                    playerStats={playerStats[player.id]}
                   />
                 ),
             )}
@@ -86,11 +93,7 @@ export default function LineView({
                   <LinePlayerCard
                     player={player}
                     key={player.id}
-                    rosterData={
-                      rosterData[player.name] !== undefined
-                        ? rosterData[player.name]
-                        : {}
-                    }
+                    playerStats={playerStats[player.id]}
                   />
                 ),
             )}

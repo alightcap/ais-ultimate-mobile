@@ -33,7 +33,6 @@ export interface Game {
   opponentName: string; //
   ourScore: number;
   pointCap: number;
-  rosterData: any;
   startingOn: StartingOnMode; //
   teamId: string;
   theirScore: number; //
@@ -51,6 +50,10 @@ export interface Player {
   name: string;
   number?: number;
   teamIDs: string[];
+}
+
+export interface PlayerStats {
+  pointsPlayed: number;
 }
 
 export interface Point {
