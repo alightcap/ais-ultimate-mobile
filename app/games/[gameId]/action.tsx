@@ -4,10 +4,7 @@ import DefenseView from "@/src/components/DefenseView";
 import LineView from "@/src/components/LineView";
 import OffenseView from "@/src/components/OffenseView";
 import ScoreBoard from "@/src/components/ScoreBoard";
-import { useData } from "@/src/contexts/DataContext";
-import { Action } from "@/src/lib/actions";
-import { createNewPoint } from "@/src/lib/models";
-import { Point } from "@/src/lib/types";
+import { useGameSession } from "@/src/Hooks/useGameSession";
 import { Colors } from "@/src/styles/global";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
@@ -15,86 +12,29 @@ import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 export default function ActionView() {
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
-  const { games, teams, players, updateGame } = useData();
+  const {
+    currentGame,
+    activePlayers,
+    currentPoint,
+    currentLine,
+    handleAction,
+    isOffense,
+  } = useGameSession(gameId);
+
+  // const { games, teams, players, updateGame } = useData();
   const [lineModalVisible, setLineModalVisible] = useState(false);
 
-  const currentGame = games.find((g) => g.id === gameId);
-
-  const currentTeam = teams.find((t) => t.id === currentGame!.teamId);
-
-  const unknownPlayer = players.find(
-    (p) => p.id === `${currentTeam!.id}-unknown`,
-  );
-
-  const points = currentGame!.points || [];
-  const [currentPoint, setCurrentPoint] = useState<Point>(points[-1]);
-  if (!currentGame) return <Text>Game not found</Text>;
-  if (!currentTeam) return <Text>Team not found</Text>;
-
-  const isOffense = currentGame.hasPossession;
-
-  const activePlayers = players.filter(
-    (p) => p.teamIDs.includes(currentTeam!.id) && p.active,
-  );
-
-  const initialLine =
-    (currentGame.currentLine.length ?? 0) > 0
-      ? currentGame.currentLine
-      : activePlayers.slice(0, 7);
-  const alreadyHasUnkown = initialLine.some((p) => p.id.includes("unknown"));
-  const currentLine =
-    unknownPlayer && !alreadyHasUnkown
-      ? [...initialLine, unknownPlayer]
-      : initialLine;
-  if (!currentLine) return <Text>No Line found</Text>;
+  if (!currentGame || !currentPoint) {
+    return (
+      <View>
+        <Text>Loading Game...</Text>
+      </View>
+    );
+  }
 
   const recentActions = [...currentPoint.actions].reverse().slice(0, 5);
-
-  const handleAction = async (action: Action) => {
-    if (!currentGame) return;
-
-    let updatedPoints = [...(currentGame.points || [])];
-    const lastPointIndex = updatedPoints.length - 1;
-
-    updatedPoints[lastPointIndex] = {
-      ...updatedPoints[lastPointIndex],
-      actions: [...updatedPoints[lastPointIndex].actions, action],
-    };
-
-    let ourScore = currentGame.ourScore;
-    let theirScore = currentGame.theirScore;
-    if (action.name === "goal for") {
-      ourScore += 1;
-    }
-    if (action.name === "goal against") {
-      theirScore += 1;
-    }
-
-    let newPossession = currentGame.hasPossession;
-    if (action.switchPossession) {
-      newPossession = !currentGame.hasPossession;
-    }
-
-    if (action.endPoint) {
-      const nextPoint = createNewPoint(currentPoint.number + 1);
-      updatedPoints = [...updatedPoints, nextPoint];
-      setCurrentPoint(nextPoint);
-      setLineModalVisible(true);
-    }
-
-    const updatedGame = {
-      ...currentGame,
-      points: updatedPoints,
-      ourScore,
-      theirScore,
-      hasPossession: newPossession,
-    };
-
-    await updateGame(updatedGame);
-  };
-
-  // TODO:
-  // Don't love how the event list is working right now.
+  // TODO: grab actions from the previous points if necessary
+  // TODO: fix event list so height of event cards is dynamic
 
   return (
     <View style={{ flex: 1, gap: 2 }}>
