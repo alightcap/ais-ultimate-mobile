@@ -5,6 +5,7 @@ import ActionButton from "./ActionButton";
 
 export default function OffensePlayerCard({
   name,
+  hasDisc,
   showButtons,
   onPress,
   onCatch,
@@ -12,6 +13,7 @@ export default function OffensePlayerCard({
   onGoal,
 }: {
   name: string;
+  hasDisc: boolean;
   textStyle?: TextStyle;
   showButtons: boolean;
   onPress?: () => void;
@@ -23,10 +25,12 @@ export default function OffensePlayerCard({
     <View style={{ flex: 1 }}>
       <View style={styles.rowContainer}>
         <Pressable style={styles.nameView} onPress={onPress}>
-          <Text style={styles.nameText}>{name}</Text>
+          <Text style={[styles.nameText, hasDisc && styles.activePlayer]}>
+            {name}
+          </Text>
         </Pressable>
         <View style={styles.arrowView}>
-          <ArrowRightIcon size={16} />
+          <ArrowRightIcon size={16} weight={hasDisc ? "fill" : "regular"} />
         </View>
         <View style={styles.buttonView}>
           {showButtons && (
@@ -43,6 +47,10 @@ export default function OffensePlayerCard({
 }
 
 const styles = StyleSheet.create({
+  activePlayer: {
+    fontStyle: "italic",
+    fontWeight: "900",
+  },
   arrowView: {
     flex: 0.25,
     height: "100%",
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
   },
   nameText: {
     textAlign: "right",
-    fontWeight: "900",
+    fontWeight: "700",
     color: Colors.brandPrimary,
   },
 });

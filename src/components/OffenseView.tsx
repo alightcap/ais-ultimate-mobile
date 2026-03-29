@@ -71,28 +71,20 @@ export default function OffenseView({
       >
         <View style={{ flex: 5, gap: 2 }}>
           {currentLine.map((player) => {
-            const iAmUnknown = player.id.includes("unknown");
-
-            iAmUnknown && console.log(selectedPlayer);
-            iAmUnknown && console.log(selectedPlayer !== undefined);
-            iAmUnknown && console.log(player !== selectedPlayer);
-
             const showButtons =
               selectedPlayer !== undefined &&
-              (iAmUnknown || player !== selectedPlayer);
-
-            iAmUnknown && console.log("show buttons", showButtons);
+              (player.id.includes("unknown") || player !== selectedPlayer);
 
             return (
               <OffensePlayerCard
                 key={player.id}
                 name={player.name}
+                hasDisc={player === selectedPlayer}
                 showButtons={showButtons}
                 onPress={() => setSelectedPlayer(player)}
                 onCatch={() => handleCatch(player)}
                 onDrop={() => handleDrop(player)}
                 onGoal={() => handleGoalFor(player)}
-                // unknown needs to be able to throw to unknown
               />
             );
           })}
