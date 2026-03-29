@@ -1,13 +1,16 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useData } from "../contexts/DataContext";
 import { Action } from "../lib/actions";
 import { createNewPoint } from "../lib/models";
 
 export function useGameSession(gameId: string) {
   const { games, teams, players, updateGame } = useData();
+  const [lineModalVisible, setLineModalVisible] = useState(false);
 
   const currentGame = games.find((g) => g.id === gameId);
   const currentTeam = teams.find((t) => t.id === currentGame?.teamId);
+
+  const points = currentGame?.points || [];
 
   const activePlayers = useMemo(() => {
     if (!currentTeam) return [];
@@ -47,6 +50,7 @@ export function useGameSession(gameId: string) {
         updatedPoints[lastPointIndex].number + 1,
       );
       updatedPoints = [...updatedPoints, nextPoint];
+      setLineModalVisible(true);
     }
 
     const updatedGame = {
@@ -80,6 +84,13 @@ export function useGameSession(gameId: string) {
       : initialLine;
   }, [currentGame?.currentLine, currentTeam, activePlayers, players]);
 
+  const recentActions = useMemo(() => {
+    return points
+      .flatMap((p) => p.actions)
+      .reverse()
+      .slice(0, 5);
+  }, [points]);
+
   return {
     activePlayers,
     currentGame,
@@ -88,5 +99,8 @@ export function useGameSession(gameId: string) {
     currentLine,
     handleAction,
     isOffense: currentGame?.hasPossession,
+    lineModalVisible,
+    recentActions,
+    setLineModalVisible,
   };
 }

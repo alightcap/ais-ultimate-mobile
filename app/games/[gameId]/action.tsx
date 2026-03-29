@@ -7,22 +7,21 @@ import ScoreBoard from "@/src/components/ScoreBoard";
 import { useGameSession } from "@/src/Hooks/useGameSession";
 import { Colors } from "@/src/styles/global";
 import { useLocalSearchParams } from "expo-router";
-import { useState } from "react";
 import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 export default function ActionView() {
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
   const {
-    currentGame,
     activePlayers,
+    currentGame,
     currentPoint,
     currentLine,
     handleAction,
     isOffense,
+    lineModalVisible,
+    recentActions,
+    setLineModalVisible,
   } = useGameSession(gameId);
-
-  // const { games, teams, players, updateGame } = useData();
-  const [lineModalVisible, setLineModalVisible] = useState(false);
 
   if (!currentGame || !currentPoint) {
     return (
@@ -32,8 +31,6 @@ export default function ActionView() {
     );
   }
 
-  const recentActions = [...currentPoint.actions].reverse().slice(0, 5);
-  // TODO: grab actions from the previous points if necessary
   // TODO: fix event list so height of event cards is dynamic
 
   return (

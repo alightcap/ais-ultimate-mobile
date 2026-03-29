@@ -5,7 +5,6 @@ import ActionButton from "./ActionButton";
 
 export default function OffensePlayerCard({
   name,
-  hasDisc,
   showButtons,
   onPress,
   onCatch,
@@ -13,7 +12,6 @@ export default function OffensePlayerCard({
   onGoal,
 }: {
   name: string;
-  hasDisc: boolean;
   textStyle?: TextStyle;
   showButtons: boolean;
   onPress?: () => void;
@@ -31,7 +29,7 @@ export default function OffensePlayerCard({
           <ArrowRightIcon size={16} />
         </View>
         <View style={styles.buttonView}>
-          {showButtons && !hasDisc && (
+          {showButtons && (
             <>
               <ActionButton label="Catch" onPress={onCatch} />
               <ActionButton label="Drop" onPress={onDrop} />

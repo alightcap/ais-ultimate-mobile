@@ -70,19 +70,32 @@ export default function OffenseView({
         }}
       >
         <View style={{ flex: 5, gap: 2 }}>
-          {currentLine.map((player) => (
-            <OffensePlayerCard
-              key={player.id}
-              name={player.name}
-              hasDisc={selectedPlayer === player}
-              showButtons={selectedPlayer !== undefined}
-              onPress={() => setSelectedPlayer(player)}
-              onCatch={() => handleCatch(player)}
-              onDrop={() => handleDrop(player)}
-              onGoal={() => handleGoalFor(player)}
-              // unknown needs to be able to throw to unknown
-            />
-          ))}
+          {currentLine.map((player) => {
+            const iAmUnknown = player.id.includes("unknown");
+
+            iAmUnknown && console.log(selectedPlayer);
+            iAmUnknown && console.log(selectedPlayer !== undefined);
+            iAmUnknown && console.log(player !== selectedPlayer);
+
+            const showButtons =
+              selectedPlayer !== undefined &&
+              (iAmUnknown || player !== selectedPlayer);
+
+            iAmUnknown && console.log("show buttons", showButtons);
+
+            return (
+              <OffensePlayerCard
+                key={player.id}
+                name={player.name}
+                showButtons={showButtons}
+                onPress={() => setSelectedPlayer(player)}
+                onCatch={() => handleCatch(player)}
+                onDrop={() => handleDrop(player)}
+                onGoal={() => handleGoalFor(player)}
+                // unknown needs to be able to throw to unknown
+              />
+            );
+          })}
         </View>
         <View style={{ flex: 1 }}>
           <ActionButton
