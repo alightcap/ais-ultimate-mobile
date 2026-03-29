@@ -8,6 +8,7 @@ import ScoreBoard from "./ScoreBoard";
 
 export default function LineView({
   roster,
+  rosterData, // points played, point streaks, etc...
   currentLine,
   ourScore,
   theirScore,
@@ -15,6 +16,7 @@ export default function LineView({
   onClose,
 }: {
   roster: Player[];
+  rosterData?: any;
   currentLine: Player[];
   ourScore: number;
   theirScore: number;
@@ -52,20 +54,47 @@ export default function LineView({
             {currentLine.map(
               (player) =>
                 !player.id.includes("unknown") && (
-                  <LinePlayerCard player={player} key={player.id} />
-                  // <Text key={player.id}>{player.name}</Text>
+                  <LinePlayerCard
+                    key={player.id}
+                    player={player}
+                    rosterData={
+                      rosterData[player.name] !== undefined
+                        ? rosterData[player.name]
+                        : {}
+                    }
+                  />
                 ),
             )}
           </View>
         </View>
-        <View style={{ flex: 6, backgroundColor: "blue" }}>
-          {roster.map(
-            (player) =>
-              !currentLine.includes(player) &&
-              !player.id.includes("unknown") && (
-                <Text key={player.id}>{player.name}</Text>
-              ),
-          )}
+        <View
+          style={{
+            flex: 6,
+            backgroundColor: Colors.surface,
+          }}
+        >
+          <View
+            style={{
+              gap: 4,
+              margin: 4,
+            }}
+          >
+            {roster.map(
+              (player) =>
+                !currentLine.includes(player) &&
+                !player.id.includes("unknown") && (
+                  <LinePlayerCard
+                    player={player}
+                    key={player.id}
+                    rosterData={
+                      rosterData[player.name] !== undefined
+                        ? rosterData[player.name]
+                        : {}
+                    }
+                  />
+                ),
+            )}
+          </View>
         </View>
       </View>
       <View style={{ flex: 1, justifyContent: "flex-end" }}>

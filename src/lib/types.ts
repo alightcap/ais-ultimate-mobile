@@ -33,6 +33,7 @@ export interface Game {
   opponentName: string; //
   ourScore: number;
   pointCap: number;
+  rosterData: any;
   startingOn: StartingOnMode; //
   teamId: string;
   theirScore: number; //
@@ -62,6 +63,11 @@ export interface Point {
   ourScore?: number;
   theirScore?: number;
   endTime?: number;
+}
+
+export interface RosterData {
+  playerName: string;
+  pointPlayed: number;
 }
 
 export type StartingOnMode = "defense" | "offense";

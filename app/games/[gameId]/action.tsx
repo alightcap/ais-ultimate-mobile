@@ -78,17 +78,23 @@ export default function ActionView() {
       hasPossession: newPossession,
     };
 
-    await updateGame(updatedGame);
-
     if (action.endPoint) {
+      currentLine.map((player) => {
+        const playerData = currentGame.rosterData[player.name];
+        if (playerData !== undefined) {
+          currentGame.rosterData[player.name] += 1;
+        } else {
+          currentGame.rosterData[player.name] = 1;
+        }
+      });
       setLineModalVisible(true);
     }
+
+    await updateGame(updatedGame);
   };
 
   // TODO:
-  // Event list should calculate how many events it can show based on the
-  // size of the box it is in.
-  // Event list is BUSTED
+  // Don't love how the event list is working right now.
 
   return (
     <View style={{ flex: 1, gap: 2 }}>
@@ -98,24 +104,6 @@ export default function ActionView() {
           theirScore={currentGame.theirScore}
           size={"large"}
         />
-      </View>
-      <View style={{ flex: 4, padding: 2 }}>
-        {isOffense ? (
-          <OffenseView
-            currentLine={currentLine}
-            onAction={handleAction}
-            ourScore={currentGame.ourScore}
-            theirScore={currentGame.theirScore}
-          />
-        ) : (
-          <DefenseView
-            currentLine={currentLine}
-            onAction={handleAction}
-            opponentName={currentGame.opponentName}
-            ourScore={currentGame.ourScore}
-            theirScore={currentGame.theirScore}
-          />
-        )}
       </View>
       <View style={{ flex: 3 }}>
         <FlatList
@@ -142,6 +130,25 @@ export default function ActionView() {
           }
         />
       </View>
+      <View style={{ flex: 4, padding: 2 }}>
+        {isOffense ? (
+          <OffenseView
+            currentLine={currentLine}
+            onAction={handleAction}
+            ourScore={currentGame.ourScore}
+            theirScore={currentGame.theirScore}
+          />
+        ) : (
+          <DefenseView
+            currentLine={currentLine}
+            onAction={handleAction}
+            opponentName={currentGame.opponentName}
+            ourScore={currentGame.ourScore}
+            theirScore={currentGame.theirScore}
+          />
+        )}
+      </View>
+
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <BigButton
           title="Show Line"
@@ -150,12 +157,13 @@ export default function ActionView() {
       </View>
 
       <Modal
-        animationType="slide"
+        animationType="fade"
         visible={lineModalVisible}
         onRequestClose={() => setLineModalVisible(false)}
       >
         <LineView
           roster={activePlayers}
+          rosterData={currentGame.rosterData}
           currentLine={currentLine}
           ourScore={currentGame.ourScore}
           theirScore={currentGame.theirScore}
