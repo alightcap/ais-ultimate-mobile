@@ -105,9 +105,19 @@ export function useGameSession(gameId: string) {
       p.id.includes("unknown"),
     );
 
-    return unknownPlayer && !alreadyHasUnknown
-      ? [...initialLine, unknownPlayer]
-      : initialLine;
+    const fullLine =
+      unknownPlayer && !alreadyHasUnknown
+        ? [...initialLine, unknownPlayer]
+        : initialLine;
+
+    return [...fullLine].sort((a, b) => {
+      const aIsUnknown = a.id.includes("unknown");
+      const bisUnknown = b.id.includes("unknown");
+
+      if (aIsUnknown && !bisUnknown) return 1;
+      if (!aIsUnknown && bisUnknown) return -1;
+      return a.name.localeCompare(b.name);
+    });
   }, [currentGame?.currentLine, currentTeam, activePlayers, players]);
 
   const recentActions = useMemo(() => {
