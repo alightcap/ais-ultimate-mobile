@@ -28,8 +28,6 @@ export default function OffenseView({
   );
 
   const displayLine = useMemo(() => {
-    const totalSlots = 8;
-
     const knownPlayers = currentLine.filter((p) => !p.id.includes("unknown"));
     const unknownPlayer = currentLine.find((p) => p.id.includes("unknown"));
 

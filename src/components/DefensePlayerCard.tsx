@@ -5,22 +5,26 @@ import ActionButton from "./ActionButton";
 
 export default function DefensePlayerCard({
   name,
+  isEmpty,
   onD,
 }: {
   name: string;
+  isEmpty: boolean;
   onD: () => void;
 }) {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.rowContainer}>
         <View style={styles.nameView}>
-          <Text style={styles.nameText}>{name}</Text>
+          <Text style={[styles.nameText, isEmpty && { opacity: 0 }]}>
+            {name}
+          </Text>
         </View>
         <View style={styles.arrowView}>
-          <ArrowRightIcon size={16} />
+          {!isEmpty && <ArrowRightIcon size={16} />}
         </View>
         <View style={styles.buttonView}>
-          <ActionButton label="D" onPress={onD} />
+          {!isEmpty && <ActionButton label="D" onPress={onD} />}
         </View>
       </View>
     </View>

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 import { Action } from "../lib/actions";
 import {
@@ -22,6 +23,33 @@ export default function DefenseView({
   ourScore: number;
   theirScore: number;
 }) {
+  const displayLine = useMemo(() => {
+    const knownPlayers = currentLine.filter((p) => !p.id.includes("unknown"));
+    const unknownPlayer = currentLine.find((p) => p.id.includes("unknown"));
+
+    const emptyCount = 7 - knownPlayers.length;
+
+    if (emptyCount <= 0) return currentLine;
+
+    const placeholders = Array.from({ length: Math.max(0, emptyCount) }).map(
+      (_, i) =>
+        ({
+          id: `empty-${i}`,
+          name: "",
+          active: false,
+          teamIDs: [],
+          isArchived: false,
+        }) as Player,
+    );
+
+    const finalLine = [...knownPlayers, ...placeholders];
+    if (unknownPlayer) {
+      finalLine.push(unknownPlayer);
+    }
+
+    return finalLine;
+  }, [currentLine]);
+
   const handleD = (player: Player) => {
     onAction(createDeEvent({ defender: player }));
   };
@@ -44,13 +72,18 @@ export default function DefenseView({
     <View style={{ flex: 1 }}>
       <View style={{ flexDirection: "row", gap: 2, flex: 1 }}>
         <View style={{ flex: 4, gap: 2 }}>
-          {currentLine.map((player) => (
-            <DefensePlayerCard
-              key={player.id}
-              name={player.name}
-              onD={() => handleD(player)}
-            />
-          ))}
+          {displayLine.map((player) => {
+            const isEmpty = player.id.startsWith("empty");
+
+            return (
+              <DefensePlayerCard
+                key={player.id}
+                name={player.name}
+                onD={() => handleD(player)}
+                isEmpty={isEmpty}
+              />
+            );
+          })}
         </View>
 
         <View style={{ flex: 1.5 }}>
