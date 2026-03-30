@@ -8,6 +8,7 @@ interface ToggleOption<T> {
 
 interface GenericToggleProps<T> {
   options: ToggleOption<T>[];
+  enabled?: boolean;
   currentValue: T;
   onChange: (value: T) => void;
   textStyle?: StyleProp<TextStyle>;
@@ -15,6 +16,7 @@ interface GenericToggleProps<T> {
 
 export default function GenericToggle<T>({
   options,
+  enabled = true,
   currentValue,
   onChange,
   textStyle,
@@ -27,7 +29,7 @@ export default function GenericToggle<T>({
         return (
           <Pressable
             key={String(option.value)}
-            onPress={() => onChange(option.value)}
+            onPress={() => enabled && onChange(option.value)}
             style={[ToggleStyles.button, isActive && ToggleStyles.activeButton]}
           >
             <Text

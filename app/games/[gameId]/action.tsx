@@ -21,6 +21,7 @@ export default function ActionView() {
     lineModalVisible,
     recentActions,
     setLineModalVisible,
+    // saveLine,
   } = useGameSession(gameId);
 
   if (!currentGame || !currentPoint) {
@@ -94,7 +95,7 @@ export default function ActionView() {
       </View>
 
       <Modal
-        animationType="fade"
+        animationType="slide"
         visible={lineModalVisible}
         onRequestClose={() => setLineModalVisible(false)}
       >

@@ -28,7 +28,7 @@ export default function LineView({
   const playerStats: Record<string, PlayerStats> = {};
   roster.forEach((p) => (playerStats[p.id] = { pointsPlayed: 0 }));
 
-  points.forEach((point) => {
+  points.slice(0, -1).forEach((point) => {
     point.currentLine?.forEach((player) => {
       if (playerStats[player.id]) {
         playerStats[player.id].pointsPlayed++;
@@ -58,9 +58,7 @@ export default function LineView({
         </Text>
       </View>
       <View style={{ flex: 7, flexDirection: "row" }}>
-        <View
-          style={{ flex: 3, backgroundColor: Colors.surface }} // current line
-        >
+        <View style={{ flex: 3, backgroundColor: Colors.surface }}>
           <View style={{ gap: 4, margin: 4 }}>
             {currentLine.map(
               (player) =>

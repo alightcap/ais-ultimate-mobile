@@ -61,6 +61,7 @@ export default function NewGame() {
             title="Opponent"
             item={opponentName}
             setItem={setOpponentName}
+            autoFocus={true}
           />
           <TextInputFormRow
             title="Event"
