@@ -7,6 +7,7 @@ export default function OffensePlayerCard({
   name,
   hasDisc,
   showButtons,
+  isEmpty,
   onPress,
   onCatch,
   onDrop,
@@ -16,6 +17,7 @@ export default function OffensePlayerCard({
   hasDisc: boolean;
   textStyle?: TextStyle;
   showButtons: boolean;
+  isEmpty: boolean;
   onPress?: () => void;
   onCatch: () => void;
   onDrop: () => void;
@@ -24,16 +26,27 @@ export default function OffensePlayerCard({
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.rowContainer}>
-        <Pressable style={styles.nameView} onPress={onPress}>
-          <Text style={[styles.nameText, hasDisc && styles.activePlayer]}>
+        <Pressable
+          style={styles.nameView}
+          onPress={isEmpty ? undefined : onPress}
+        >
+          <Text
+            style={[
+              styles.nameText,
+              hasDisc && styles.activePlayer,
+              isEmpty && { opacity: 0 },
+            ]}
+          >
             {name}
           </Text>
         </Pressable>
         <View style={styles.arrowView}>
-          <ArrowRightIcon size={16} weight={hasDisc ? "fill" : "regular"} />
+          {!isEmpty && (
+            <ArrowRightIcon size={16} weight={hasDisc ? "fill" : "regular"} />
+          )}
         </View>
         <View style={styles.buttonView}>
-          {showButtons && (
+          {showButtons && !isEmpty && (
             <>
               <ActionButton label="Catch" onPress={onCatch} />
               <ActionButton label="Drop" onPress={onDrop} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { View } from "react-native";
 import { Action } from "../lib/actions";
 import {
@@ -26,6 +26,35 @@ export default function OffenseView({
   const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>(
     undefined,
   );
+
+  const displayLine = useMemo(() => {
+    const totalSlots = 8;
+
+    const knownPlayers = currentLine.filter((p) => !p.id.includes("unknown"));
+    const unknownPlayer = currentLine.find((p) => p.id.includes("unknown"));
+
+    const emptyCount = 7 - knownPlayers.length;
+
+    if (emptyCount <= 0) return currentLine;
+
+    const placeholders = Array.from({ length: Math.max(0, emptyCount) }).map(
+      (_, i) =>
+        ({
+          id: `empty-${i}`,
+          name: "",
+          active: false,
+          teamIDs: [],
+          isArchived: false,
+        }) as Player,
+    );
+
+    const finalLine = [...knownPlayers, ...placeholders];
+    if (unknownPlayer) {
+      finalLine.push(unknownPlayer);
+    }
+
+    return finalLine;
+  }, [currentLine]);
 
   const handleCatch = (player: Player) => {
     if (!selectedPlayer) return;
@@ -70,21 +99,26 @@ export default function OffenseView({
         }}
       >
         <View style={{ flex: 5, gap: 2 }}>
-          {currentLine.map((player) => {
+          {displayLine.map((player) => {
+            const isEmpty = player.id.startsWith("empty");
+            const isUnknown = player.id.includes("unknown");
+
             const showButtons =
+              !isEmpty &&
               selectedPlayer !== undefined &&
-              (player.id.includes("unknown") || player !== selectedPlayer);
+              (isUnknown || player.id !== selectedPlayer.id);
 
             return (
               <OffensePlayerCard
                 key={player.id}
                 name={player.name}
-                hasDisc={player === selectedPlayer}
+                hasDisc={player.id === selectedPlayer?.id}
                 showButtons={showButtons}
-                onPress={() => setSelectedPlayer(player)}
-                onCatch={() => handleCatch(player)}
-                onDrop={() => handleDrop(player)}
-                onGoal={() => handleGoalFor(player)}
+                onPress={() => !isEmpty && setSelectedPlayer(player)}
+                onCatch={() => !isEmpty && handleCatch(player)}
+                onDrop={() => !isEmpty && handleDrop(player)}
+                onGoal={() => !isEmpty && handleGoalFor(player)}
+                isEmpty={isEmpty}
               />
             );
           })}
