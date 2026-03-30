@@ -1,12 +1,16 @@
-import { Text, View } from "react-native";
+import * as Haptics from "expo-haptics";
+import { useMemo } from "react";
+import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Player, PlayerStats, Point } from "../lib/types";
+import { useData } from "../contexts/DataContext";
+import { Game, Player, PlayerStats, Point } from "../lib/types";
 import { Colors } from "../styles/global";
 import BigButton from "./BigButton";
 import LinePlayerCard from "./LinePlayerCard";
 import ScoreBoard from "./ScoreBoard";
 
 export default function LineView({
+  currentGame,
   roster,
   points, // points played, point streaks, etc...
   currentLine,
@@ -15,6 +19,7 @@ export default function LineView({
   isOffense,
   onClose,
 }: {
+  currentGame: Game;
   roster: Player[];
   points: Point[];
   currentLine: Player[];
@@ -23,6 +28,7 @@ export default function LineView({
   isOffense: boolean;
   onClose: () => void;
 }) {
+  const { updateGame } = useData();
   const insets = useSafeAreaInsets();
 
   const playerStats: Record<string, PlayerStats> = {};
@@ -36,6 +42,39 @@ export default function LineView({
     });
   });
 
+  const togglePlayer = async (player: Player) => {
+    if (player.id.includes("unknown")) return;
+
+    const isSelected = currentLine.some((p) => p.id === player.id);
+
+    if (isSelected) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+      const newLine = currentLine.filter((p) => p.id !== player.id);
+      await updateGame({ ...currentGame, currentLine: newLine });
+    } else {
+      const realPlayerCount = currentLine.filter(
+        (p) => !p.id.includes("unknown"),
+      ).length;
+
+      if (realPlayerCount < 7) {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        const newLine = [...currentLine, player];
+        await updateGame({ ...currentGame, currentLine: newLine });
+      }
+    }
+  };
+
+  const benchPlayers = useMemo(() => {
+    return roster
+      .filter(
+        (player) =>
+          !currentLine.some((p) => p.id === player.id) &&
+          !player.id.includes("unknown"),
+      )
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [roster, currentLine]);
+
   return (
     <View
       style={{
@@ -48,8 +87,11 @@ export default function LineView({
         style={{
           flex: 1,
           backgroundColor: Colors.surface,
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
+          borderBottomColor: Colors.border,
+          borderBottomWidth: 2,
+          padding: 6,
         }}
       >
         <ScoreBoard ourScore={ourScore} theirScore={theirScore} size="large" />
@@ -58,16 +100,27 @@ export default function LineView({
         </Text>
       </View>
       <View style={{ flex: 7, flexDirection: "row" }}>
-        <View style={{ flex: 3, backgroundColor: Colors.surface }}>
-          <View style={{ gap: 4, margin: 4 }}>
+        <View
+          style={{
+            flex: 3,
+            backgroundColor: Colors.surface,
+            borderRightWidth: 4,
+            borderRightColor: Colors.border,
+          }}
+        >
+          <View style={{ gap: 4, margin: 4, paddingVertical: 2 }}>
             {currentLine.map(
               (player) =>
                 !player.id.includes("unknown") && (
-                  <LinePlayerCard
+                  <Pressable
                     key={player.id}
-                    player={player}
-                    playerStats={playerStats[player.id]}
-                  />
+                    onPress={() => togglePlayer(player)}
+                  >
+                    <LinePlayerCard
+                      player={player}
+                      playerStats={playerStats[player.id]}
+                    />
+                  </Pressable>
                 ),
             )}
           </View>
@@ -80,21 +133,25 @@ export default function LineView({
         >
           <View
             style={{
-              gap: 4,
+              flexDirection: "row",
+              flexWrap: "wrap",
               margin: 4,
             }}
           >
-            {roster.map(
-              (player) =>
-                !currentLine.includes(player) &&
-                !player.id.includes("unknown") && (
+            {benchPlayers.map((player) => {
+              return (
+                <Pressable
+                  key={player.id}
+                  style={{ width: "50%", padding: 2 }}
+                  onPress={() => togglePlayer(player)}
+                >
                   <LinePlayerCard
                     player={player}
-                    key={player.id}
                     playerStats={playerStats[player.id]}
                   />
-                ),
-            )}
+                </Pressable>
+              );
+            })}
           </View>
         </View>
       </View>

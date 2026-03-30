@@ -12,23 +12,21 @@ export default function LinePlayerCard({
   return (
     <View
       style={{
-        backgroundColor: Colors.brandPrimary,
+        backgroundColor: Colors.brandAccent,
         padding: 2,
         borderRadius: 6,
       }}
     >
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
           justifyContent: "space-between",
           paddingHorizontal: 4,
         }}
       >
-        <Text style={{ color: "white", fontWeight: "800", fontSize: 18 }}>
-          {player.name}
+        <Text style={{ fontWeight: "800", fontSize: 18 }}>{player.name}</Text>
+        <Text style={{ alignSelf: "flex-end", fontWeight: "bold" }}>
+          {playerStats.pointsPlayed}
         </Text>
-        <Text style={{ color: "white" }}>{playerStats.pointsPlayed}</Text>
       </View>
     </View>
   );

@@ -100,6 +100,7 @@ export default function ActionView() {
         onRequestClose={() => setLineModalVisible(false)}
       >
         <LineView
+          currentGame={currentGame}
           roster={activePlayers}
           points={currentGame.points}
           currentLine={currentLine}
