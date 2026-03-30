@@ -78,6 +78,7 @@ export default function ActionView() {
           />
         ) : (
           <DefenseView
+            currentPoint={currentPoint}
             currentLine={currentLine}
             onAction={handleAction}
             opponentName={currentGame.opponentName}

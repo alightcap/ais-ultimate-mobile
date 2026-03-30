@@ -1,12 +1,14 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, ViewStyle } from "react-native";
 import { Colors } from "../styles/global";
 
 export default function BigButton({
   onPress,
   title,
+  viewStyle,
 }: {
   onPress: () => void;
   title: string;
+  viewStyle?: ViewStyle;
 }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -14,6 +16,7 @@ export default function BigButton({
         style={({ pressed }) => [
           styles.button,
           pressed && styles.buttonPressed,
+          viewStyle,
         ]}
         onPress={onPress}
       >

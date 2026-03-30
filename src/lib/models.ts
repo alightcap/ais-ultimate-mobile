@@ -5,6 +5,8 @@ import {
   Drop,
   GoalAgainst,
   GoalFor,
+  Pull,
+  PullOb,
   ThrowawayAgainst,
   ThrowawayFor,
 } from "./actions";
@@ -177,6 +179,39 @@ export const createGoalAgainstEvent = ({
     score: { ourScore, theirScore },
     switchPossession: true,
     endPoint: true,
+  };
+};
+
+export const createNewPullEvent = ({
+  thrower,
+  hangTime,
+}: {
+  thrower: Player;
+  hangTime: number;
+}): Pull => {
+  return {
+    name: "pull",
+    category: "defense",
+    timeStamp: Date.now(),
+    thrower: thrower,
+    hangTime: hangTime,
+    switchPossession: false,
+    endPoint: false,
+  };
+};
+
+export const createNewPullObEvent = ({
+  thrower,
+}: {
+  thrower: Player;
+}): PullOb => {
+  return {
+    name: "pull ob",
+    category: "defense",
+    timeStamp: Date.now(),
+    thrower: thrower,
+    switchPossession: false,
+    endPoint: false,
   };
 };
 

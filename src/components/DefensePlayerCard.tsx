@@ -6,11 +6,15 @@ import ActionButton from "./ActionButton";
 export default function DefensePlayerCard({
   name,
   isEmpty,
+  isPulling,
   onD,
+  onPull,
 }: {
   name: string;
   isEmpty: boolean;
+  isPulling: boolean;
   onD: () => void;
+  onPull: () => void;
 }) {
   return (
     <View style={{ flex: 1 }}>
@@ -24,7 +28,9 @@ export default function DefensePlayerCard({
           {!isEmpty && <ArrowRightIcon size={16} />}
         </View>
         <View style={styles.buttonView}>
-          {!isEmpty && <ActionButton label="D" onPress={onD} />}
+          {isPulling
+            ? !isEmpty && <ActionButton label="Pull" onPress={onPull} />
+            : !isEmpty && <ActionButton label="D" onPress={onD} />}
         </View>
       </View>
     </View>
