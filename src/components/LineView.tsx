@@ -46,12 +46,12 @@ export default function LineView({
     if (player.id.includes("unknown")) return;
 
     const isSelected = currentLine.some((p) => p.id === player.id);
+    let newLine: Player[] = [];
 
     if (isSelected) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
-      const newLine = currentLine.filter((p) => p.id !== player.id);
-      await updateGame({ ...currentGame, currentLine: newLine });
+      newLine = currentLine.filter((p) => p.id !== player.id);
     } else {
       const realPlayerCount = currentLine.filter(
         (p) => !p.id.includes("unknown"),
@@ -59,10 +59,24 @@ export default function LineView({
 
       if (realPlayerCount < 7) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        const newLine = [...currentLine, player];
-        await updateGame({ ...currentGame, currentLine: newLine });
+        newLine = [...currentLine, player];
       }
     }
+
+    const updatedPoints = [...currentGame.points];
+    const lastPointIndex = updatedPoints.length - 1;
+    if (lastPointIndex >= 0) {
+      updatedPoints[lastPointIndex] = {
+        ...updatedPoints[lastPointIndex],
+        currentLine: newLine,
+      };
+    }
+
+    await updateGame({
+      ...currentGame,
+      currentLine: newLine,
+      points: updatedPoints,
+    });
   };
 
   const benchPlayers = useMemo(() => {
