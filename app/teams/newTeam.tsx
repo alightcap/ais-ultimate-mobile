@@ -1,10 +1,11 @@
+import Button from "@/src/components/Button";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { createNewTeam, createUnknownPlayer } from "@/src/lib/models";
 import { GlobalStyles } from "@/src/styles/global";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Button, Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 
 export default function NewTeam() {
   const router = useRouter();
@@ -39,8 +40,11 @@ export default function NewTeam() {
           setItem={setNewName}
         />
       </View>
-
-      <Button title="Submit" onPress={handleSave} />
+      <Button
+        title="Submit"
+        onPress={handleSave}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
     </View>
   );
 }

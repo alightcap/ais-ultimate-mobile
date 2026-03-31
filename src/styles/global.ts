@@ -76,4 +76,9 @@ export const GlobalStyles = StyleSheet.create({
     borderBottomColor: Colors.border,
     borderBottomWidth: 1,
   },
+  bigButtonScreenBottom: {
+    width: "90%",
+    alignSelf: "center",
+    marginBottom: 20,
+  },
 });

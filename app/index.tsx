@@ -1,4 +1,4 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import TeamList from "@/src/components/TeamList";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
@@ -37,12 +37,11 @@ export default function TeamsIndex() {
           emptyMessage="There are no teams to display."
         />
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <BigButton
-          onPress={() => router.push("/teams/newTeam")}
-          title="New Team"
-        />
-      </View>
+      <Button
+        title="New Team"
+        onPress={() => router.push("/teams/newTeam")}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
     </View>
   );
 }

@@ -2,7 +2,7 @@ import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { Colors } from "./global";
 
 export const DefaultStackOptions: NativeStackNavigationOptions = {
-  DisplayMode: "minimal",
+  headerBackButtonDisplayMode: "minimal",
   headerStyle: {
     backgroundColor: Colors.surface,
   },

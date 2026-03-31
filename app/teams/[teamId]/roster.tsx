@@ -71,12 +71,11 @@ export default function Players() {
           }
         />
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <BigButton
-          title="Add Player(s)"
-          onPress={() => setModalVisible(true)}
-        />
-      </View>
+      <BigButton
+        title="Add Player(s)"
+        onPress={() => setModalVisible(true)}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.emptyTop}>
