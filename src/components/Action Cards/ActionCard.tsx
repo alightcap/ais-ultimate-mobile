@@ -6,6 +6,8 @@ import DeActionCard from "./DeActionCard";
 import DropActionCard from "./DropActionCard";
 import GoalAgainstActionCard from "./GoalAgainstActionCard";
 import GoalForActionCard from "./GoalForActionCard";
+import PullActionCard from "./PullActionCard";
+import PullObActionCard from "./PullObActionCard";
 import ThrowawayAgainstActionCard from "./ThrowawayAgainstActionCard";
 import ThrowawayActionCard from "./ThrowawayForActionCard";
 
@@ -23,18 +25,22 @@ export default function ActionCard({ action }: { action: Action }) {
         switch (action.name) {
           case "catch":
             return <CatchActionCard action={action} />;
-          case "drop":
-            return <DropActionCard action={action} />;
           case "d":
             return <DeActionCard action={action} />;
-          case "throwaway for":
-            return <ThrowawayActionCard action={action} />;
-          case "goal for":
-            return <GoalForActionCard action={action} />;
-          case "throwaway against":
-            return <ThrowawayAgainstActionCard action={action} />;
+          case "drop":
+            return <DropActionCard action={action} />;
           case "goal against":
             return <GoalAgainstActionCard action={action} />;
+          case "goal for":
+            return <GoalForActionCard action={action} />;
+          case "pull":
+            return <PullActionCard action={action} />;
+          case "pull ob":
+            return <PullObActionCard action={action} />;
+          case "throwaway against":
+            return <ThrowawayAgainstActionCard action={action} />;
+          case "throwaway for":
+            return <ThrowawayActionCard action={action} />;
           default:
             return (
               <View>

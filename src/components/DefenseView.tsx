@@ -4,6 +4,8 @@ import { Action } from "../lib/actions";
 import {
   createDeEvent,
   createGoalAgainstEvent,
+  createNewPullEvent,
+  createNewPullObEvent,
   createThrowawayAgainstEvent,
 } from "../lib/models";
 import { Player, Point } from "../lib/types";
@@ -27,6 +29,9 @@ export default function DefenseView({
   theirScore: number;
 }) {
   const [pullModalVisible, setPullModalVisible] = useState(false);
+  const [pullStartTime, setPullStartTime] = useState(0);
+  const [pullThrower, setPullThrower] = useState<Player>();
+
   const isPulling = currentPoint.actions.length === 0;
 
   const displayLine = useMemo(() => {
@@ -74,8 +79,36 @@ export default function DefenseView({
     );
   };
 
-  const handlePull = (player: Player) => {
+  const handlePullStart = (player: Player) => {
+    setPullThrower(player);
+    setPullStartTime(Date.now());
     setPullModalVisible(true);
+  };
+
+  const handlePullEnd = ({
+    hasHangTime,
+    isInBounds,
+  }: {
+    hasHangTime: boolean;
+    isInBounds: boolean;
+  }) => {
+    if (!pullThrower) return;
+
+    const hangTime =
+      pullStartTime !== 0 ? (hasHangTime ? Date.now() - pullStartTime : 0) : 0;
+
+    if (isInBounds) {
+      onAction(
+        createNewPullEvent({
+          thrower: pullThrower,
+          hangTime: hangTime,
+        }),
+      );
+    } else {
+      onAction(createNewPullObEvent({ thrower: pullThrower }));
+    }
+
+    setPullModalVisible(false);
   };
 
   return (
@@ -91,7 +124,7 @@ export default function DefenseView({
                 name={player.name}
                 isPulling={isPulling}
                 onD={() => handleD(player)}
-                onPull={() => handlePull(player)}
+                onPull={() => handlePullStart(player)}
                 isEmpty={isEmpty}
               />
             );
@@ -118,18 +151,43 @@ export default function DefenseView({
       </View>
 
       <Modal
-        animationType="slide"
+        animationType="fade"
         visible={pullModalVisible}
         onRequestClose={() => setPullModalVisible(false)}
       >
-        <View style={{ flex: 1 }}>
-          <Text>Pulling</Text>
-          {/** caught/landed, caught/landed no hang time, OB, cancel */}
-          <BigButton
-            viewStyle={{ backgroundColor: "red" }}
-            title="Cancel"
-            onPress={() => setPullModalVisible(false)}
-          />
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <View style={{ gap: 10 }}>
+            <Text style={{ textAlign: "center" }}>Pulling</Text>
+            <BigButton
+              viewStyle={{ borderWidth: 2, width: "175%" }}
+              title="In Bounds"
+              onPress={() =>
+                handlePullEnd({ isInBounds: true, hasHangTime: true })
+              }
+            />
+            <BigButton
+              viewStyle={{ borderWidth: 2, width: "175%" }}
+              title="Out of Bounds"
+              onPress={() =>
+                handlePullEnd({ isInBounds: false, hasHangTime: false })
+              }
+            />
+            <BigButton
+              viewStyle={{ borderWidth: 2, width: "175%" }}
+              title={"No Hang Time"}
+              onPress={() =>
+                handlePullEnd({ isInBounds: true, hasHangTime: false })
+              }
+            />
+            <BigButton
+              viewStyle={{ backgroundColor: "red", width: "175%" }}
+              textStyle={{ fontWeight: "600" }}
+              title="Cancel"
+              onPress={() => setPullModalVisible(false)}
+            />
+          </View>
         </View>
       </Modal>
     </View>
