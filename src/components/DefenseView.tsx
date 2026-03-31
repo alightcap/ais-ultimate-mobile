@@ -12,6 +12,7 @@ import { Player, Point } from "../lib/types";
 import ActionButton from "./ActionButton";
 import BigButton from "./BigButton";
 import DefensePlayerCard from "./DefensePlayerCard";
+import SpinningDisc from "./SpinningDisc";
 
 export default function DefenseView({
   currentPoint,
@@ -156,33 +157,44 @@ export default function DefenseView({
         onRequestClose={() => setPullModalVisible(false)}
       >
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <View style={{ gap: 10 }}>
+          <View
+            style={{
+              gap: 10,
+              width: "80%",
+              alignItems: "center",
+            }}
+          >
+            <SpinningDisc />
             <Text style={{ textAlign: "center" }}>Pulling</Text>
             <BigButton
-              viewStyle={{ borderWidth: 2, width: "175%" }}
+              viewStyle={{ borderWidth: 2, alignSelf: "stretch" }}
               title="In Bounds"
               onPress={() =>
                 handlePullEnd({ isInBounds: true, hasHangTime: true })
               }
             />
             <BigButton
-              viewStyle={{ borderWidth: 2, width: "175%" }}
+              viewStyle={{ borderWidth: 2, alignSelf: "stretch" }}
               title="Out of Bounds"
               onPress={() =>
                 handlePullEnd({ isInBounds: false, hasHangTime: false })
               }
             />
             <BigButton
-              viewStyle={{ borderWidth: 2, width: "175%" }}
+              viewStyle={{ borderWidth: 2, alignSelf: "stretch" }}
               title={"No Hang Time"}
               onPress={() =>
                 handlePullEnd({ isInBounds: true, hasHangTime: false })
               }
             />
             <BigButton
-              viewStyle={{ backgroundColor: "red", width: "175%" }}
+              viewStyle={{ backgroundColor: "red", alignSelf: "stretch" }}
               textStyle={{ fontWeight: "600" }}
               title="Cancel"
               onPress={() => setPullModalVisible(false)}
