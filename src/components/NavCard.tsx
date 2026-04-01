@@ -1,38 +1,45 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Href, useRouter } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { CaretRightIcon } from "phosphor-react-native";
+import { ReactNode } from "react";
+import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
 import { Colors } from "../styles/global";
 
 export default function NavCard({
-  title,
+  children,
   route,
+  viewStyle,
 }: {
-  title: string;
+  children: ReactNode;
   route: Href;
+  viewStyle?: ViewStyle;
 }) {
   const router = useRouter();
+
   return (
-    <Pressable onPress={() => router.push(route)}>
-      <View style={styles.rowItem}>
-        <Text style={styles.titleText}>{title}</Text>
-        <Ionicons name="chevron-forward" size={20} color="black" />
+    <Pressable
+      onPress={() => router.push(route)}
+      style={[styles.navCard, viewStyle]}
+    >
+      <View style={styles.navCardView}>
+        {children}
+        <CaretRightIcon color={Colors.brandPrimary} weight="bold" />
       </View>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  rowItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 15,
+  navCard: {
+    backgroundColor: Colors.surface,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
-    alignItems: "center",
-    backgroundColor: Colors.surface,
+    padding: 8,
+    minHeight: 56,
+    justifyContent: "center",
   },
-  titleText: {
-    fontSize: 20,
-    maxWidth: "90%",
+  navCardView: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

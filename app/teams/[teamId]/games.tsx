@@ -1,6 +1,7 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import GameCard from "@/src/components/GameCard";
 import HeaderBack from "@/src/components/HeaderBack";
+import NavCard from "@/src/components/NavCard";
 import TeamRecord from "@/src/components/TeamRecord";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
@@ -34,7 +35,17 @@ export default function Games() {
       <View style={[GlobalStyles.contentContainer, { flex: 7 }]}>
         <FlatList
           data={currentGames}
-          renderItem={({ item }) => <GameCard game={item} />}
+          renderItem={({ item }) => (
+            <NavCard
+              route={{
+                pathname: "/games/[gameId]",
+                params: { gameId: item.id },
+              }}
+            >
+              <GameCard game={item} />
+            </NavCard>
+          )}
+          // renderItem={({ item }) => <GameCard game={item} />}
           ListEmptyComponent={
             <Text style={GlobalStyles.empty}>
               There are no games to display
@@ -42,17 +53,16 @@ export default function Games() {
           }
         />
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <BigButton
-          onPress={() =>
-            router.push({
-              pathname: "/games/newGame",
-              params: { teamId: teamId },
-            })
-          }
-          title="New Game"
-        />
-      </View>
+      <Button
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+        onPress={() =>
+          router.push({
+            pathname: "/games/newGame",
+            params: { teamId: teamId },
+          })
+        }
+        title="New Game"
+      />
     </View>
   );
 }

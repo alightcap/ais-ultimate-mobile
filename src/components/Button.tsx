@@ -1,5 +1,6 @@
 import {
   Pressable,
+  StyleProp,
   StyleSheet,
   Text,
   TextStyle,
@@ -16,8 +17,8 @@ export default function Button({
 }: {
   title: string;
   onPress: () => void;
-  viewStyle?: ViewStyle;
-  textStyle?: TextStyle;
+  viewStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>; // NOTE: allows for arrays of styles
   size?: "medium" | "big";
 }) {
   return (
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     height: 55,
   },
   buttonMedium: {
-    height: 30,
+    height: 40,
   },
   buttonPressed: {
     backgroundColor: Colors.buttonPress,

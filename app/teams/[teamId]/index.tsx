@@ -1,9 +1,10 @@
+import Button from "@/src/components/Button";
 import EditButton from "@/src/components/EditButton";
 import NavCard from "@/src/components/NavCard";
 import { useData } from "@/src/contexts/DataContext";
-import { GlobalStyles } from "@/src/styles/global";
+import { Colors, GlobalStyles } from "@/src/styles/global";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { Button, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function TeamIndex() {
   const { teamId } = useLocalSearchParams<{ teamId: string }>();
@@ -30,19 +31,27 @@ export default function TeamIndex() {
         <Text style={GlobalStyles.headingText}>{team.name}</Text>
       </View>
       <View style={GlobalStyles.contentContainer}>
-        <NavCard route={`/teams/${team.id}/roster`} title={"Players"} />
-        <NavCard route={`/teams/${team.id}/games`} title={"Games"} />
+        <NavCard route={`/teams/${team.id}/roster`}>
+          <Text style={styles.cardText}>Players</Text>
+        </NavCard>
+        <NavCard route={`/teams/${team.id}/games`}>
+          <Text style={styles.cardText}>Games</Text>
+        </NavCard>
       </View>
-      {/** what's that margin for? */}
-      <View style={{ margin: 20 }}>
-        <Button
-          title={team.isArchived ? "Unarchive" : "Archive"}
-          color={team.isArchived ? "blue" : "red"}
-          onPress={() =>
-            toggleArchiveEntity("teams", team.id, !team.isArchived)
-          }
-        />
-      </View>
+      <Button
+        title={team.isArchived ? "Unarchive" : "Archive"}
+        viewStyle={[
+          GlobalStyles.bigButtonScreenBottom,
+          { backgroundColor: Colors.surface, borderWidth: 2 },
+        ]}
+        onPress={() => toggleArchiveEntity("teams", team.id, !team.isArchived)}
+      />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  cardText: {
+    fontSize: 18,
+  },
+});

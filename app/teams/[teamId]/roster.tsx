@@ -1,20 +1,12 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import HeaderBack from "@/src/components/HeaderBack";
-import MedButton from "@/src/components/MedButton";
+import NavCard from "@/src/components/NavCard";
 import RosterPlayerCard from "@/src/components/RosterPlayerCard";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import {
-  FlatList,
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 export default function Players() {
   const router = useRouter();
@@ -50,18 +42,14 @@ export default function Players() {
           data={roster}
           renderItem={({ item }) => {
             return (
-              <Pressable
-                style={styles.playerCard}
-                onPress={() =>
-                  router.push({
-                    pathname: "/players/[playerId]",
-                    params: { playerId: item.id },
-                  })
-                }
+              <NavCard
+                route={{
+                  pathname: "/players/[playerId]",
+                  params: { playerId: item.id },
+                }}
               >
                 <RosterPlayerCard player={item} />
-                <Ionicons name="chevron-forward" size={20} />
-              </Pressable>
+              </NavCard>
             );
           }}
           ListEmptyComponent={
@@ -71,16 +59,16 @@ export default function Players() {
           }
         />
       </View>
-      <BigButton
+      <Button
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
         title="Add Player(s)"
         onPress={() => setModalVisible(true)}
-        viewStyle={GlobalStyles.bigButtonScreenBottom}
       />
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.emptyTop}>
           <View style={styles.modalView}>
-            <MedButton
+            <Button
               title="New Player"
               onPress={() => {
                 setModalVisible(false);
@@ -89,8 +77,9 @@ export default function Players() {
                   params: { teamId: teamId },
                 });
               }}
+              size="medium"
             />
-            <MedButton
+            <Button
               title="Existing Player(s)"
               onPress={() => {
                 setModalVisible(false);
@@ -99,8 +88,14 @@ export default function Players() {
                   params: { teamId: teamId },
                 });
               }}
+              size="medium"
             />
-            <MedButton title="Cancel" onPress={() => setModalVisible(false)} />
+            <Button
+              viewStyle={{ backgroundColor: "red" }}
+              title="Cancel"
+              onPress={() => setModalVisible(false)}
+              size="medium"
+            />
           </View>
         </View>
       </Modal>
@@ -118,6 +113,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: -2 },
     shadowRadius: 4,
     borderRadius: 16,
+    gap: 20,
   },
   emptyTop: {
     flex: 1,
@@ -125,15 +121,5 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingLeft: 8,
     paddingRight: 8,
-  },
-  playerCard: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: Colors.surface,
-    height: 50,
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
-    paddingHorizontal: 6,
   },
 });
