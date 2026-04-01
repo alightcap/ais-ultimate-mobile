@@ -1,11 +1,11 @@
 import ActionCard from "@/src/components/Action Cards/ActionCard";
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import DefenseView from "@/src/components/DefenseView";
 import LineView from "@/src/components/LineView";
 import OffenseView from "@/src/components/OffenseView";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import { useGameSession } from "@/src/Hooks/useGameSession";
-import { Colors } from "@/src/styles/global";
+import { Colors, GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams } from "expo-router";
 import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
@@ -88,12 +88,11 @@ export default function ActionView() {
         )}
       </View>
 
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        <BigButton
-          title="Show Line"
-          onPress={() => setLineModalVisible(true)}
-        />
-      </View>
+      <Button
+        title="Show Line"
+        onPress={() => setLineModalVisible(true)}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
 
       <Modal
         animationType="slide"

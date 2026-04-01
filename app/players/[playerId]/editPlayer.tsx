@@ -1,4 +1,4 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
@@ -13,20 +13,23 @@ export default function EditPlayer() {
 
   const currentPlayer = players.find((p) => p.id === playerId);
 
-  const [name, setName] = useState(currentPlayer?.name || "");
-  const [number, setNumber] = useState(currentPlayer?.number.toString() || "");
+  const [name, setName] = useState(currentPlayer?.name ?? "");
+  const [number, setNumber] = useState(currentPlayer?.number?.toString() ?? "");
+
+  if (!currentPlayer) return;
 
   const handleSave = async () => {
-    if (!currentPlayer) return;
     if (name.trim() === "") {
       Alert.alert("Error", "Name cannot be empty");
       return;
     }
 
+    const playerNumber = parseInt(number) || 0;
+
     await updatePlayer({
       ...currentPlayer,
       name: name,
-      number: parseInt(number),
+      number: playerNumber,
     });
 
     router.back();
@@ -41,7 +44,11 @@ export default function EditPlayer() {
         <TextInputFormRow title="Name" item={name} setItem={setName} />
         <TextInputFormRow title="Number" item={number} setItem={setNumber} />
       </View>
-      <BigButton title="Save Changes" onPress={handleSave} />
+      <Button
+        title="Save Changes"
+        onPress={handleSave}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
     </View>
   );
 }

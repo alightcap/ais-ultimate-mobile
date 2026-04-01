@@ -1,4 +1,4 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import EditButton from "@/src/components/EditButton";
 import HalfTimeToggle from "@/src/components/HalfTimeToggle";
 import HardCapPicker from "@/src/components/HardCapInput";
@@ -190,17 +190,16 @@ export default function GameIndex() {
         <Text>per half/floaters/taken</Text>
       </View> */}
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <BigButton
-          title="Action"
-          onPress={() =>
-            router.push({
-              pathname: "/games/[gameId]/action",
-              params: { gameId: gameId },
-            })
-          }
-        />
-      </View>
+      <Button
+        title="Action"
+        onPress={() =>
+          router.push({
+            pathname: "/games/[gameId]/action",
+            params: { gameId: gameId },
+          })
+        }
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
 
       <BottomSheet
         ref={bottomSheetRef}

@@ -1,4 +1,4 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
@@ -43,7 +43,11 @@ export default function EditTeam() {
           autoFocus={true}
         />
       </View>
-      <BigButton title="Save Changes" onPress={handleSave} />
+      <Button
+        title="Save Changes"
+        onPress={handleSave}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import GameDateInput from "@/src/components/GameDateInput";
 import HeaderBack from "@/src/components/HeaderBack";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
@@ -77,9 +77,11 @@ export default function NewGame() {
           />
         </View>
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <BigButton title="Create Game" onPress={() => handleSave()} />
-      </View>
+      <Button
+        title="Create Game"
+        onPress={() => handleSave()}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
     </View>
   );
 }

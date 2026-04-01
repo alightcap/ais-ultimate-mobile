@@ -4,8 +4,8 @@ import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useData } from "../contexts/DataContext";
 import { Game, Player, PlayerStats, Point } from "../lib/types";
-import { Colors } from "../styles/global";
-import BigButton from "./BigButton";
+import { Colors, GlobalStyles } from "../styles/global";
+import Button from "./Button";
 import LinePlayerCard from "./LinePlayerCard";
 import ScoreBoard from "./ScoreBoard";
 
@@ -169,9 +169,11 @@ export default function LineView({
           </View>
         </View>
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <BigButton title="Close" onPress={onClose} />
-      </View>
+      <Button
+        title="Close"
+        onPress={onClose}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
     </View>
   );
 }

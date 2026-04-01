@@ -10,7 +10,7 @@ import {
 } from "../lib/models";
 import { Player, Point } from "../lib/types";
 import ActionButton from "./ActionButton";
-import BigButton from "./BigButton";
+import Button from "./Button";
 import DefensePlayerCard from "./DefensePlayerCard";
 import SpinningDisc from "./SpinningDisc";
 
@@ -172,28 +172,28 @@ export default function DefenseView({
           >
             <SpinningDisc />
             <Text style={{ textAlign: "center" }}>Pulling</Text>
-            <BigButton
-              viewStyle={{ borderWidth: 2, alignSelf: "stretch" }}
+            <Button
+              viewStyle={{ alignSelf: "stretch" }}
               title="In Bounds"
               onPress={() =>
                 handlePullEnd({ isInBounds: true, hasHangTime: true })
               }
             />
-            <BigButton
-              viewStyle={{ borderWidth: 2, alignSelf: "stretch" }}
+            <Button
+              viewStyle={{ alignSelf: "stretch" }}
               title="Out of Bounds"
               onPress={() =>
                 handlePullEnd({ isInBounds: false, hasHangTime: false })
               }
             />
-            <BigButton
-              viewStyle={{ borderWidth: 2, alignSelf: "stretch" }}
+            <Button
+              viewStyle={{ alignSelf: "stretch" }}
               title={"No Hang Time"}
               onPress={() =>
                 handlePullEnd({ isInBounds: true, hasHangTime: false })
               }
             />
-            <BigButton
+            <Button
               viewStyle={{ backgroundColor: "red", alignSelf: "stretch" }}
               textStyle={{ fontWeight: "600" }}
               title="Cancel"

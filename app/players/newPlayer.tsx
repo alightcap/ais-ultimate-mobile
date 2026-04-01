@@ -1,5 +1,5 @@
+import Button from "@/src/components/Button";
 import HeaderBack from "@/src/components/HeaderBack";
-import MedButton from "@/src/components/MedButton";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { createNewPlayer } from "@/src/lib/models";
@@ -75,11 +75,21 @@ export default function NewPlayer() {
           keyboardType="numeric"
         />
       </View>
-      <MedButton title="Submit" onPress={() => handleSaveAndLeave()} />
-      <MedButton
-        title="Submit and Add Another"
-        onPress={() => handleSaveAndStay()}
-      />
+      <View
+        style={{
+          marginBottom: 20,
+          width: "80%",
+          gap: 10,
+          alignSelf: "center",
+        }}
+      >
+        <Button title="Submit" onPress={handleSaveAndLeave} size="medium" />
+        <Button
+          title="Submit and Add Another"
+          onPress={handleSaveAndStay}
+          size="medium"
+        />
+      </View>
     </View>
   );
 }

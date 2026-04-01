@@ -1,4 +1,4 @@
-import BigButton from "@/src/components/BigButton";
+import Button from "@/src/components/Button";
 import GameDateInput from "@/src/components/GameDateInput";
 import TextInputFormRow from "@/src/components/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
@@ -62,7 +62,11 @@ export default function EditGame() {
           style={{ fontSize: 20 }}
         />
       </View>
-      <BigButton title="Save Changes" onPress={handleSave} />
+      <Button
+        title="Save Changes"
+        onPress={handleSave}
+        viewStyle={GlobalStyles.bigButtonScreenBottom}
+      />
     </View>
   );
 }
