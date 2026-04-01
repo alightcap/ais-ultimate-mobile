@@ -53,7 +53,7 @@ export default function LineView({
       }
     }
 
-    const newLineIds = currentLine.map((p) => p.id);
+    const newLineIds = newLine.map((p) => p.id);
 
     const updatedPoints = [...currentGame.points];
     const lastPointIndex = updatedPoints.length - 1;

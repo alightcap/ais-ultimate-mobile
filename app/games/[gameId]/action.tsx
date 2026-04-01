@@ -20,7 +20,6 @@ export default function ActionView() {
     handleAction,
     isOffense,
     lineModalVisible,
-    pointsPlayed,
     recentActions,
     setLineModalVisible,
     // saveLine,
