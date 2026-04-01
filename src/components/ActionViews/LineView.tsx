@@ -1,6 +1,6 @@
 import { useGameSession } from "@/src/Hooks/useGameSession";
 import * as Haptics from "expo-haptics";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useData } from "../../contexts/DataContext";
@@ -13,7 +13,7 @@ import ScoreBoard from "../ScoreBoard";
 export default function LineView({
   currentGame,
   roster,
-  currentLine,
+  currentLine: initialLine,
   ourScore,
   theirScore,
   isOffense,
@@ -30,59 +30,63 @@ export default function LineView({
   const { updateGame } = useData();
   const { pointsPlayed } = useGameSession(currentGame.id);
 
+  const [draftLine, setDraftLine] = useState<Player[]>(initialLine);
+
   const insets = useSafeAreaInsets();
 
   const togglePlayer = async (player: Player) => {
     if (player.id.includes("unknown")) return;
 
-    const isSelected = currentLine.some((p) => p.id === player.id);
-    let newLine: Player[] = [];
+    const isSelected = draftLine.some((p) => p.id === player.id);
 
     if (isSelected) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-
-      newLine = currentLine.filter((p) => p.id !== player.id);
+      setDraftLine((prev) => prev.filter((p) => p.id !== player.id));
     } else {
-      const realPlayerCount = currentLine.filter(
+      const realPlayerCount = draftLine.filter(
         (p) => !p.id.includes("unknown"),
       ).length;
 
       if (realPlayerCount < 7) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        newLine = [...currentLine, player];
+        setDraftLine((prev) => [...prev, player]);
       } else {
-        return;
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
     }
-
-    const newLineIds = newLine.map((p) => p.id);
-
-    const updatedPoints = [...currentGame.points];
-    const lastPointIndex = updatedPoints.length - 1;
-    if (lastPointIndex >= 0) {
-      updatedPoints[lastPointIndex] = {
-        ...updatedPoints[lastPointIndex],
-        currentLineIds: newLineIds,
-      };
-    }
-
-    await updateGame({
-      ...currentGame,
-      currentLineIds: newLineIds,
-      points: updatedPoints,
-    });
   };
 
   const benchPlayers = useMemo(() => {
     return roster
       .filter(
         (player) =>
-          !currentLine.some((p) => p.id === player.id) &&
+          !draftLine.some((p) => p.id === player.id) &&
           !player.id.includes("unknown") &&
           player.active,
       )
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, [roster, currentLine]);
+  }, [roster, draftLine]);
+
+  const handleSaveAndClose = async () => {
+    const updatedPoints = [...currentGame.points];
+    const lastIdx = updatedPoints.length - 1;
+    const currentLineIds = draftLine.map((p) => p.id);
+
+    if (lastIdx >= 0) {
+      updatedPoints[lastIdx] = {
+        ...updatedPoints[lastIdx],
+        currentLineIds: currentLineIds,
+      };
+    }
+
+    await updateGame({
+      ...currentGame,
+      currentLineIds: currentLineIds,
+      points: updatedPoints,
+    });
+
+    onClose();
+  };
 
   return (
     <View
@@ -118,7 +122,7 @@ export default function LineView({
           }}
         >
           <View style={{ gap: 4, margin: 4, paddingVertical: 2 }}>
-            {currentLine.map(
+            {draftLine.map(
               (player) =>
                 !player.id.includes("unknown") && (
                   <Pressable
@@ -166,7 +170,7 @@ export default function LineView({
       </View>
       <Button
         title="Close"
-        onPress={onClose}
+        onPress={handleSaveAndClose}
         viewStyle={GlobalStyles.bigButtonScreenBottom}
       />
     </View>
