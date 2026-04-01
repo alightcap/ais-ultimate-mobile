@@ -1,3 +1,5 @@
+import { Colors } from "@/src/styles/global";
+import { getDateTimeString } from "@/src/utils/dates";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -10,8 +12,6 @@ import {
   TextStyle,
   View,
 } from "react-native";
-import { Colors } from "../styles/global";
-import { getDateTimeString } from "../utils/dates";
 
 export default function GameDateInput({
   date,

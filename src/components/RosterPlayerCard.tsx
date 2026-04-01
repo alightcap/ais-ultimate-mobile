@@ -1,9 +1,14 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet, Text, View } from "react-native";
-import { Player } from "../lib/types";
+import { useData } from "../contexts/DataContext";
 import { Colors } from "../styles/global";
 
-export default function RosterPlayerCard({ player }: { player: Player }) {
+export default function RosterPlayerCard({ playerId }: { playerId: string }) {
+  const { players } = useData();
+
+  const player = players.find((p) => p.id === playerId);
+  if (!player) return null;
+
   return (
     <View style={styles.container}>
       <Ionicons

@@ -1,58 +1,59 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useData } from "../contexts/DataContext";
 import { Action } from "../lib/actions";
 import { createNewPoint } from "../lib/models";
+import { Player } from "../lib/types";
 
 export function useGameSession(gameId: string) {
   const { games, teams, players, updateGame } = useData();
   const [lineModalVisible, setLineModalVisible] = useState(false);
 
+  // Selectors
   const currentGame = games.find((g) => g.id === gameId);
   const currentTeam = teams.find((t) => t.id === currentGame?.teamId);
-
-  const activePlayers = useMemo(() => {
-    if (!currentTeam) return [];
-    return players.filter(
-      (p) => p.teamIDs.includes(currentTeam.id) && p.active,
-    );
-  }, [players, currentTeam]);
-
-  useEffect(() => {
-    if (currentGame && currentGame.points.length === 0) {
-      const initializeGame = async () => {
-        const hasPossession = currentGame.startingOn === "offense";
-
-        const initialLine = activePlayers.slice(0, 7);
-
-        const firstPoint = createNewPoint({
-          pointNumber: 1,
-          currentLine: initialLine,
-        });
-        await updateGame({
-          ...currentGame,
-          points: [firstPoint],
-          hasPossession: hasPossession,
-        });
-      };
-
-      initializeGame();
-    }
-  }, [currentGame, activePlayers, updateGame]);
-
   const currentPoint =
     currentGame?.points && currentGame.points.length > 0
       ? currentGame.points[currentGame.points.length - 1]
       : null;
 
+  const roster = useMemo(() => {
+    if (!currentTeam) return [];
+    return players.filter((p) => p.teamIDs.includes(currentTeam.id));
+  }, [currentTeam, players]);
+
+  const activePlayers = useMemo(() => {
+    if (!roster) return;
+    return roster?.filter((p) => p.active);
+  }, [roster]);
+
+  const currentLineIds = useMemo(() => {
+    const lastPoint = currentGame?.points[currentGame.points.length - 1];
+    return lastPoint?.currentLineIds || currentGame?.currentLineIds || [];
+  }, [currentGame]);
+
+  const currentLine = useMemo(() => {
+    // filters out players marked as inactive
+    return currentLineIds
+      .map((id) => players.find((p) => p.id === id))
+      .filter((p): p is Player => !!p)
+      .filter((p) => p.active)
+      .sort((a, b) => {
+        if (a.id.includes("unknown")) return 1;
+        if (b.id.includes("unknown")) return -1;
+        return a.name.localeCompare(b.name);
+      });
+  }, [currentLineIds, players]);
+
+  // Handler
   const handleAction = async (action: Action) => {
-    if (!currentGame) return;
+    if (!currentGame || !currentGame.points.length) return;
 
     let updatedPoints = [...currentGame.points];
-    const lastPointIndex = updatedPoints.length - 1;
+    const lastIdx = updatedPoints.length - 1;
 
-    updatedPoints[lastPointIndex] = {
-      ...updatedPoints[lastPointIndex],
-      actions: [...updatedPoints[lastPointIndex].actions, action],
+    updatedPoints[lastIdx] = {
+      ...updatedPoints[lastIdx],
+      actions: [...updatedPoints[lastIdx].actions, action],
     };
 
     const newOurScore =
@@ -69,56 +70,40 @@ export function useGameSession(gameId: string) {
       : currentGame.hasPossession;
 
     if (action.endPoint) {
-      setLineModalVisible(true);
+      updatedPoints[lastIdx].ourScore = newOurScore;
+      updatedPoints[lastIdx].theirScore = newTheirScore;
+
       const nextPoint = createNewPoint({
-        pointNumber: updatedPoints[lastPointIndex].number + 1,
-        currentLine: currentLine,
+        number: updatedPoints[lastIdx].number + 1,
+        currentLineIds: currentLineIds,
       });
-      updatedPoints = [...updatedPoints, nextPoint];
+      updatedPoints.push(nextPoint);
+      setLineModalVisible(true);
     }
 
-    const updatedGame = {
+    await updateGame({
       ...currentGame,
       points: updatedPoints,
       ourScore: newOurScore,
       theirScore: newTheirScore,
       hasPossession: newPossession,
-    };
-
-    await updateGame(updatedGame);
+    });
   };
 
   const isOffense = currentGame?.hasPossession;
 
-  const currentLine = useMemo(() => {
-    if (!currentTeam) return [];
+  const pointsPlayed = useMemo(() => {
+    if (!currentGame) return {};
 
-    const savedLine = currentGame?.currentLine || [];
-    const initialLine =
-      savedLine.length > 0 ? savedLine : activePlayers.slice(0, 7);
+    const counts: Record<string, number> = {};
 
-    const unknownPlayer = players.find(
-      (p) => p.id === `${currentTeam?.id}-unknown`,
-    );
-
-    const alreadyHasUnknown = initialLine?.some((p) =>
-      p.id.includes("unknown"),
-    );
-
-    const fullLine =
-      unknownPlayer && !alreadyHasUnknown
-        ? [...initialLine, unknownPlayer]
-        : initialLine;
-
-    return [...fullLine].sort((a, b) => {
-      const aIsUnknown = a.id.includes("unknown");
-      const bisUnknown = b.id.includes("unknown");
-
-      if (aIsUnknown && !bisUnknown) return 1;
-      if (!aIsUnknown && bisUnknown) return -1;
-      return a.name.localeCompare(b.name);
+    currentGame.points.forEach((point) => {
+      point.currentLineIds?.forEach((playerId) => {
+        counts[playerId] = (counts[playerId] || 0) + 1;
+      });
     });
-  }, [currentGame?.currentLine, currentTeam, activePlayers, players]);
+    return counts;
+  }, [currentGame]);
 
   const recentActions = useMemo(() => {
     const gamePoints = currentGame?.points || [];
@@ -139,7 +124,9 @@ export function useGameSession(gameId: string) {
     handleAction,
     isOffense,
     lineModalVisible,
+    pointsPlayed,
     recentActions,
+    roster,
     setLineModalVisible,
     saveLine,
   };

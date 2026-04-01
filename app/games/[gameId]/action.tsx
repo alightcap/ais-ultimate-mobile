@@ -11,14 +11,16 @@ import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 export default function ActionView() {
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
+
   const {
-    activePlayers,
+    roster,
     currentGame,
     currentPoint,
     currentLine,
     handleAction,
     isOffense,
     lineModalVisible,
+    pointsPlayed,
     recentActions,
     setLineModalVisible,
     // saveLine,
@@ -101,8 +103,7 @@ export default function ActionView() {
       >
         <LineView
           currentGame={currentGame}
-          roster={activePlayers}
-          points={currentGame.points}
+          roster={roster}
           currentLine={currentLine}
           ourScore={currentGame.ourScore}
           theirScore={currentGame.theirScore}

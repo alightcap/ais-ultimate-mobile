@@ -1,6 +1,6 @@
+import { Colors } from "@/src/styles/global";
 import { Picker } from "@react-native-picker/picker";
 import { StyleSheet, View } from "react-native";
-import { Colors } from "../styles/global";
 
 export default function HardCapPicker({
   value,

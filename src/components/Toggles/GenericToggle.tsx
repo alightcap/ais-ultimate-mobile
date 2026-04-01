@@ -1,5 +1,5 @@
+import { ToggleStyles } from "@/src/styles/toggle";
 import { Pressable, StyleProp, Text, TextStyle, View } from "react-native";
-import { ToggleStyles } from "../styles/toggle";
 
 interface ToggleOption<T> {
   label: string;

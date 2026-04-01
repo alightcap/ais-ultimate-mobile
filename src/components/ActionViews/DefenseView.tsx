@@ -36,14 +36,14 @@ export default function DefenseView({
   const isPulling = currentPoint.actions.length === 0;
 
   const displayLine = useMemo(() => {
-    const knownPlayers = currentLine.filter((p) => !p.id.includes("unknown"));
-    const unknownPlayer = currentLine.find((p) => p.id.includes("unknown"));
+    const knownPlayerIds = currentLine.filter((p) => !p.id.includes("unknown"));
+    const unknownPlayerId = currentLine.find((p) => p.id.includes("unknown"));
 
-    const emptyCount = 7 - knownPlayers.length;
+    const emptyCount = 7 - knownPlayerIds.length;
 
     if (emptyCount <= 0) return currentLine;
 
-    const placeholders = Array.from({ length: Math.max(0, emptyCount) }).map(
+    const placeholderIds = Array.from({ length: Math.max(0, emptyCount) }).map(
       (_, i) =>
         ({
           id: `empty-${i}`,
@@ -54,12 +54,12 @@ export default function DefenseView({
         }) as Player,
     );
 
-    const finalLine = [...knownPlayers, ...placeholders];
-    if (unknownPlayer) {
-      finalLine.push(unknownPlayer);
+    const finalLineIds = [...knownPlayerIds, ...placeholderIds];
+    if (unknownPlayerId) {
+      finalLineIds.push(unknownPlayerId);
     }
 
-    return finalLine;
+    return finalLineIds;
   }, [currentLine]);
 
   const handleD = (player: Player) => {
@@ -123,9 +123,8 @@ export default function DefenseView({
               <DefensePlayerCard
                 key={player.id}
                 playerProps={{
-                  isEmpty: isEmpty,
                   isPulling: isPulling,
-                  name: player.name,
+                  player: player,
                   onD: () => handleD(player),
                   onPull: () => handlePullStart(player),
                 }}

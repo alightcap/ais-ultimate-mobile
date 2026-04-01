@@ -10,13 +10,14 @@ export default function DefensePlayerCard({
 }: {
   playerProps: DefensePlayerProps;
 }) {
-  const { name, isEmpty, isPulling, onD, onPull } = playerProps;
+  const { player, isPulling, onD, onPull } = playerProps;
+  const isEmpty = player.id.startsWith("empty");
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.rowContainer}>
         <View style={styles.nameView}>
           <Text style={[styles.nameText, isEmpty && { opacity: 0 }]}>
-            {name}
+            {player.name}
           </Text>
         </View>
         <View style={styles.arrowView}>

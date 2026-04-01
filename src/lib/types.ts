@@ -20,16 +20,14 @@ export interface DataContextType {
 }
 
 export interface DefensePlayerProps {
-  name: string;
-  isEmpty: boolean;
+  player: Player;
   isPulling: boolean;
   onD: () => void;
   onPull: () => void;
 }
 
 export interface Game {
-  currentLine: Player[];
-  points: Point[]; //
+  currentLineIds: string[];
   eventName: string; //
   halfAt: HalfTimeMode;
   hardCap: number; //
@@ -41,6 +39,7 @@ export interface Game {
   opponentName: string; //
   ourScore: number;
   pointCap: number;
+  points: Point[]; //
   startingOn: StartingOnMode; //
   teamId: string;
   theirScore: number; //
@@ -52,10 +51,9 @@ export interface Game {
 export type HalfTimeMode = "first" | "points" | "time";
 
 export interface OffensePlayerProps {
-  name: string;
+  player: Player;
   hasDisc: boolean;
   showButtons: boolean;
-  isEmpty: boolean;
   onPress: () => void;
   onCatch: () => void;
   onDrop: () => void;
@@ -79,7 +77,7 @@ export interface Point {
   number: number;
   startTime: number;
   startedOn?: "offense" | "defense";
-  currentLine?: Player[];
+  currentLineIds?: string[];
   actions: Action[];
   result?: "clean hold" | "hold" | "clean break" | "break";
   ourScore?: number;

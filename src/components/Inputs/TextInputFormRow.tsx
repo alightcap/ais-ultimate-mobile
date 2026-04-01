@@ -1,6 +1,6 @@
+import { TextInputFormRowProps } from "@/src/lib/types";
+import { Colors } from "@/src/styles/global";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { TextInputFormRowProps } from "../lib/types";
-import { Colors } from "../styles/global";
 
 export default function TextInputFormRow({
   title,

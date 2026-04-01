@@ -1,9 +1,10 @@
+import { useGameSession } from "@/src/Hooks/useGameSession";
 import * as Haptics from "expo-haptics";
 import { useMemo } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useData } from "../../contexts/DataContext";
-import { Game, Player, PlayerStats, Point } from "../../lib/types";
+import { Game, Player } from "../../lib/types";
 import { Colors, GlobalStyles } from "../../styles/global";
 import Button from "../Button";
 import LinePlayerCard from "../LinePlayerCard";
@@ -12,7 +13,6 @@ import ScoreBoard from "../ScoreBoard";
 export default function LineView({
   currentGame,
   roster,
-  points, // points played, point streaks, etc...
   currentLine,
   ourScore,
   theirScore,
@@ -21,7 +21,6 @@ export default function LineView({
 }: {
   currentGame: Game;
   roster: Player[];
-  points: Point[];
   currentLine: Player[];
   ourScore: number;
   theirScore: number;
@@ -29,18 +28,9 @@ export default function LineView({
   onClose: () => void;
 }) {
   const { updateGame } = useData();
+  const { pointsPlayed } = useGameSession(currentGame.id);
+
   const insets = useSafeAreaInsets();
-
-  const playerStats: Record<string, PlayerStats> = {};
-  roster.forEach((p) => (playerStats[p.id] = { pointsPlayed: 0 }));
-
-  points.slice(0, -1).forEach((point) => {
-    point.currentLine?.forEach((player) => {
-      if (playerStats[player.id]) {
-        playerStats[player.id].pointsPlayed++;
-      }
-    });
-  });
 
   const togglePlayer = async (player: Player) => {
     if (player.id.includes("unknown")) return;
@@ -63,18 +53,20 @@ export default function LineView({
       }
     }
 
+    const newLineIds = currentLine.map((p) => p.id);
+
     const updatedPoints = [...currentGame.points];
     const lastPointIndex = updatedPoints.length - 1;
     if (lastPointIndex >= 0) {
       updatedPoints[lastPointIndex] = {
         ...updatedPoints[lastPointIndex],
-        currentLine: newLine,
+        currentLineIds: newLineIds,
       };
     }
 
     await updateGame({
       ...currentGame,
-      currentLine: newLine,
+      currentLineIds: newLineIds,
       points: updatedPoints,
     });
   };
@@ -84,7 +76,8 @@ export default function LineView({
       .filter(
         (player) =>
           !currentLine.some((p) => p.id === player.id) &&
-          !player.id.includes("unknown"),
+          !player.id.includes("unknown") &&
+          player.active,
       )
       .sort((a, b) => a.name.localeCompare(b.name));
   }, [roster, currentLine]);
@@ -132,7 +125,7 @@ export default function LineView({
                   >
                     <LinePlayerCard
                       player={player}
-                      playerStats={playerStats[player.id]}
+                      pointsPlayed={pointsPlayed[player.id]}
                     />
                   </Pressable>
                 ),
@@ -161,7 +154,7 @@ export default function LineView({
                 >
                   <LinePlayerCard
                     player={player}
-                    playerStats={playerStats[player.id]}
+                    pointsPlayed={pointsPlayed[player.id]}
                   />
                 </Pressable>
               );

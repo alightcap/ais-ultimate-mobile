@@ -9,16 +9,10 @@ export default function OffensePlayerCard({
 }: {
   playerProps: OffensePlayerProps;
 }) {
-  const {
-    name,
-    hasDisc,
-    showButtons,
-    isEmpty,
-    onPress,
-    onCatch,
-    onDrop,
-    onGoal,
-  } = playerProps;
+  const { player, hasDisc, showButtons, onPress, onCatch, onDrop, onGoal } =
+    playerProps;
+  const isEmpty = player.id.startsWith("empty");
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.rowContainer}>
@@ -33,7 +27,7 @@ export default function OffensePlayerCard({
               isEmpty && { opacity: 0 },
             ]}
           >
-            {name}
+            {player.name}
           </Text>
         </Pressable>
         <View style={styles.arrowView}>

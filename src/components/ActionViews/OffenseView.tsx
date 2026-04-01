@@ -27,6 +27,7 @@ export default function OffenseView({
     undefined,
   );
 
+  // adds empty players and sorts them and unknown to the bottom
   const displayLine = useMemo(() => {
     const knownPlayers = currentLine.filter((p) => !p.id.includes("unknown"));
     const unknownPlayer = currentLine.find((p) => p.id.includes("unknown"));
@@ -111,12 +112,11 @@ export default function OffenseView({
                 key={player.id}
                 playerProps={{
                   hasDisc: player.id === selectedPlayer?.id,
-                  isEmpty: isEmpty,
-                  name: player.name,
                   onCatch: () => !isEmpty && handleCatch(player),
                   onDrop: () => !isEmpty && handleDrop(player),
                   onGoal: () => !isEmpty && handleGoalFor(player),
                   onPress: () => !isEmpty && setSelectedPlayer(player),
+                  player: player,
                   showButtons: showButtons,
                 }}
               />
