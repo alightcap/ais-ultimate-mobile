@@ -50,6 +50,8 @@ export default function LineView({
       if (realPlayerCount < 7) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         newLine = [...currentLine, player];
+      } else {
+        return;
       }
     }
 

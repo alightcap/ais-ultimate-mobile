@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useData } from "../contexts/DataContext";
 import { Action } from "../lib/actions";
 import { createNewPoint } from "../lib/models";
@@ -26,6 +26,23 @@ export function useGameSession(gameId: string) {
     return roster?.filter((p) => p.active);
   }, [roster]);
 
+  useEffect(() => {
+    if (currentGame && currentGame.points.length === 0) {
+      const startFirstPoint = async () => {
+        const firstPoint = createNewPoint({
+          number: 1,
+          currentLineIds: activePlayers?.slice(0, 7).map((p) => p.id) || [],
+        });
+
+        await updateGame({
+          ...currentGame,
+          points: [firstPoint],
+        });
+      };
+      startFirstPoint();
+    }
+  }, [currentGame, activePlayers, updateGame]);
+
   const currentLineIds = useMemo(() => {
     const lastPoint = currentGame?.points[currentGame.points.length - 1];
     return lastPoint?.currentLineIds || currentGame?.currentLineIds || [];
@@ -43,6 +60,11 @@ export function useGameSession(gameId: string) {
         return a.name.localeCompare(b.name);
       });
   }, [currentLineIds, players]);
+
+  const rawLineIds = useMemo(() => {
+    const lastPoint = currentGame?.points[currentGame.points.length - 1];
+    return lastPoint?.currentLineIds || [];
+  }, [currentGame]);
 
   // Handler
   const handleAction = async (action: Action) => {
@@ -73,9 +95,16 @@ export function useGameSession(gameId: string) {
       updatedPoints[lastIdx].ourScore = newOurScore;
       updatedPoints[lastIdx].theirScore = newTheirScore;
 
+      const cleanLineIds = currentLineIds
+        .filter((id) => id !== "" && !id.includes("unknown"))
+        .map((id) => players.find((p) => p.id === id))
+        .filter((p): p is Player => !!p)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((p) => p.id);
+
       const nextPoint = createNewPoint({
         number: updatedPoints[lastIdx].number + 1,
-        currentLineIds: currentLineIds,
+        currentLineIds: cleanLineIds,
       });
       updatedPoints.push(nextPoint);
       setLineModalVisible(true);
@@ -97,13 +126,17 @@ export function useGameSession(gameId: string) {
 
     const counts: Record<string, number> = {};
 
-    currentGame.points.forEach((point) => {
+    if (roster) {
+      roster.forEach((player) => (counts[player.id] = 0));
+    }
+
+    currentGame.points.slice(0, -1).forEach((point) => {
       point.currentLineIds?.forEach((playerId) => {
         counts[playerId] = (counts[playerId] || 0) + 1;
       });
     });
     return counts;
-  }, [currentGame]);
+  }, [currentGame, roster]);
 
   const recentActions = useMemo(() => {
     const gamePoints = currentGame?.points || [];
@@ -125,6 +158,7 @@ export function useGameSession(gameId: string) {
     isOffense,
     lineModalVisible,
     pointsPlayed,
+    rawLineIds,
     recentActions,
     roster,
     setLineModalVisible,

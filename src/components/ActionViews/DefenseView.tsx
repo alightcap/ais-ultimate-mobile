@@ -117,8 +117,6 @@ export default function DefenseView({
       <View style={{ flexDirection: "row", gap: 2, flex: 1 }}>
         <View style={{ flex: 4, gap: 2 }}>
           {displayLine.map((player) => {
-            const isEmpty = player.id.startsWith("empty");
-
             return (
               <DefensePlayerCard
                 key={player.id}

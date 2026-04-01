@@ -22,16 +22,9 @@ export default function ActionView() {
     lineModalVisible,
     recentActions,
     setLineModalVisible,
-    // saveLine,
   } = useGameSession(gameId);
 
-  if (!currentGame || !currentPoint) {
-    return (
-      <View>
-        <Text>Loading Game...</Text>
-      </View>
-    );
-  }
+  if (!currentGame || !currentPoint) return;
 
   // TODO: fix event list so height of event cards is dynamic
 
