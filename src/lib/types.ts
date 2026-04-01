@@ -19,6 +19,14 @@ export interface DataContextType {
   updateTeam: (updatedTeam: Team) => Promise<void>;
 }
 
+export interface DefensePlayerProps {
+  name: string;
+  isEmpty: boolean;
+  isPulling: boolean;
+  onD: () => void;
+  onPull: () => void;
+}
+
 export interface Game {
   currentLine: Player[];
   points: Point[]; //
@@ -42,6 +50,17 @@ export interface Game {
 }
 
 export type HalfTimeMode = "first" | "points" | "time";
+
+export interface OffensePlayerProps {
+  name: string;
+  hasDisc: boolean;
+  showButtons: boolean;
+  isEmpty: boolean;
+  onPress: () => void;
+  onCatch: () => void;
+  onDrop: () => void;
+  onGoal: () => void;
+}
 
 export interface Player {
   active: boolean;

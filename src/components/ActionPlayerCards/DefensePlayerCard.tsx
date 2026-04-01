@@ -1,21 +1,16 @@
 import { ArrowRightIcon } from "phosphor-react-native";
 import { StyleSheet, Text, View } from "react-native";
-import { Colors } from "../styles/global";
-import ActionButton from "./ActionButton";
+import { DefensePlayerProps } from "../../lib/types";
+import { Colors } from "../../styles/global";
+import ActionButton from "../ActionButton";
 
+// make a single player card component?
 export default function DefensePlayerCard({
-  name,
-  isEmpty,
-  isPulling,
-  onD,
-  onPull,
+  playerProps,
 }: {
-  name: string;
-  isEmpty: boolean;
-  isPulling: boolean;
-  onD: () => void;
-  onPull: () => void;
+  playerProps: DefensePlayerProps;
 }) {
+  const { name, isEmpty, isPulling, onD, onPull } = playerProps;
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.rowContainer}>

@@ -1,5 +1,5 @@
 import { StyleProp, TextStyle } from "react-native";
-import { HalfTimeMode } from "../lib/types";
+import { HalfTimeMode } from "../../lib/types";
 import GenericToggle from "./GenericToggle";
 
 const halfTimeModes: { label: string; value: HalfTimeMode }[] = [

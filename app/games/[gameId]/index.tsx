@@ -1,10 +1,10 @@
 import Button from "@/src/components/Button";
 import EditButton from "@/src/components/EditButton";
-import HalfTimeToggle from "@/src/components/HalfTimeToggle";
-import HardCapPicker from "@/src/components/HardCapInput";
-import PointCapToggle from "@/src/components/PointCapToggle";
+import HardCapPicker from "@/src/components/Inputs/HardCapInput";
 import ScoreBoard from "@/src/components/ScoreBoard";
-import StartOnToggle from "@/src/components/StartingOnToggle";
+import HalfTimeToggle from "@/src/components/Toggles/HalfTimeToggle";
+import PointCapToggle from "@/src/components/Toggles/PointCapToggle";
+import StartOnToggle from "@/src/components/Toggles/StartingOnToggle";
 import { useData } from "@/src/contexts/DataContext";
 import { HalfTimeMode, StartingOnMode } from "@/src/lib/types";
 import { Colors, GlobalStyles } from "@/src/styles/global";

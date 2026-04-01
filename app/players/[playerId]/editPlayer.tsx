@@ -1,5 +1,5 @@
 import Button from "@/src/components/Button";
-import TextInputFormRow from "@/src/components/TextInputFormRow";
+import TextInputFormRow from "@/src/components/Inputs/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams, useRouter } from "expo-router";

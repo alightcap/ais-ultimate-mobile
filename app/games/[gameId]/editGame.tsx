@@ -1,6 +1,6 @@
 import Button from "@/src/components/Button";
-import GameDateInput from "@/src/components/GameDateInput";
-import TextInputFormRow from "@/src/components/TextInputFormRow";
+import GameDateInput from "@/src/components/Inputs/GameDateInput";
+import TextInputFormRow from "@/src/components/Inputs/TextInputFormRow";
 import { useData } from "@/src/contexts/DataContext";
 import { GlobalStyles } from "@/src/styles/global";
 import { useLocalSearchParams, useRouter } from "expo-router";

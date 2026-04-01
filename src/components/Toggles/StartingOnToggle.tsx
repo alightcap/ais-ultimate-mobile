@@ -1,5 +1,5 @@
 import { StyleProp, TextStyle } from "react-native";
-import { StartingOnMode } from "../lib/types";
+import { StartingOnMode } from "../../lib/types";
 import GenericToggle from "./GenericToggle";
 
 export default function StartingOnToggle({

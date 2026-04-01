@@ -1,28 +1,24 @@
 import { ArrowRightIcon } from "phosphor-react-native";
-import { Pressable, StyleSheet, Text, TextStyle, View } from "react-native";
-import { Colors } from "../styles/global";
-import ActionButton from "./ActionButton";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { OffensePlayerProps } from "../../lib/types";
+import { Colors } from "../../styles/global";
+import ActionButton from "../ActionButton";
 
 export default function OffensePlayerCard({
-  name,
-  hasDisc,
-  showButtons,
-  isEmpty,
-  onPress,
-  onCatch,
-  onDrop,
-  onGoal,
+  playerProps,
 }: {
-  name: string;
-  hasDisc: boolean;
-  textStyle?: TextStyle;
-  showButtons: boolean;
-  isEmpty: boolean;
-  onPress?: () => void;
-  onCatch: () => void;
-  onDrop: () => void;
-  onGoal: () => void;
+  playerProps: OffensePlayerProps;
 }) {
+  const {
+    name,
+    hasDisc,
+    showButtons,
+    isEmpty,
+    onPress,
+    onCatch,
+    onDrop,
+    onGoal,
+  } = playerProps;
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.rowContainer}>

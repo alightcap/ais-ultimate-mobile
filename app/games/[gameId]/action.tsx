@@ -1,8 +1,8 @@
 import ActionCard from "@/src/components/Action Cards/ActionCard";
+import DefenseView from "@/src/components/ActionViews/DefenseView";
+import LineView from "@/src/components/ActionViews/LineView";
+import OffenseView from "@/src/components/ActionViews/OffenseView";
 import Button from "@/src/components/Button";
-import DefenseView from "@/src/components/DefenseView";
-import LineView from "@/src/components/LineView";
-import OffenseView from "@/src/components/OffenseView";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import { useGameSession } from "@/src/Hooks/useGameSession";
 import { Colors, GlobalStyles } from "@/src/styles/global";

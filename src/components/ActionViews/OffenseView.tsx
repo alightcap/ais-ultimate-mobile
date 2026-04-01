@@ -1,16 +1,16 @@
-import { useMemo, useState } from "react";
-import { View } from "react-native";
-import { Action } from "../lib/actions";
+import ActionButton from "@/src/components/ActionButton";
+import { Action } from "@/src/lib/actions";
 import {
   createCatchEvent,
   createDropEvent,
   createGoalForEvent,
   createThrowawayForEvent,
-} from "../lib/models";
-import { Player } from "../lib/types";
-import { Colors } from "../styles/global";
-import ActionButton from "./ActionButton";
-import OffensePlayerCard from "./OffensePlayerCard";
+} from "@/src/lib/models";
+import { Player } from "@/src/lib/types";
+import { Colors } from "@/src/styles/global";
+import { useMemo, useState } from "react";
+import { View } from "react-native";
+import OffensePlayerCard from "../ActionPlayerCards/OffensePlayerCard";
 
 export default function OffenseView({
   currentLine,
@@ -109,14 +109,16 @@ export default function OffenseView({
             return (
               <OffensePlayerCard
                 key={player.id}
-                name={player.name}
-                hasDisc={player.id === selectedPlayer?.id}
-                showButtons={showButtons}
-                onPress={() => !isEmpty && setSelectedPlayer(player)}
-                onCatch={() => !isEmpty && handleCatch(player)}
-                onDrop={() => !isEmpty && handleDrop(player)}
-                onGoal={() => !isEmpty && handleGoalFor(player)}
-                isEmpty={isEmpty}
+                playerProps={{
+                  hasDisc: player.id === selectedPlayer?.id,
+                  isEmpty: isEmpty,
+                  name: player.name,
+                  onCatch: () => !isEmpty && handleCatch(player),
+                  onDrop: () => !isEmpty && handleDrop(player),
+                  onGoal: () => !isEmpty && handleGoalFor(player),
+                  onPress: () => !isEmpty && setSelectedPlayer(player),
+                  showButtons: showButtons,
+                }}
               />
             );
           })}

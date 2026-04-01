@@ -1,18 +1,18 @@
 import { useMemo, useState } from "react";
 import { Modal, Text, View } from "react-native";
-import { Action } from "../lib/actions";
+import { Action } from "../../lib/actions";
 import {
   createDeEvent,
   createGoalAgainstEvent,
   createNewPullEvent,
   createNewPullObEvent,
   createThrowawayAgainstEvent,
-} from "../lib/models";
-import { Player, Point } from "../lib/types";
-import ActionButton from "./ActionButton";
-import Button from "./Button";
-import DefensePlayerCard from "./DefensePlayerCard";
-import SpinningDisc from "./SpinningDisc";
+} from "../../lib/models";
+import { Player, Point } from "../../lib/types";
+import ActionButton from "../ActionButton";
+import DefensePlayerCard from "../ActionPlayerCards/DefensePlayerCard";
+import Button from "../Button";
+import SpinningDisc from "../SpinningDisc";
 
 export default function DefenseView({
   currentPoint,
@@ -122,11 +122,13 @@ export default function DefenseView({
             return (
               <DefensePlayerCard
                 key={player.id}
-                name={player.name}
-                isPulling={isPulling}
-                onD={() => handleD(player)}
-                onPull={() => handlePullStart(player)}
-                isEmpty={isEmpty}
+                playerProps={{
+                  isEmpty: isEmpty,
+                  isPulling: isPulling,
+                  name: player.name,
+                  onD: () => handleD(player),
+                  onPull: () => handlePullStart(player),
+                }}
               />
             );
           })}

@@ -2,12 +2,12 @@ import * as Haptics from "expo-haptics";
 import { useMemo } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useData } from "../contexts/DataContext";
-import { Game, Player, PlayerStats, Point } from "../lib/types";
-import { Colors, GlobalStyles } from "../styles/global";
-import Button from "./Button";
-import LinePlayerCard from "./LinePlayerCard";
-import ScoreBoard from "./ScoreBoard";
+import { useData } from "../../contexts/DataContext";
+import { Game, Player, PlayerStats, Point } from "../../lib/types";
+import { Colors, GlobalStyles } from "../../styles/global";
+import Button from "../Button";
+import LinePlayerCard from "../LinePlayerCard";
+import ScoreBoard from "../ScoreBoard";
 
 export default function LineView({
   currentGame,
