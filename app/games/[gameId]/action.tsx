@@ -39,6 +39,9 @@ export default function ActionView() {
       </View>
       <View style={{ flex: 3 }}>
         <FlatList
+          // TODO: add undo button
+          // TODO: add events page with scrollable list of all events (editable?)
+          // TODO: make this view a pressable that goes to the events page.
           data={recentActions}
           contentContainerStyle={{ flexGrow: 1 }}
           keyExtractor={(item, index) => index.toString()}

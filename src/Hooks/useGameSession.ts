@@ -4,6 +4,12 @@ import { Action } from "../lib/actions";
 import { createNewPoint } from "../lib/models";
 import { Player } from "../lib/types";
 
+// TODO: when the first point is created, check the halftime settings
+// and if the halfTime mode is time, set an "alarm" for the start
+// time + time cap / 2, when that alarm goes, a notification
+// should appear indicating that half will be at the end
+// of the current point.
+
 export function useGameSession(gameId: string) {
   const { games, teams, players, updateGame } = useData();
   const [lineModalVisible, setLineModalVisible] = useState(false);
@@ -68,6 +74,8 @@ export function useGameSession(gameId: string) {
 
   // Handler
   const handleAction = async (action: Action) => {
+    // TODO: handle half time.
+    // TODO: handle game over.
     if (!currentGame || !currentGame.points.length) return;
 
     let updatedPoints = [...currentGame.points];
