@@ -1,7 +1,7 @@
 import { useGameSession } from "@/src/Hooks/useGameSession";
 import * as Haptics from "expo-haptics";
 import { useMemo, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useData } from "../../contexts/DataContext";
 import { Game, Player } from "../../lib/types";
@@ -30,31 +30,42 @@ export default function LineView({
   const { updateGame } = useData();
   const { pointsPlayed } = useGameSession(currentGame.id);
 
-  const [draftLine, setDraftLine] = useState<Player[]>(
-    initialLine.filter((p) => !p.id.includes("unknown")),
-  );
+  const [draftLine, setDraftLine] = useState<(Player | null)[]>(() => {
+    const initialPlayers = initialLine.filter((p) => !p.id.includes("unknown"));
+    const slots = Array(7).fill(null);
+    initialPlayers.forEach((p, i) => {
+      if (i < 7) slots[i] = p;
+    });
+    return slots;
+  });
 
-  // TODO: add a clear line button
-  // TODO: add empty slots
+  // TODO?: Last O line, last D line
 
   const insets = useSafeAreaInsets();
+
+  const onClearLine = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    setDraftLine(Array(7).fill(null));
+  };
 
   const togglePlayer = async (player: Player) => {
     if (player.id.includes("unknown")) return;
 
-    const isSelected = draftLine.some((p) => p.id === player.id);
+    const selectedIndex = draftLine.findIndex((p) => p?.id === player.id);
 
-    if (isSelected) {
+    if (selectedIndex !== -1) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setDraftLine((prev) => prev.filter((p) => p.id !== player.id));
+      const newLine = [...draftLine];
+      newLine[selectedIndex] = null;
+      setDraftLine(newLine);
     } else {
-      const realPlayerCount = draftLine.filter(
-        (p) => !p.id.includes("unknown"),
-      ).length;
+      const firstEmptyIndex = draftLine.indexOf(null);
 
-      if (realPlayerCount < 7) {
+      if (firstEmptyIndex !== -1) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        setDraftLine((prev) => [...prev, player]);
+        const newLine = [...draftLine];
+        newLine[firstEmptyIndex] = player;
+        setDraftLine(newLine);
       } else {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       }
@@ -65,7 +76,7 @@ export default function LineView({
     return roster
       .filter(
         (player) =>
-          !draftLine.some((p) => p.id === player.id) &&
+          !draftLine.some((p) => p?.id === player.id) &&
           !player.id.includes("unknown") &&
           player.active,
       )
@@ -76,7 +87,11 @@ export default function LineView({
     const updatedPoints = [...currentGame.points];
     const lastIdx = updatedPoints.length - 1;
     const unknownPlayer = roster.find((p) => p.id.includes("unknown"));
-    const currentLineIds = [...draftLine.map((p) => p.id), unknownPlayer!.id];
+
+    const currentLineIds = [
+      ...draftLine.filter((p): p is Player => p !== null).map((p) => p.id),
+      unknownPlayer!.id,
+    ];
 
     if (lastIdx >= 0) {
       updatedPoints[lastIdx] = {
@@ -125,24 +140,38 @@ export default function LineView({
             backgroundColor: Colors.surface,
             borderRightWidth: 4,
             borderRightColor: Colors.border,
+            justifyContent: "space-between",
+            paddingBottom: 10,
           }}
         >
           <View style={{ gap: 4, margin: 4, paddingVertical: 2 }}>
-            {draftLine.map(
-              (player) =>
-                !player.id.includes("unknown") && (
-                  <Pressable
-                    key={player.id}
-                    onPress={() => togglePlayer(player)}
-                  >
-                    <LinePlayerCard
-                      player={player}
-                      pointsPlayed={pointsPlayed[player.id]}
-                    />
-                  </Pressable>
-                ),
-            )}
+            {draftLine.map((player, index) => {
+              if (!player) {
+                return (
+                  <View key={`empty-${index}`} style={styles.emptyPlayerView}>
+                    <Text style={{ color: Colors.border, fontSize: 12 }}>
+                      Empty Slot
+                    </Text>
+                  </View>
+                );
+              }
+
+              return (
+                <Pressable key={player.id} onPress={() => togglePlayer(player)}>
+                  <LinePlayerCard
+                    player={player}
+                    pointsPlayed={pointsPlayed[player.id] || 0}
+                  />
+                </Pressable>
+              );
+            })}
           </View>
+          <Button
+            title="Clear Line"
+            onPress={onClearLine}
+            viewStyle={{ margin: 3, backgroundColor: Colors.brandPrimary }}
+            textStyle={{ color: "white", fontWeight: "bold" }}
+          />
         </View>
         <View
           style={{
@@ -182,3 +211,15 @@ export default function LineView({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  emptyPlayerView: {
+    height: 50, // Matches your LinePlayerCard height
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: Colors.border,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
