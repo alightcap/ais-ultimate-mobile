@@ -1,8 +1,10 @@
 import { getId } from "../utils/uniqueId";
 import {
+  Action,
   Catch,
   De,
   Drop,
+  GameStart,
   GoalAgainst,
   GoalFor,
   Pull,
@@ -80,15 +82,17 @@ export const createUnknownPlayer = (teamId: string): Player => {
 export const createNewPoint = ({
   number,
   currentLineIds,
+  actions = [],
 }: {
   number: number;
   currentLineIds: string[];
+  actions?: Action[];
 }): Point => {
   return {
     number: number,
     startTime: Date.now(),
     currentLineIds: currentLineIds,
-    actions: [],
+    actions: actions,
   };
 };
 
@@ -210,6 +214,20 @@ export const createNewPullObEvent = ({
     category: "defense",
     timeStamp: Date.now(),
     thrower: thrower,
+    switchPossession: false,
+    endPoint: false,
+  };
+};
+
+export const createStartGameEvent = ({
+  startTime,
+}: {
+  startTime: number;
+}): GameStart => {
+  return {
+    timeStamp: startTime,
+    name: "game start",
+    category: "system",
     switchPossession: false,
     endPoint: false,
   };

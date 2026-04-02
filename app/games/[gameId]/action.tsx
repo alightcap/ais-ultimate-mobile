@@ -10,6 +10,8 @@ import { useLocalSearchParams } from "expo-router";
 import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
 
 export default function ActionView() {
+  // TODO: fix Offense/Defense toggle logic. Maybe just remove it.
+
   const { gameId } = useLocalSearchParams<{ gameId: string }>();
 
   const {

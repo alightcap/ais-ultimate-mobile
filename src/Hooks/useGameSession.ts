@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useData } from "../contexts/DataContext";
 import { Action } from "../lib/actions";
-import { createNewPoint } from "../lib/models";
+import { createNewPoint, createStartGameEvent } from "../lib/models";
 import { Player } from "../lib/types";
 
 // TODO: when the first point is created, check the halftime settings
@@ -28,26 +28,36 @@ export function useGameSession(gameId: string) {
   }, [currentTeam, players]);
 
   const activePlayers = useMemo(() => {
-    if (!roster) return;
+    if (!roster) return [];
     return roster?.filter((p) => p.active);
   }, [roster]);
 
+  const initializeGame = useCallback(async () => {
+    if (!currentGame || !activePlayers) return;
+
+    const initialLineIds = activePlayers.slice(0, 7).map((p) => p.id);
+
+    const startAction = createStartGameEvent({
+      startTime: currentGame.timeStamp,
+    });
+
+    const firstPoint = createNewPoint({
+      number: 1,
+      currentLineIds: initialLineIds,
+      actions: [startAction],
+    });
+
+    await updateGame({
+      ...currentGame,
+      points: [firstPoint],
+    });
+  }, [currentGame, activePlayers, updateGame]);
+
   useEffect(() => {
     if (currentGame && currentGame.points.length === 0) {
-      const startFirstPoint = async () => {
-        const firstPoint = createNewPoint({
-          number: 1,
-          currentLineIds: activePlayers?.slice(0, 7).map((p) => p.id) || [],
-        });
-
-        await updateGame({
-          ...currentGame,
-          points: [firstPoint],
-        });
-      };
-      startFirstPoint();
+      initializeGame();
     }
-  }, [currentGame, activePlayers, updateGame]);
+  }, [currentGame, activePlayers, initializeGame]);
 
   const currentLineIds = useMemo(() => {
     const lastPoint = currentGame?.points[currentGame.points.length - 1];
@@ -127,7 +137,16 @@ export function useGameSession(gameId: string) {
     });
   };
 
-  const isOffense = currentGame?.hasPossession;
+  const isOffense = useMemo(() => {
+    const totalActions =
+      currentGame?.points.reduce((acc, p) => (acc = p.actions.length), 0) || 0;
+
+    if (totalActions <= 1) {
+      return currentGame?.startingOn === "offense";
+    }
+
+    return currentGame?.hasPossession;
+  }, [currentGame]);
 
   const pointsPlayed = useMemo(() => {
     if (!currentGame) return {};

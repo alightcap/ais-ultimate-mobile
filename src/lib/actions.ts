@@ -9,22 +9,22 @@ interface BaseAction {
 }
 
 export type Action =
+  | CallahanAgainst
+  | CallahanFor
   | Catch
+  | De
   | Drop
+  | GameStart
   | GoalFor
   | GoalAgainst
+  | Halftime
+  | Pull
+  | PullOb
+  | StallAgainst
+  | StallFor
   | ThrowawayFor
   | ThrowawayAgainst
-  | Pull
-  | De
-  | CallahanFor
-  | CallahanAgainst
-  | PullOb
-  | StallFor
-  | StallAgainst
-  | GameStart
-  | Halftime
-  | GameOver;
+  | GameEnd;
 
 export interface Catch extends BaseAction {
   name: "catch";
@@ -150,7 +150,7 @@ export interface Halftime extends BaseAction {
   endPoint: false;
 }
 
-export interface GameOver extends BaseAction {
+export interface GameEnd extends BaseAction {
   name: "game over";
   category: "system";
   switchPossession: false;

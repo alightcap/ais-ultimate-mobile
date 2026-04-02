@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import CatchActionCard from "./CatchActionCard";
 import DeActionCard from "./DeActionCard";
 import DropActionCard from "./DropActionCard";
+import GameStartActionCard from "./GameStartActionCard";
 import GoalAgainstActionCard from "./GoalAgainstActionCard";
 import GoalForActionCard from "./GoalForActionCard";
 import PullActionCard from "./PullActionCard";
@@ -29,6 +30,8 @@ export default function ActionCard({ action }: { action: Action }) {
             return <DeActionCard action={action} />;
           case "drop":
             return <DropActionCard action={action} />;
+          case "game start":
+            return <GameStartActionCard action={action} />;
           case "goal against":
             return <GoalAgainstActionCard action={action} />;
           case "goal for":
