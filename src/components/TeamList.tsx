@@ -35,5 +35,6 @@ export default function TeamList({ teams, emptyMessage }: TeamListProps) {
 const styles = StyleSheet.create({
   teamNameText: {
     fontSize: 18,
+    fontWeight: "bold",
   },
 });

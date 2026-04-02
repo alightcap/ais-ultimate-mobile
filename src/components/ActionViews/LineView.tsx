@@ -34,10 +34,12 @@ export default function LineView({
     initialLine.filter((p) => !p.id.includes("unknown")),
   );
 
+  // TODO: add a clear line button
+  // TODO: add empty slots
+
   const insets = useSafeAreaInsets();
 
   const togglePlayer = async (player: Player) => {
-    console.log(draftLine);
     if (player.id.includes("unknown")) return;
 
     const isSelected = draftLine.some((p) => p.id === player.id);

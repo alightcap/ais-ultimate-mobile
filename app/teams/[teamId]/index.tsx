@@ -53,5 +53,6 @@ export default function TeamIndex() {
 const styles = StyleSheet.create({
   cardText: {
     fontSize: 18,
+    fontWeight: "bold",
   },
 });
