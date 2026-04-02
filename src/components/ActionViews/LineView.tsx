@@ -30,11 +30,14 @@ export default function LineView({
   const { updateGame } = useData();
   const { pointsPlayed } = useGameSession(currentGame.id);
 
-  const [draftLine, setDraftLine] = useState<Player[]>(initialLine);
+  const [draftLine, setDraftLine] = useState<Player[]>(
+    initialLine.filter((p) => !p.id.includes("unknown")),
+  );
 
   const insets = useSafeAreaInsets();
 
   const togglePlayer = async (player: Player) => {
+    console.log(draftLine);
     if (player.id.includes("unknown")) return;
 
     const isSelected = draftLine.some((p) => p.id === player.id);
@@ -70,7 +73,8 @@ export default function LineView({
   const handleSaveAndClose = async () => {
     const updatedPoints = [...currentGame.points];
     const lastIdx = updatedPoints.length - 1;
-    const currentLineIds = draftLine.map((p) => p.id);
+    const unknownPlayer = roster.find((p) => p.id.includes("unknown"));
+    const currentLineIds = [...draftLine.map((p) => p.id), unknownPlayer!.id];
 
     if (lastIdx >= 0) {
       updatedPoints[lastIdx] = {
