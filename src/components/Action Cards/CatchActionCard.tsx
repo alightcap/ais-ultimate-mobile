@@ -2,7 +2,8 @@ import { Catch } from "@/src/lib/actions";
 import { ActionCardStyle } from "@/src/styles/actionCard";
 import { Colors } from "@/src/styles/global";
 import { HandsClappingIcon } from "phosphor-react-native";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import ActionText from "./ActionText";
 
 export default function CatchActionCard({ action }: { action: Catch }) {
   return (
@@ -12,9 +13,9 @@ export default function CatchActionCard({ action }: { action: Catch }) {
         weight="fill"
         style={{ transform: [{ rotate: "90deg" }] }}
       />
-      <Text>
-        {action.receiver.name} caught from {action.thrower.name}
-      </Text>
+      <ActionText
+        text={`${action.receiver.name} caught from ${action.thrower.name}`}
+      />
     </View>
   );
 }

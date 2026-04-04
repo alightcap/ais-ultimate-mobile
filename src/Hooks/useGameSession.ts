@@ -193,11 +193,11 @@ export function useGameSession(gameId: string) {
       actions: newActions,
       ourScore:
         actionToDelete.name === "goal for"
-          ? (lastPoint.ourScore ?? 0) - 1
+          ? lastPoint.ourScore - 1
           : lastPoint.ourScore,
       theirScore:
         actionToDelete.name === "goal against"
-          ? (lastPoint.theirScore ?? 0) - 1
+          ? lastPoint.theirScore - 1
           : lastPoint.theirScore,
     };
 

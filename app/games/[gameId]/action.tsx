@@ -58,8 +58,6 @@ export default function ActionView() {
         }
       >
         <FlatList
-          // TODO: add undo button
-          // TODO: add events page with scrollable list of all events (editable?)
           data={recentActions}
           contentContainerStyle={{ flexGrow: 1 }}
           keyExtractor={(item, index) => index.toString()}
@@ -79,10 +77,13 @@ export default function ActionView() {
                       alignItems: "center",
                       height: "100%",
                       justifyContent: "center",
+                      borderRadius: "30%",
+                      marginHorizontal: 2,
+                      backgroundColor: Colors.brandAccent,
                     }}
                     onPress={undoAction}
                   >
-                    <EraserIcon color={Colors.brandAccent} weight="fill" />
+                    <EraserIcon color="black" weight="fill" />
                   </Pressable>
                 )}
                 <ActionCard action={item} />

@@ -5,12 +5,9 @@ import CatchActionCard from "./CatchActionCard";
 import DeActionCard from "./DeActionCard";
 import DropActionCard from "./DropActionCard";
 import GameStartActionCard from "./GameStartActionCard";
-import GoalAgainstActionCard from "./GoalAgainstActionCard";
-import GoalForActionCard from "./GoalForActionCard";
+import GoalActionCard from "./GoalActionCard";
 import PullActionCard from "./PullActionCard";
-import PullObActionCard from "./PullObActionCard";
-import ThrowawayAgainstActionCard from "./ThrowawayAgainstActionCard";
-import ThrowawayActionCard from "./ThrowawayForActionCard";
+import ThrowawayActionCard from "./ThrowawayActionCard";
 
 export default function ActionCard({ action }: { action: Action }) {
   return (
@@ -33,25 +30,21 @@ export default function ActionCard({ action }: { action: Action }) {
           case "game start":
             return <GameStartActionCard action={action} />;
           case "goal against":
-            return <GoalAgainstActionCard action={action} />;
+            return <GoalActionCard action={action} />;
           case "goal for":
-            return <GoalForActionCard action={action} />;
+            return <GoalActionCard action={action} />;
           case "pull":
             return <PullActionCard action={action} />;
           case "pull ob":
-            return <PullObActionCard action={action} />;
+            return <PullActionCard action={action} />;
           case "throwaway against":
-            return <ThrowawayAgainstActionCard action={action} />;
+            return <ThrowawayActionCard action={action} />;
           case "throwaway for":
             return <ThrowawayActionCard action={action} />;
           default:
             return (
               <View>
-                <Text
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                  style={{ color: Colors.textMuted }}
-                >
+                <Text style={{ color: Colors.textMuted }}>
                   {action.name.toUpperCase()} recorded
                 </Text>
               </View>

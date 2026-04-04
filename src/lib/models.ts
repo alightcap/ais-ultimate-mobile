@@ -93,6 +93,8 @@ export const createNewPoint = ({
     startTime: Date.now(),
     currentLineIds: currentLineIds,
     actions: actions,
+    ourScore: 0,
+    theirScore: 0,
   };
 };
 

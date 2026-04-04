@@ -2,7 +2,8 @@ import { Drop } from "@/src/lib/actions";
 import { ActionCardStyle } from "@/src/styles/actionCard";
 import { Colors } from "@/src/styles/global";
 import { HandPointingIcon } from "phosphor-react-native";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+import ActionText from "./ActionText";
 
 export default function DropActionCard({ action }: { action: Drop }) {
   return (
@@ -11,9 +12,9 @@ export default function DropActionCard({ action }: { action: Drop }) {
         color={Colors.brandPrimary}
         style={{ transform: [{ rotate: "180deg" }] }}
       />
-      <Text>
-        {action.receiver.name} drops from {action.thrower.name}
-      </Text>
+      <ActionText
+        text={`${action.receiver.name} dropped from ${action.thrower.name}`}
+      />
     </View>
   );
 }

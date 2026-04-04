@@ -80,8 +80,8 @@ export interface Point {
   currentLineIds?: string[];
   actions: Action[];
   result?: "clean hold" | "hold" | "clean break" | "break";
-  ourScore?: number;
-  theirScore?: number;
+  ourScore: number;
+  theirScore: number;
   endTime?: number;
 }
 

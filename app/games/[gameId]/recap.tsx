@@ -13,6 +13,7 @@ export default function RecapView() {
         Recap
       </Text>
       <FlatList
+        // TODO: make actions editable?
         data={allActions}
         renderItem={({ item }) => <ActionCard action={item} />}
         ListEmptyComponent={<Text>There are no actions to display</Text>}
