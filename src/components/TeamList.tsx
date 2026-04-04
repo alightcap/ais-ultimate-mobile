@@ -15,7 +15,7 @@ export default function TeamList({ teams, emptyMessage }: TeamListProps) {
           </View>
         )}
         renderItem={({ item }) => (
-          <NavCard route={`./teams/${item.id}`}>
+          <NavCard route={`./teams/${item.id}`} viewStyle={{ height: 56 }}>
             <View style={{ width: "90%" }}>
               <Text
                 numberOfLines={1}

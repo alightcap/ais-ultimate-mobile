@@ -138,14 +138,10 @@ export function useGameSession(gameId: string) {
   };
 
   const isOffense = useMemo(() => {
-    const totalActions =
-      currentGame?.points.reduce((acc, p) => (acc = p.actions.length), 0) || 0;
-
-    if (totalActions <= 1) {
-      return currentGame?.startingOn === "offense";
-    }
-
-    return currentGame?.hasPossession;
+    return (currentGame?.points.reduce((acc, p) => acc + p.actions.length, 0) ||
+      0) <= 1
+      ? currentGame?.startingOn === "offense"
+      : currentGame?.hasPossession;
   }, [currentGame]);
 
   const pointsPlayed = useMemo(() => {

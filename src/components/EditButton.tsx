@@ -1,5 +1,5 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Href, useRouter } from "expo-router";
+import { PencilSimpleIcon } from "phosphor-react-native";
 import { Pressable } from "react-native";
 import { Colors } from "../styles/global";
 
@@ -8,7 +8,7 @@ export default function EditButton({ route }: { route: Href }) {
 
   return (
     <Pressable onPress={() => router.push(route)}>
-      <Ionicons name="pencil" size={24} color={Colors.brandPrimary} />
+      <PencilSimpleIcon color={Colors.brandPrimary} />
     </Pressable>
   );
 }

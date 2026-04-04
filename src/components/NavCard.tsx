@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
     padding: 8,
-    minHeight: 56,
+    minHeight: 44,
     justifyContent: "center",
   },
   navCardView: {

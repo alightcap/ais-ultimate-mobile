@@ -1,6 +1,7 @@
 import Button from "@/src/components/Button";
 import EditButton from "@/src/components/EditButton";
 import HardCapPicker from "@/src/components/Inputs/HardCapInput";
+import NavCard from "@/src/components/NavCard";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import HalfTimeToggle from "@/src/components/Toggles/HalfTimeToggle";
 import PointCapToggle from "@/src/components/Toggles/PointCapToggle";
@@ -9,7 +10,6 @@ import { useData } from "@/src/contexts/DataContext";
 import { HalfTimeMode, StartingOnMode } from "@/src/lib/types";
 import { Colors, GlobalStyles } from "@/src/styles/global";
 import { getDateTimeString } from "@/src/utils/dates";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
@@ -125,27 +125,30 @@ export default function GameIndex() {
           <Text style={styles.itemHeadingText}>Weather</Text>
           <Text>weatherKit</Text>
         </View>
-        <Pressable
-          onPress={() =>
-            router.push({
-              pathname: "../teams/[teamId]/roster",
-              params: { teamId: currentTeam!.id },
-            })
-          }
+        <NavCard
+          route={{
+            pathname: "../teams/[teamId]/roster",
+            params: { teamId: currentTeam!.id },
+          }}
         >
-          <View style={styles.rowItem}>
-            <Text style={styles.itemHeadingText}>Roster</Text>
-            <Ionicons name="chevron-forward" size={20} color="black" />
-          </View>
-        </Pressable>
-        <View style={styles.rowItem}>
+          <Text style={styles.itemHeadingText}>Roster</Text>
+        </NavCard>
+        <NavCard
+          route={{
+            pathname: "../games/[gameId]/statistics",
+            params: { gameId: gameId },
+          }}
+        >
           <Text style={styles.itemHeadingText}>Statistics</Text>
-          <Text>Nav Arrow</Text>
-        </View>
-        <View style={styles.rowItem}>
+        </NavCard>
+        <NavCard
+          route={{
+            pathname: "/games/[gameId]/recap",
+            params: { gameId: gameId },
+          }}
+        >
           <Text style={styles.itemHeadingText}>Recap</Text>
-          <Text>Nav Arrow</Text>
-        </View>
+        </NavCard>
         <View style={GlobalStyles.titleContainer}>
           <Text style={GlobalStyles.headingText}>Settings</Text>
         </View>

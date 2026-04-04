@@ -31,10 +31,10 @@ export default function TeamIndex() {
         <Text style={GlobalStyles.headingText}>{team.name}</Text>
       </View>
       <View style={GlobalStyles.contentContainer}>
-        <NavCard route={`/teams/${team.id}/roster`}>
+        <NavCard route={`/teams/${team.id}/roster`} viewStyle={{ height: 56 }}>
           <Text style={styles.cardText}>Players</Text>
         </NavCard>
-        <NavCard route={`/teams/${team.id}/games`}>
+        <NavCard route={`/teams/${team.id}/games`} viewStyle={{ height: 56 }}>
           <Text style={styles.cardText}>Games</Text>
         </NavCard>
       </View>

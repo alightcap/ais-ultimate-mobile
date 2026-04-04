@@ -2,8 +2,8 @@ import Button from "@/src/components/Button";
 import TeamList from "@/src/components/TeamList";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useRouter } from "expo-router";
+import { ArchiveIcon } from "phosphor-react-native";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 
@@ -19,11 +19,7 @@ export default function TeamsIndex() {
         options={{
           headerRight: () => (
             <Pressable onPress={() => router.push("/archivedTeams")}>
-              <Ionicons
-                name="archive-outline"
-                size={24}
-                color={Colors.brandPrimary}
-              />
+              <ArchiveIcon color={Colors.brandPrimary} />
             </Pressable>
           ),
         }}

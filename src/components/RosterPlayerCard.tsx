@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { TShirtIcon } from "phosphor-react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { Player } from "../lib/types";
 import { Colors } from "../styles/global";
@@ -6,10 +6,9 @@ import { Colors } from "../styles/global";
 export default function RosterPlayerCard({ player }: { player: Player }) {
   return (
     <View style={styles.container}>
-      <Ionicons
-        name={player.active ? "shirt" : "shirt-outline"}
-        size={20}
+      <TShirtIcon
         color={Colors.brandPrimary}
+        weight={player.active ? "fill" : "regular"}
       />
       <Text
         style={[styles.nameText, !player.active && styles.inactiveNameText]}

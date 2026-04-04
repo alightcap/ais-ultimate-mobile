@@ -27,9 +27,11 @@ export default function GameLayout() {
         headerLeft: (props) => <HeaderBack {...props} />,
       }}
     >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="editGame" />
       <Stack.Screen name="action" />
+      <Stack.Screen name="editGame" />
+      <Stack.Screen name="index" />
+      <Stack.Screen name="recap" />
+      <Stack.Screen name="statistics" />
     </Stack>
   );
 }

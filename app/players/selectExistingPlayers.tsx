@@ -1,8 +1,8 @@
 import HeaderBack from "@/src/components/HeaderBack";
 import { useData } from "@/src/contexts/DataContext";
 import { Colors, GlobalStyles } from "@/src/styles/global";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { CheckSquareIcon, SquareIcon } from "phosphor-react-native";
 import { useState } from "react";
 import {
   Button,
@@ -67,11 +67,11 @@ export default function SelectExistingPlayers() {
               <Text style={styles.name}>
                 {item.name} (#{item.number})
               </Text>
-              <Ionicons
-                name={isSelected ? "checkbox" : "square-outline"}
-                size={24}
-                color={isSelected ? Colors.brandPrimary : Colors.black}
-              />
+              {isSelected ? (
+                <CheckSquareIcon color={Colors.brandPrimary} weight="fill" />
+              ) : (
+                <SquareIcon color={Colors.brandPrimary} />
+              )}
             </Pressable>
           );
         }}
@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 20,
+    height: 56,
+    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
     alignItems: "center",
