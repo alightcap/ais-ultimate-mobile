@@ -47,7 +47,11 @@ export default function ActionCard({ action }: { action: Action }) {
           default:
             return (
               <View>
-                <Text style={{ color: Colors.textMuted }}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={{ color: Colors.textMuted }}
+                >
                   {action.name.toUpperCase()} recorded
                 </Text>
               </View>

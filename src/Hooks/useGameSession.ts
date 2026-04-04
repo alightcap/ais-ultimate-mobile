@@ -169,6 +169,60 @@ export function useGameSession(gameId: string) {
     return allActions.slice(0, 5);
   }, [allActions]);
 
+  const undoAction = async () => {
+    if (!currentGame || currentGame.points.length === 0) return;
+
+    const updatedPoints = [...currentGame.points];
+    let lastPointIdx = updatedPoints.length - 1;
+    let lastPoint = { ...updatedPoints[lastPointIdx] };
+
+    if (lastPoint.actions.length === 0 && updatedPoints.length > 1) {
+      updatedPoints.pop();
+      lastPointIdx = updatedPoints.length - 1;
+      lastPoint = { ...updatedPoints[lastPointIdx] };
+      setLineModalVisible(false);
+    }
+
+    const actionToDelete = lastPoint.actions[lastPoint.actions.length - 1];
+    if (actionToDelete?.name === "game start") return;
+
+    const newActions = lastPoint.actions.slice(0, -1);
+
+    updatedPoints[lastPointIdx] = {
+      ...lastPoint,
+      actions: newActions,
+      ourScore:
+        actionToDelete.name === "goal for"
+          ? (lastPoint.ourScore ?? 0) - 1
+          : lastPoint.ourScore,
+      theirScore:
+        actionToDelete.name === "goal against"
+          ? (lastPoint.theirScore ?? 0) - 1
+          : lastPoint.theirScore,
+    };
+
+    const newOurScore =
+      actionToDelete.name === "goal for"
+        ? currentGame.ourScore - 1
+        : currentGame.ourScore;
+    const newTheirScore =
+      actionToDelete.name === "goal against"
+        ? currentGame.theirScore - 1
+        : currentGame.theirScore;
+
+    const newPossession = actionToDelete.switchPossession
+      ? !currentGame.hasPossession
+      : currentGame.hasPossession;
+
+    await updateGame({
+      ...currentGame,
+      points: updatedPoints,
+      ourScore: newOurScore,
+      theirScore: newTheirScore,
+      hasPossession: newPossession,
+    });
+  };
+
   return {
     activePlayers,
     allActions,
@@ -184,5 +238,6 @@ export function useGameSession(gameId: string) {
     recentActions,
     roster,
     setLineModalVisible,
+    undoAction,
   };
 }

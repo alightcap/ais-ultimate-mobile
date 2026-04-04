@@ -6,8 +6,16 @@ import Button from "@/src/components/Button";
 import ScoreBoard from "@/src/components/ScoreBoard";
 import { useGameSession } from "@/src/Hooks/useGameSession";
 import { Colors, GlobalStyles } from "@/src/styles/global";
-import { useLocalSearchParams } from "expo-router";
-import { FlatList, Modal, StyleSheet, Text, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import { EraserIcon } from "phosphor-react-native";
+import {
+  FlatList,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function ActionView() {
   // TODO: fix Offense/Defense toggle logic. Maybe just remove it.
@@ -22,6 +30,7 @@ export default function ActionView() {
     handleAction,
     isOffense,
     lineModalVisible,
+    undoAction,
     recentActions,
     setLineModalVisible,
   } = useGameSession(gameId);
@@ -39,17 +48,43 @@ export default function ActionView() {
           size={"large"}
         />
       </View>
-      <View style={{ flex: 3 }}>
+      <Pressable
+        style={{ flex: 3 }}
+        onPress={() =>
+          router.push({
+            pathname: "/games/[gameId]/recap",
+            params: { gameId: gameId },
+          })
+        }
+      >
         <FlatList
           // TODO: add undo button
           // TODO: add events page with scrollable list of all events (editable?)
-          // TODO: make this view a pressable that goes to the events page.
           data={recentActions}
           contentContainerStyle={{ flexGrow: 1 }}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return (
-              <View style={{ flex: 1 }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  alignItems: "center",
+                }}
+              >
+                {index === 0 && item.name !== "game start" && (
+                  <Pressable
+                    style={{
+                      minWidth: 50,
+                      alignItems: "center",
+                      height: "100%",
+                      justifyContent: "center",
+                    }}
+                    onPress={undoAction}
+                  >
+                    <EraserIcon color={Colors.brandAccent} weight="fill" />
+                  </Pressable>
+                )}
                 <ActionCard action={item} />
               </View>
             );
@@ -66,7 +101,7 @@ export default function ActionView() {
             </View>
           }
         />
-      </View>
+      </Pressable>
       <View style={{ flex: 4, padding: 2 }}>
         {isOffense ? (
           <OffenseView
