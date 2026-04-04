@@ -162,11 +162,11 @@ export function useGameSession(gameId: string) {
 
   const allActions = useMemo(() => {
     const gamePoints = currentGame?.points || [];
-    return gamePoints.flatMap((p) => p.actions);
+    return gamePoints.flatMap((p) => p.actions).toReversed();
   }, [currentGame?.points]);
 
   const recentActions = useMemo(() => {
-    return allActions.toReversed().slice(0, 5);
+    return allActions.slice(0, 5);
   }, [allActions]);
 
   return {
