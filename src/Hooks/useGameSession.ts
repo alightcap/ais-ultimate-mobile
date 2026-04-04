@@ -65,7 +65,6 @@ export function useGameSession(gameId: string) {
   }, [currentGame]);
 
   const currentLine = useMemo(() => {
-    // filters out players marked as inactive
     return currentLineIds
       .map((id) => players.find((p) => p.id === id))
       .filter((p): p is Player => !!p)
@@ -161,18 +160,18 @@ export function useGameSession(gameId: string) {
     return counts;
   }, [currentGame, roster]);
 
-  const recentActions = useMemo(() => {
+  const allActions = useMemo(() => {
     const gamePoints = currentGame?.points || [];
-    return gamePoints
-      .flatMap((p) => p.actions)
-      .reverse()
-      .slice(0, 5);
+    return gamePoints.flatMap((p) => p.actions);
   }, [currentGame?.points]);
 
-  const saveLine = () => {};
+  const recentActions = useMemo(() => {
+    return allActions.toReversed().slice(0, 5);
+  }, [allActions]);
 
   return {
     activePlayers,
+    allActions,
     currentGame,
     currentTeam,
     currentPoint,
@@ -185,6 +184,5 @@ export function useGameSession(gameId: string) {
     recentActions,
     roster,
     setLineModalVisible,
-    saveLine,
   };
 }
