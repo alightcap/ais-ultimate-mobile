@@ -6,6 +6,7 @@ import DeActionCard from "./DeActionCard";
 import DropActionCard from "./DropActionCard";
 import GameStartActionCard from "./GameStartActionCard";
 import GoalActionCard from "./GoalActionCard";
+import HalfTimeActionCard from "./HalfTimeActionCard";
 import PullActionCard from "./PullActionCard";
 import ThrowawayActionCard from "./ThrowawayActionCard";
 
@@ -30,15 +31,14 @@ export default function ActionCard({ action }: { action: Action }) {
           case "game start":
             return <GameStartActionCard action={action} />;
           case "goal against":
-            return <GoalActionCard action={action} />;
           case "goal for":
             return <GoalActionCard action={action} />;
+          case "halftime":
+            return <HalfTimeActionCard action={action} />;
           case "pull":
-            return <PullActionCard action={action} />;
           case "pull ob":
             return <PullActionCard action={action} />;
           case "throwaway against":
-            return <ThrowawayActionCard action={action} />;
           case "throwaway for":
             return <ThrowawayActionCard action={action} />;
           default:

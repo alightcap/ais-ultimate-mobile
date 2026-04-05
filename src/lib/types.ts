@@ -34,6 +34,7 @@ export interface Game {
   hasPossession: boolean;
   id: string; //
   isArchived: boolean;
+  isHalf: boolean;
   isOver: boolean;
   isUploaded: boolean;
   opponentName: string; //

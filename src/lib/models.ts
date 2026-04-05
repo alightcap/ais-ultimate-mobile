@@ -7,6 +7,7 @@ import {
   GameStart,
   GoalAgainst,
   GoalFor,
+  Halftime,
   Pull,
   PullOb,
   ThrowawayAgainst,
@@ -30,6 +31,7 @@ export const createNewGame = (params: {
     theirScore: 0,
     hasPossession: true,
     isArchived: false,
+    isHalf: false,
     isOver: false,
     isUploaded: false,
     timeStamp: Date.now(),
@@ -185,6 +187,16 @@ export const createGoalAgainstEvent = ({
     score: { ourScore, theirScore },
     switchPossession: true,
     endPoint: true,
+  };
+};
+
+export const createHalfTimeEvent = (): Halftime => {
+  return {
+    name: "halftime",
+    category: "system",
+    timeStamp: Date.now(),
+    switchPossession: false,
+    endPoint: false,
   };
 };
 

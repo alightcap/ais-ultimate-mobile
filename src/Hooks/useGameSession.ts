@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Alert } from "react-native";
 import { useData } from "../contexts/DataContext";
 import { Action } from "../lib/actions";
-import { createNewPoint, createStartGameEvent } from "../lib/models";
+import {
+  createHalfTimeEvent,
+  createNewPoint,
+  createStartGameEvent,
+} from "../lib/models";
 import { Player } from "../lib/types";
 
-// TODO: when the first point is created, check the halftime settings
+// TODO: check the halftime settings
 // and if the halfTime mode is time, set an "alarm" for the start
 // time + time cap / 2, when that alarm goes, a notification
 // should appear indicating that half will be at the end
@@ -83,7 +88,6 @@ export function useGameSession(gameId: string) {
 
   // Handler
   const handleAction = async (action: Action) => {
-    // TODO: handle half time.
     // TODO: handle game over.
     if (!currentGame || !currentGame.points.length) return;
 
@@ -104,13 +108,33 @@ export function useGameSession(gameId: string) {
         ? currentGame.theirScore + 1
         : currentGame.theirScore;
 
-    const newPossession = action.switchPossession
-      ? !currentGame.hasPossession
-      : currentGame.hasPossession;
+    const halfTimePoint = Math.ceil(currentGame.pointCap / 2);
+    const weTookHalf = newOurScore === halfTimePoint;
+    const theyTookHalf = newTheirScore === halfTimePoint;
+
+    // TODO: update to handle time cap or first to happen
+    const thisIsHalf =
+      !currentGame.isHalf &&
+      action.name.startsWith("goal") &&
+      (weTookHalf || theyTookHalf);
+
+    const newPossession = thisIsHalf
+      ? currentGame.startingOn === "defense"
+      : action.switchPossession
+        ? !currentGame.hasPossession
+        : currentGame.hasPossession;
 
     if (action.endPoint) {
       updatedPoints[lastIdx].ourScore = newOurScore;
       updatedPoints[lastIdx].theirScore = newTheirScore;
+
+      if (thisIsHalf) {
+        Alert.alert("Half Time!");
+        updatedPoints[lastIdx] = {
+          ...updatedPoints[lastIdx],
+          actions: [...updatedPoints[lastIdx].actions, createHalfTimeEvent()],
+        };
+      }
 
       const cleanLineIds = currentLineIds
         .filter((id) => id !== "" && !id.includes("unknown"))
@@ -130,6 +154,7 @@ export function useGameSession(gameId: string) {
     await updateGame({
       ...currentGame,
       points: updatedPoints,
+      isHalf: !currentGame.isHalf && thisIsHalf,
       ourScore: newOurScore,
       theirScore: newTheirScore,
       hasPossession: newPossession,
@@ -183,8 +208,15 @@ export function useGameSession(gameId: string) {
       setLineModalVisible(false);
     }
 
-    const actionToDelete = lastPoint.actions[lastPoint.actions.length - 1];
+    let actionToDelete = lastPoint.actions[lastPoint.actions.length - 1];
     if (actionToDelete?.name === "game start") return;
+
+    let resetHalfTime = false;
+    if (actionToDelete.name === "halftime") {
+      resetHalfTime = true;
+      lastPoint.actions = lastPoint.actions.slice(0, -1);
+      actionToDelete = lastPoint.actions[lastPoint.actions.length - 1];
+    }
 
     const newActions = lastPoint.actions.slice(0, -1);
 
@@ -210,9 +242,13 @@ export function useGameSession(gameId: string) {
         ? currentGame.theirScore - 1
         : currentGame.theirScore;
 
-    const newPossession = actionToDelete.switchPossession
+    let newPossession = actionToDelete.switchPossession
       ? !currentGame.hasPossession
       : currentGame.hasPossession;
+
+    if (resetHalfTime) {
+      newPossession = actionToDelete.name === "goal for" ? true : false;
+    }
 
     await updateGame({
       ...currentGame,
@@ -220,6 +256,7 @@ export function useGameSession(gameId: string) {
       ourScore: newOurScore,
       theirScore: newTheirScore,
       hasPossession: newPossession,
+      isHalf: resetHalfTime ? false : currentGame.isHalf,
     });
   };
 

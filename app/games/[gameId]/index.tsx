@@ -56,9 +56,12 @@ export default function GameIndex() {
   if (!currentGame) return;
 
   const { timeStamp, eventName, opponentName } = currentGame;
+  const hasActions =
+    currentGame.points.length > 0 && currentGame.points[0].actions.length > 1;
+  console.log(hasActions);
 
   const handleStartingOnChange = async (newMode: StartingOnMode) => {
-    setStartingOn(newMode);
+    !hasActions && setStartingOn(newMode);
 
     await updateGame({
       ...currentGame!,
@@ -156,7 +159,9 @@ export default function GameIndex() {
           <Text style={styles.itemHeadingText}>Starting on</Text>
           <StartOnToggle
             currentMode={startingOn}
-            onModeChange={handleStartingOnChange}
+            onModeChange={(newMode) =>
+              !hasActions && handleStartingOnChange(newMode)
+            }
             enabled={true}
             style={styles.itemText}
           />
