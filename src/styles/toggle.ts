@@ -29,4 +29,7 @@ export const ToggleStyles = StyleSheet.create({
   activeText: {
     color: Colors.white,
   },
+  inactiveButton: {
+    backgroundColor: Colors.brandPrimary + "66",
+  },
 });

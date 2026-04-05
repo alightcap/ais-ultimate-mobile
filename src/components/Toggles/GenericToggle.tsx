@@ -30,7 +30,11 @@ export default function GenericToggle<T>({
           <Pressable
             key={String(option.value)}
             onPress={() => enabled && onChange(option.value)}
-            style={[ToggleStyles.button, isActive && ToggleStyles.activeButton]}
+            style={[
+              ToggleStyles.button,
+              isActive && ToggleStyles.activeButton,
+              isActive && !enabled && ToggleStyles.inactiveButton,
+            ]}
           >
             <Text
               style={[

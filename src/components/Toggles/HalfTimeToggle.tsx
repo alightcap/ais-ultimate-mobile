@@ -10,16 +10,19 @@ const halfTimeModes: { label: string; value: HalfTimeMode }[] = [
 
 export default function HalfTimeToggle({
   currentHalfTimeMode,
+  enabled,
   onHalfTimeModeChange,
   style,
 }: {
   currentHalfTimeMode: HalfTimeMode;
+  enabled: boolean;
   onHalfTimeModeChange: (newHalfTimeMode: HalfTimeMode) => void;
   style?: StyleProp<TextStyle>;
 }) {
   return (
     <GenericToggle
       currentValue={currentHalfTimeMode}
+      enabled={enabled}
       onChange={onHalfTimeModeChange}
       options={halfTimeModes}
       textStyle={style}

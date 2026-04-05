@@ -161,7 +161,7 @@ export default function GameIndex() {
             onModeChange={(newMode) =>
               !hasActions && handleStartingOnChange(newMode)
             }
-            enabled={true}
+            enabled={!hasActions}
             style={styles.itemText}
           />
         </View>
@@ -169,14 +169,24 @@ export default function GameIndex() {
           <Text style={styles.itemHeadingText}>Point Cap</Text>
           <PointCapToggle
             currentPointCap={pointCap}
-            onPointCapChange={handlePointCapChange}
+            onPointCapChange={(newMode) => !hasActions && handlePointCapChange}
+            enabled={!hasActions}
             style={styles.itemText}
           />
         </View>
         <View>
-          <Pressable onPress={openSheet} style={styles.rowItem}>
+          <Pressable
+            onPress={() => !hasActions && openSheet()}
+            style={styles.rowItem}
+          >
             <Text style={styles.itemHeadingText}>Time Cap</Text>
-            <Text style={[styles.itemText, styles.interactiveText]}>
+            <Text
+              style={[
+                styles.itemText,
+                styles.interactiveText,
+                hasActions && { backgroundColor: Colors.brandPrimary + "66" },
+              ]}
+            >
               {hardCap} min
             </Text>
           </Pressable>
@@ -185,7 +195,10 @@ export default function GameIndex() {
           <Text style={styles.itemHeadingText}>Half At</Text>
           <HalfTimeToggle
             currentHalfTimeMode={halfAt}
-            onHalfTimeModeChange={handleHalfAtChange}
+            enabled={!hasActions}
+            onHalfTimeModeChange={(newMode) =>
+              !hasActions && handleHalfAtChange
+            }
             style={styles.itemText}
           />
         </View>
