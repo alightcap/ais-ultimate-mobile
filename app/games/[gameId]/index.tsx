@@ -58,7 +58,6 @@ export default function GameIndex() {
   const { timeStamp, eventName, opponentName } = currentGame;
   const hasActions =
     currentGame.points.length > 0 && currentGame.points[0].actions.length > 1;
-  console.log(hasActions);
 
   const handleStartingOnChange = async (newMode: StartingOnMode) => {
     !hasActions && setStartingOn(newMode);
